@@ -1,0 +1,119 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000066  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000000ba  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000ba  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000ec  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  00000128  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000551  00000000  00000000  00000158  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000004c5  00000000  00000000  000006a9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000001e3  00000000  00000000  00000b6e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  00000d54  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002e3  00000000  00000000  00000d98  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000020  00000000  00000000  0000107b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	14 d0       	rcall	.+40     	; 0x5c <main>
+  34:	16 c0       	rjmp	.+44     	; 0x62 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <setup>:
+#include <avr/io.h>
+#include <avr/delay.h>
+
+void setup()
+{
+	DDRD = 0b11111111;
+  38:	8f ef       	ldi	r24, 0xFF	; 255
+  3a:	81 bb       	out	0x11, r24	; 17
+  3c:	08 95       	ret
+
+0000003e <print_number>:
+}
+
+void print_number()
+{
+	PORTD = 1 << 0;
+  3e:	81 e0       	ldi	r24, 0x01	; 1
+  40:	82 bb       	out	0x12, r24	; 18
+	PORTD |= 1 << 1;
+  42:	82 b3       	in	r24, 0x12	; 18
+  44:	82 60       	ori	r24, 0x02	; 2
+  46:	82 bb       	out	0x12, r24	; 18
+	PORTD |= 1 << 6;
+  48:	82 b3       	in	r24, 0x12	; 18
+  4a:	80 64       	ori	r24, 0x40	; 64
+  4c:	82 bb       	out	0x12, r24	; 18
+	PORTD |= 1 << 3;
+  4e:	82 b3       	in	r24, 0x12	; 18
+  50:	88 60       	ori	r24, 0x08	; 8
+  52:	82 bb       	out	0x12, r24	; 18
+	PORTD |= 1 << 4;
+  54:	82 b3       	in	r24, 0x12	; 18
+  56:	80 61       	ori	r24, 0x10	; 16
+  58:	82 bb       	out	0x12, r24	; 18
+  5a:	08 95       	ret
+
+0000005c <main>:
+}
+
+int main(void)
+{
+	setup();
+  5c:	ed df       	rcall	.-38     	; 0x38 <setup>
+    while (1) 
+    {
+		print_number();
+  5e:	ef df       	rcall	.-34     	; 0x3e <print_number>
+  60:	fe cf       	rjmp	.-4      	; 0x5e <main+0x2>
+
+00000062 <_exit>:
+  62:	f8 94       	cli
+
+00000064 <__stop_program>:
+  64:	ff cf       	rjmp	.-2      	; 0x64 <__stop_program>
