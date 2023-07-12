@@ -1,0 +1,207 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000cc  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000120  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000120  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000150  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  0000018c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000683  00000000  00000000  000001c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000054d  00000000  00000000  00000847  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002aa  00000000  00000000  00000d94  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000054  00000000  00000000  00001040  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000337  00000000  00000000  00001094  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000fc  00000000  00000000  000013cb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  000014c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	41 d0       	rcall	.+130    	; 0xb6 <main>
+  34:	49 c0       	rjmp	.+146    	; 0xc8 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <blink>:
+#include <avr/io.h>
+#include <avr/delay.h>
+
+void blink()
+{
+	PORTD ^= (1 << 0);
+  38:	92 b3       	in	r25, 0x12	; 18
+  3a:	81 e0       	ldi	r24, 0x01	; 1
+  3c:	89 27       	eor	r24, r25
+  3e:	82 bb       	out	0x12, r24	; 18
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  40:	2f e7       	ldi	r18, 0x7F	; 127
+  42:	88 e3       	ldi	r24, 0x38	; 56
+  44:	91 e0       	ldi	r25, 0x01	; 1
+  46:	21 50       	subi	r18, 0x01	; 1
+  48:	80 40       	sbci	r24, 0x00	; 0
+  4a:	90 40       	sbci	r25, 0x00	; 0
+  4c:	e1 f7       	brne	.-8      	; 0x46 <__SREG__+0x7>
+  4e:	00 c0       	rjmp	.+0      	; 0x50 <__SREG__+0x11>
+  50:	00 00       	nop
+  52:	08 95       	ret
+
+00000054 <run_fire>:
+	_delay_ms(400);
+}
+
+void run_fire()
+{
+	for(int i = 6; i < 8 ; i++)
+  54:	26 e0       	ldi	r18, 0x06	; 6
+  56:	30 e0       	ldi	r19, 0x00	; 0
+  58:	24 c0       	rjmp	.+72     	; 0xa2 <run_fire+0x4e>
+	{
+		PORTD |= (1 << i);
+  5a:	42 b3       	in	r20, 0x12	; 18
+  5c:	81 e0       	ldi	r24, 0x01	; 1
+  5e:	90 e0       	ldi	r25, 0x00	; 0
+  60:	02 2e       	mov	r0, r18
+  62:	02 c0       	rjmp	.+4      	; 0x68 <run_fire+0x14>
+  64:	88 0f       	add	r24, r24
+  66:	99 1f       	adc	r25, r25
+  68:	0a 94       	dec	r0
+  6a:	e2 f7       	brpl	.-8      	; 0x64 <run_fire+0x10>
+  6c:	94 2f       	mov	r25, r20
+  6e:	98 2b       	or	r25, r24
+  70:	92 bb       	out	0x12, r25	; 18
+  72:	4f e9       	ldi	r20, 0x9F	; 159
+  74:	56 e8       	ldi	r21, 0x86	; 134
+  76:	61 e0       	ldi	r22, 0x01	; 1
+  78:	41 50       	subi	r20, 0x01	; 1
+  7a:	50 40       	sbci	r21, 0x00	; 0
+  7c:	60 40       	sbci	r22, 0x00	; 0
+  7e:	e1 f7       	brne	.-8      	; 0x78 <run_fire+0x24>
+  80:	00 c0       	rjmp	.+0      	; 0x82 <run_fire+0x2e>
+  82:	00 00       	nop
+		_delay_ms(500);
+		PORTD &= ~(1 << i);
+  84:	92 b3       	in	r25, 0x12	; 18
+  86:	80 95       	com	r24
+  88:	89 23       	and	r24, r25
+  8a:	82 bb       	out	0x12, r24	; 18
+  8c:	8f e9       	ldi	r24, 0x9F	; 159
+  8e:	96 e8       	ldi	r25, 0x86	; 134
+  90:	41 e0       	ldi	r20, 0x01	; 1
+  92:	81 50       	subi	r24, 0x01	; 1
+  94:	90 40       	sbci	r25, 0x00	; 0
+  96:	40 40       	sbci	r20, 0x00	; 0
+  98:	e1 f7       	brne	.-8      	; 0x92 <run_fire+0x3e>
+  9a:	00 c0       	rjmp	.+0      	; 0x9c <run_fire+0x48>
+  9c:	00 00       	nop
+	_delay_ms(400);
+}
+
+void run_fire()
+{
+	for(int i = 6; i < 8 ; i++)
+  9e:	2f 5f       	subi	r18, 0xFF	; 255
+  a0:	3f 4f       	sbci	r19, 0xFF	; 255
+  a2:	28 30       	cpi	r18, 0x08	; 8
+  a4:	31 05       	cpc	r19, r1
+  a6:	cc f2       	brlt	.-78     	; 0x5a <run_fire+0x6>
+		PORTD |= (1 << i);
+		_delay_ms(500);
+		PORTD &= ~(1 << i);
+		_delay_ms(500);
+	}	
+}
+  a8:	08 95       	ret
+
+000000aa <btn_click>:
+
+void btn_click()
+{
+	if (~PINB & (1 << 0))
+  aa:	b0 99       	sbic	0x16, 0	; 22
+  ac:	02 c0       	rjmp	.+4      	; 0xb2 <btn_click+0x8>
+	{
+		run_fire();
+  ae:	d2 df       	rcall	.-92     	; 0x54 <run_fire>
+  b0:	08 95       	ret
+	}
+	else
+	{
+		blink();
+  b2:	c2 df       	rcall	.-124    	; 0x38 <blink>
+  b4:	08 95       	ret
+
+000000b6 <main>:
+	}
+}
+
+int main(void)
+{
+	DDRD = 0b11111111;
+  b6:	8f ef       	ldi	r24, 0xFF	; 255
+  b8:	81 bb       	out	0x11, r24	; 17
+	PORTD = 0b00000000;
+  ba:	12 ba       	out	0x12, r1	; 18
+	DDRB = 0b00000000;
+  bc:	17 ba       	out	0x17, r1	; 23
+	PORTB |= (1 << 0);
+  be:	88 b3       	in	r24, 0x18	; 24
+  c0:	81 60       	ori	r24, 0x01	; 1
+  c2:	88 bb       	out	0x18, r24	; 24
+    while (1) 
+    {
+		btn_click();
+  c4:	f2 df       	rcall	.-28     	; 0xaa <btn_click>
+  c6:	fe cf       	rjmp	.-4      	; 0xc4 <main+0xe>
+
+000000c8 <_exit>:
+  c8:	f8 94       	cli
+
+000000ca <__stop_program>:
+  ca:	ff cf       	rjmp	.-2      	; 0xca <__stop_program>
