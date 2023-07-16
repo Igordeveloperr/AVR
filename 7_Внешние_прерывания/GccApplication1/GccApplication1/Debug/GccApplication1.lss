@@ -68,7 +68,7 @@ Disassembly of section .text:
 #include <avr/interrupt.h>
 #include <avr/delay.h>
 
-// функция прерывания
+// обработка прерывания
 ISR(INT1_vect)
 {
   38:	1f 92       	push	r1
