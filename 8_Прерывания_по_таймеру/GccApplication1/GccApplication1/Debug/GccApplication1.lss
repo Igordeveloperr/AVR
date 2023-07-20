@@ -1,0 +1,242 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000112  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000008  00800060  00000112  00000186  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000018e  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001c0  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  000001fc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000006be  00000000  00000000  0000022c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000058c  00000000  00000000  000008ea  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002bb  00000000  00000000  00000e76  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000058  00000000  00000000  00001134  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000343  00000000  00000000  0000118c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000018d  00000000  00000000  000014cf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  0000165c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	24 c0       	rjmp	.+72     	; 0x4c <__bad_interrupt>
+   4:	23 c0       	rjmp	.+70     	; 0x4c <__bad_interrupt>
+   6:	22 c0       	rjmp	.+68     	; 0x4c <__bad_interrupt>
+   8:	21 c0       	rjmp	.+66     	; 0x4c <__bad_interrupt>
+   a:	20 c0       	rjmp	.+64     	; 0x4c <__bad_interrupt>
+   c:	1f c0       	rjmp	.+62     	; 0x4c <__bad_interrupt>
+   e:	1e c0       	rjmp	.+60     	; 0x4c <__bad_interrupt>
+  10:	1e c0       	rjmp	.+60     	; 0x4e <__vector_8>
+  12:	1c c0       	rjmp	.+56     	; 0x4c <__bad_interrupt>
+  14:	1b c0       	rjmp	.+54     	; 0x4c <__bad_interrupt>
+  16:	1a c0       	rjmp	.+52     	; 0x4c <__bad_interrupt>
+  18:	19 c0       	rjmp	.+50     	; 0x4c <__bad_interrupt>
+  1a:	18 c0       	rjmp	.+48     	; 0x4c <__bad_interrupt>
+  1c:	17 c0       	rjmp	.+46     	; 0x4c <__bad_interrupt>
+  1e:	16 c0       	rjmp	.+44     	; 0x4c <__bad_interrupt>
+  20:	15 c0       	rjmp	.+42     	; 0x4c <__bad_interrupt>
+  22:	14 c0       	rjmp	.+40     	; 0x4c <__bad_interrupt>
+  24:	13 c0       	rjmp	.+38     	; 0x4c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e2 e1       	ldi	r30, 0x12	; 18
+  3a:	f1 e0       	ldi	r31, 0x01	; 1
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a8 36       	cpi	r26, 0x68	; 104
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+  48:	52 d0       	rcall	.+164    	; 0xee <main>
+  4a:	61 c0       	rjmp	.+194    	; 0x10e <_exit>
+
+0000004c <__bad_interrupt>:
+  4c:	d9 cf       	rjmp	.-78     	; 0x0 <__vectors>
+
+0000004e <__vector_8>:
+#include <avr/delay.h>
+
+int pins[] = {PC0, PC1, PC2, PC3};
+
+// обработка переполнения таймера прерыванием
+ISR(TIMER1_OVF_vect){
+  4e:	1f 92       	push	r1
+  50:	0f 92       	push	r0
+  52:	0f b6       	in	r0, 0x3f	; 63
+  54:	0f 92       	push	r0
+  56:	11 24       	eor	r1, r1
+  58:	8f 93       	push	r24
+  5a:	9f 93       	push	r25
+	PORTB |= (1 << PB0);
+  5c:	88 b3       	in	r24, 0x18	; 24
+  5e:	81 60       	ori	r24, 0x01	; 1
+  60:	88 bb       	out	0x18, r24	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  62:	8f e4       	ldi	r24, 0x4F	; 79
+  64:	93 ec       	ldi	r25, 0xC3	; 195
+  66:	01 97       	sbiw	r24, 0x01	; 1
+  68:	f1 f7       	brne	.-4      	; 0x66 <__vector_8+0x18>
+  6a:	00 c0       	rjmp	.+0      	; 0x6c <__vector_8+0x1e>
+  6c:	00 00       	nop
+	_delay_ms(200);
+	PORTB &= ~(1 << PB0);
+  6e:	88 b3       	in	r24, 0x18	; 24
+  70:	8e 7f       	andi	r24, 0xFE	; 254
+  72:	88 bb       	out	0x18, r24	; 24
+  74:	8f e4       	ldi	r24, 0x4F	; 79
+  76:	93 ec       	ldi	r25, 0xC3	; 195
+  78:	01 97       	sbiw	r24, 0x01	; 1
+  7a:	f1 f7       	brne	.-4      	; 0x78 <__vector_8+0x2a>
+  7c:	00 c0       	rjmp	.+0      	; 0x7e <__vector_8+0x30>
+  7e:	00 00       	nop
+	_delay_ms(200);
+}
+  80:	9f 91       	pop	r25
+  82:	8f 91       	pop	r24
+  84:	0f 90       	pop	r0
+  86:	0f be       	out	0x3f, r0	; 63
+  88:	0f 90       	pop	r0
+  8a:	1f 90       	pop	r1
+  8c:	18 95       	reti
+
+0000008e <ran_fire>:
+
+void ran_fire()
+{
+	for (int i = 0; i < sizeof(pins) / sizeof(int); i++)
+  8e:	20 e0       	ldi	r18, 0x00	; 0
+  90:	30 e0       	ldi	r19, 0x00	; 0
+  92:	29 c0       	rjmp	.+82     	; 0xe6 <ran_fire+0x58>
+	{
+		PORTC |= (1 << pins[i]);
+  94:	65 b3       	in	r22, 0x15	; 21
+  96:	f9 01       	movw	r30, r18
+  98:	ee 0f       	add	r30, r30
+  9a:	ff 1f       	adc	r31, r31
+  9c:	e0 5a       	subi	r30, 0xA0	; 160
+  9e:	ff 4f       	sbci	r31, 0xFF	; 255
+  a0:	81 e0       	ldi	r24, 0x01	; 1
+  a2:	90 e0       	ldi	r25, 0x00	; 0
+  a4:	ac 01       	movw	r20, r24
+  a6:	00 80       	ld	r0, Z
+  a8:	02 c0       	rjmp	.+4      	; 0xae <ran_fire+0x20>
+  aa:	44 0f       	add	r20, r20
+  ac:	55 1f       	adc	r21, r21
+  ae:	0a 94       	dec	r0
+  b0:	e2 f7       	brpl	.-8      	; 0xaa <ran_fire+0x1c>
+  b2:	46 2b       	or	r20, r22
+  b4:	45 bb       	out	0x15, r20	; 21
+  b6:	af e4       	ldi	r26, 0x4F	; 79
+  b8:	b3 ec       	ldi	r27, 0xC3	; 195
+  ba:	11 97       	sbiw	r26, 0x01	; 1
+  bc:	f1 f7       	brne	.-4      	; 0xba <ran_fire+0x2c>
+  be:	00 c0       	rjmp	.+0      	; 0xc0 <ran_fire+0x32>
+  c0:	00 00       	nop
+		_delay_ms(200);
+		PORTC &= ~(1 << pins[i]);
+  c2:	45 b3       	in	r20, 0x15	; 21
+  c4:	00 80       	ld	r0, Z
+  c6:	02 c0       	rjmp	.+4      	; 0xcc <ran_fire+0x3e>
+  c8:	88 0f       	add	r24, r24
+  ca:	99 1f       	adc	r25, r25
+  cc:	0a 94       	dec	r0
+  ce:	e2 f7       	brpl	.-8      	; 0xc8 <ran_fire+0x3a>
+  d0:	80 95       	com	r24
+  d2:	84 23       	and	r24, r20
+  d4:	85 bb       	out	0x15, r24	; 21
+  d6:	8f e4       	ldi	r24, 0x4F	; 79
+  d8:	93 ec       	ldi	r25, 0xC3	; 195
+  da:	01 97       	sbiw	r24, 0x01	; 1
+  dc:	f1 f7       	brne	.-4      	; 0xda <ran_fire+0x4c>
+  de:	00 c0       	rjmp	.+0      	; 0xe0 <ran_fire+0x52>
+  e0:	00 00       	nop
+	_delay_ms(200);
+}
+
+void ran_fire()
+{
+	for (int i = 0; i < sizeof(pins) / sizeof(int); i++)
+  e2:	2f 5f       	subi	r18, 0xFF	; 255
+  e4:	3f 4f       	sbci	r19, 0xFF	; 255
+  e6:	24 30       	cpi	r18, 0x04	; 4
+  e8:	31 05       	cpc	r19, r1
+  ea:	a0 f2       	brcs	.-88     	; 0x94 <ran_fire+0x6>
+		PORTC |= (1 << pins[i]);
+		_delay_ms(200);
+		PORTC &= ~(1 << pins[i]);
+		_delay_ms(200);
+	}
+}
+  ec:	08 95       	ret
+
+000000ee <main>:
+
+int main(void)
+{
+	DDRC = 0b0001111;
+  ee:	8f e0       	ldi	r24, 0x0F	; 15
+  f0:	84 bb       	out	0x14, r24	; 20
+	PORTC = 0;
+  f2:	15 ba       	out	0x15, r1	; 21
+	DDRB = 0b00000001;
+  f4:	81 e0       	ldi	r24, 0x01	; 1
+  f6:	87 bb       	out	0x17, r24	; 23
+	
+	// включаем прерывание по таймеру
+	TIMSK = 0;
+  f8:	19 be       	out	0x39, r1	; 57
+	TIMSK |= (1 << TOIE1);
+  fa:	89 b7       	in	r24, 0x39	; 57
+  fc:	84 60       	ori	r24, 0x04	; 4
+  fe:	89 bf       	out	0x39, r24	; 57
+	sei();
+ 100:	78 94       	sei
+	
+	// настройка самого таймера
+	TCCR1B = 0;
+ 102:	1e bc       	out	0x2e, r1	; 46
+	TCCR1B |= (1 << CS11) | (1 << CS10);
+ 104:	8e b5       	in	r24, 0x2e	; 46
+ 106:	83 60       	ori	r24, 0x03	; 3
+ 108:	8e bd       	out	0x2e, r24	; 46
+	
+    while (1) 
+    {
+		ran_fire();
+ 10a:	c1 df       	rcall	.-126    	; 0x8e <ran_fire>
+ 10c:	fe cf       	rjmp	.-4      	; 0x10a <main+0x1c>
+
+0000010e <_exit>:
+ 10e:	f8 94       	cli
+
+00000110 <__stop_program>:
+ 110:	ff cf       	rjmp	.-2      	; 0x110 <__stop_program>
