@@ -65,7 +65,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="16" x="158" flags="80000000" y="249" h="32" pid="14" iid="1">
+   <POPUP w="16" x="158" flags="00000000" y="249" h="32" pid="14" iid="1">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -95,17 +95,19 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="1906" x="6" flags="0000002b" y="127" h="733" pid="1" iid="1">
+   <POPUP w="1702" x="6" flags="0000002b" y="127" h="733" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"execute_cmd",0038,0000,5040,62B3,1
+     <ITEM name="Breakpoint 0">"send_text",00CA,0004,CABF,AB3D,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"execute_cmd",0042,000A,CCF0,62B3,1
+     <ITEM name="Breakpoint 1">"send_text",00F2,002C,09E9,AB3D,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"execute_cmd",0048,0010,4C56,62B3,1
+     <ITEM name="Breakpoint 2">"next_line",00F8,0000,6644,AB3D,1
 </ITEM>
-     <ITEM name="Breakpoint 3">"lcd_init",0078,0004,64DF,62B3,1
+     <ITEM name="Breakpoint 3">"__vector_8",0140,0022,1DB0,AB3D,1
 </ITEM>
-     <ITEM name="Breakpoint 4">"send_text",00CE,002E,C928,62B3,1
+     <ITEM name="Breakpoint 4">"main",0110,0008,6D38,AB3D,1
+</ITEM>
+     <ITEM name="Breakpoint 5">"main",0112,000A,0FD5,AB3D,1
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -113,10 +115,10 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">5</ITEM>
+     <ITEM name="nBreakpoints">6</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="1910" x="5" flags="0000800b" y="891" h="121" pid="2" iid="1">
+   <POPUP w="1910" x="5" flags="0000800b" y="912" h="100" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">99</ITEM>
      <ITEM name="AutoResize">No</ITEM>
