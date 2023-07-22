@@ -1,4 +1,10 @@
 #include <avr/io.h>
+#include <avr/interrupt.h>
+#include <stdio.h>
+#define F_CPU 32768UL;
+
+int seconds = 0;
+char str[80];
 
 void execute_cmd()
 {
@@ -50,14 +56,28 @@ void clear_lcd()
 	execute_cmd();
 }
 
+ISR(TIMER1_OVF_vect)
+{
+	PORTB |= (1 << PB0);
+	seconds += 2;
+	clear_lcd();
+	sprintf(str, "%d", seconds);
+	send_text(str);
+}
 
 int main(void)
 {	
+	DDRB = (1 << PB0);
 	DDRC = (1 << PC0) | (1 << PC1) | (1 << PC2);
 	DDRD = 0b11111111;
 	lcd_init();
-	send_text("Hello world!");
-	next_line();
-	send_text("I'm Gokhlia");
+
+	TIMSK |= (1 << TOIE1);
+	sei();
+	TCCR1B |= (1 << CS10);
+	while(1)
+	{
+		
+	}
 }
 
