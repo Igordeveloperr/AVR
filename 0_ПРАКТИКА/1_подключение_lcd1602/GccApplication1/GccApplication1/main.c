@@ -6,21 +6,21 @@
 #define F_CPU 32768UL;
 
 int hour = 23;
-int minutes = 59;
-int seconds = 50;
+int minutes = 58;
+int seconds = 0;
 char str[80];
 
 
 void control_time()
 {
-	if (hour == 24)
+	if (hour == 23 && minutes >= 60)
 	{
 		hour = 0;
 		minutes = 0;
 		seconds = 0;
 	}
 	
-	if (minutes == 60)
+	if (minutes >= 60)
 	{
 		hour++;
 		minutes = 0;
