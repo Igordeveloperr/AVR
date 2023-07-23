@@ -5,25 +5,48 @@
 
 #define F_CPU 32768UL;
 
-int hour = 0;
-int minutes = 0;
-int seconds = 0;
+int hour = 23;
+int minutes = 59;
+int seconds = 50;
 char str[80];
 
 
 void control_time()
 {
+	if (hour == 24)
+	{
+		hour = 0;
+		minutes = 0;
+		seconds = 0;
+	}
+	
 	if (minutes == 60)
 	{
 		hour++;
 		minutes = 0;
 	}
-	
-	if (hour == 23 && minutes == 59 && seconds == 58)
+}
+
+void format_time()
+{
+	if (minutes < 10 && hour < 10)
 	{
-		hour = 0;
-		minutes = 0;
-		seconds = 0;
+		sprintf(str, "0%d:0%d", hour, minutes);
+	}
+	
+	if (minutes < 10 && hour >= 10)
+	{
+		sprintf(str, "%d:0%d", hour, minutes);
+	}
+	
+	if (minutes >= 10 && hour < 10)
+	{
+		sprintf(str, "0%d:%d", hour, minutes);
+	}
+	
+	if (minutes >= 10 && hour >= 10)
+	{
+		sprintf(str, "%d:%d", hour, minutes);
 	}
 }
 
@@ -38,7 +61,7 @@ ISR(TIMER1_OVF_vect)
 		seconds = 0;
 		control_time();
 		clear_lcd();
-		sprintf(str, "%d:%d", hour, minutes);
+		format_time();
 		send_text(str);
 	}
 }
@@ -53,8 +76,10 @@ int main(void)
 	sei();
 	TCCR1B |= (1 << CS10);
 	
-	sprintf(str, "%d:%d", hour, minutes);
+	clear_lcd();
+	format_time();
 	send_text(str);
+	
 	while(1)
 	{
 		
