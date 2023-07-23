@@ -5,29 +5,29 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .text         000008a6  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000014  00800060  000008a6  0000093a  2**0
+  1 .data         00000010  00800060  000008a6  0000093a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000052  00800074  00800074  0000094e  2**0
+  2 .bss          00000056  00800070  00800070  0000094a  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  0000094e  2**0
+  3 .comment      0000005c  00000000  00000000  0000094a  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000009ac  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000009a8  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000080  00000000  00000000  000009e8  2**0
+  5 .debug_aranges 00000080  00000000  00000000  000009e4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000858  00000000  00000000  00000a68  2**0
+  6 .debug_info   00000858  00000000  00000000  00000a64  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000687  00000000  00000000  000012c0  2**0
+  7 .debug_abbrev 00000687  00000000  00000000  000012bc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000004ee  00000000  00000000  00001947  2**0
+  8 .debug_line   000004ee  00000000  00000000  00001943  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000190  00000000  00000000  00001e38  2**2
+  9 .debug_frame  00000190  00000000  00000000  00001e34  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003b4  00000000  00000000  00001fc8  2**0
+ 10 .debug_str    000003b4  00000000  00000000  00001fc4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000003be  00000000  00000000  0000237c  2**0
+ 11 .debug_loc    000003be  00000000  00000000  00002378  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000060  00000000  00000000  0000273a  2**0
+ 12 .debug_ranges 00000060  00000000  00000000  00002736  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -70,13 +70,13 @@ Disassembly of section .text:
   3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
   3e:	05 90       	lpm	r0, Z+
   40:	0d 92       	st	X+, r0
-  42:	a4 37       	cpi	r26, 0x74	; 116
+  42:	a0 37       	cpi	r26, 0x70	; 112
   44:	b1 07       	cpc	r27, r17
   46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
 
 00000048 <__do_clear_bss>:
   48:	20 e0       	ldi	r18, 0x00	; 0
-  4a:	a4 e7       	ldi	r26, 0x74	; 116
+  4a:	a0 e7       	ldi	r26, 0x70	; 112
   4c:	b0 e0       	ldi	r27, 0x00	; 0
   4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
 
@@ -179,41 +179,41 @@ char str[80];
 void control_time()
 {
 	if (hour == 23 && minutes >= 60)
-  d0:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <hour>
-  d4:	90 91 63 00 	lds	r25, 0x0063	; 0x800063 <hour+0x1>
+  d0:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <hour>
+  d4:	90 91 75 00 	lds	r25, 0x0075	; 0x800075 <hour+0x1>
   d8:	47 97       	sbiw	r24, 0x17	; 23
   da:	91 f4       	brne	.+36     	; 0x100 <control_time+0x30>
-  dc:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
-  e0:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  dc:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+  e0:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
   e4:	cc 97       	sbiw	r24, 0x3c	; 60
   e6:	64 f0       	brlt	.+24     	; 0x100 <control_time+0x30>
 	{
 		hour = 0;
-  e8:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <hour+0x1>
-  ec:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <hour>
+  e8:	10 92 75 00 	sts	0x0075, r1	; 0x800075 <hour+0x1>
+  ec:	10 92 74 00 	sts	0x0074, r1	; 0x800074 <hour>
 		minutes = 0;
-  f0:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
-  f4:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+  f0:	10 92 73 00 	sts	0x0073, r1	; 0x800073 <minutes+0x1>
+  f4:	10 92 72 00 	sts	0x0072, r1	; 0x800072 <minutes>
 		seconds = 0;
-  f8:	10 92 75 00 	sts	0x0075, r1	; 0x800075 <__data_end+0x1>
-  fc:	10 92 74 00 	sts	0x0074, r1	; 0x800074 <__data_end>
+  f8:	10 92 71 00 	sts	0x0071, r1	; 0x800071 <__data_end+0x1>
+  fc:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <__data_end>
 	}
 	
 	if (minutes >= 60)
- 100:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
- 104:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 100:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+ 104:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
  108:	cc 97       	sbiw	r24, 0x3c	; 60
  10a:	6c f0       	brlt	.+26     	; 0x126 <control_time+0x56>
 	{
 		hour++;
- 10c:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <hour>
- 110:	90 91 63 00 	lds	r25, 0x0063	; 0x800063 <hour+0x1>
+ 10c:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <hour>
+ 110:	90 91 75 00 	lds	r25, 0x0075	; 0x800075 <hour+0x1>
  114:	01 96       	adiw	r24, 0x01	; 1
- 116:	90 93 63 00 	sts	0x0063, r25	; 0x800063 <hour+0x1>
- 11a:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <hour>
+ 116:	90 93 75 00 	sts	0x0075, r25	; 0x800075 <hour+0x1>
+ 11a:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <hour>
 		minutes = 0;
- 11e:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
- 122:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 11e:	10 92 73 00 	sts	0x0073, r1	; 0x800073 <minutes+0x1>
+ 122:	10 92 72 00 	sts	0x0072, r1	; 0x800072 <minutes>
  126:	08 95       	ret
 
 00000128 <format_time>:
@@ -223,13 +223,13 @@ void control_time()
 void format_time()
 {
 	if (minutes < 10 && hour < 10)
- 128:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
- 12c:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 128:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+ 12c:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
  130:	8a 30       	cpi	r24, 0x0A	; 10
  132:	91 05       	cpc	r25, r1
  134:	e4 f4       	brge	.+56     	; 0x16e <format_time+0x46>
- 136:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <hour>
- 13a:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <hour+0x1>
+ 136:	20 91 74 00 	lds	r18, 0x0074	; 0x800074 <hour>
+ 13a:	30 91 75 00 	lds	r19, 0x0075	; 0x800075 <hour+0x1>
  13e:	2a 30       	cpi	r18, 0x0A	; 10
  140:	31 05       	cpc	r19, r1
  142:	ac f4       	brge	.+42     	; 0x16e <format_time+0x46>
@@ -239,7 +239,7 @@ void format_time()
  146:	8f 93       	push	r24
  148:	3f 93       	push	r19
  14a:	2f 93       	push	r18
- 14c:	84 e6       	ldi	r24, 0x64	; 100
+ 14c:	80 e6       	ldi	r24, 0x60	; 96
  14e:	90 e0       	ldi	r25, 0x00	; 0
  150:	9f 93       	push	r25
  152:	8f 93       	push	r24
@@ -259,13 +259,13 @@ void format_time()
 	}
 	
 	if (minutes < 10 && hour >= 10)
- 16e:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
- 172:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 16e:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+ 172:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
  176:	8a 30       	cpi	r24, 0x0A	; 10
  178:	91 05       	cpc	r25, r1
  17a:	e4 f4       	brge	.+56     	; 0x1b4 <format_time+0x8c>
- 17c:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <hour>
- 180:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <hour+0x1>
+ 17c:	20 91 74 00 	lds	r18, 0x0074	; 0x800074 <hour>
+ 180:	30 91 75 00 	lds	r19, 0x0075	; 0x800075 <hour+0x1>
  184:	2a 30       	cpi	r18, 0x0A	; 10
  186:	31 05       	cpc	r19, r1
  188:	ac f0       	brlt	.+42     	; 0x1b4 <format_time+0x8c>
@@ -275,7 +275,7 @@ void format_time()
  18c:	8f 93       	push	r24
  18e:	3f 93       	push	r19
  190:	2f 93       	push	r18
- 192:	85 e6       	ldi	r24, 0x65	; 101
+ 192:	81 e6       	ldi	r24, 0x61	; 97
  194:	90 e0       	ldi	r25, 0x00	; 0
  196:	9f 93       	push	r25
  198:	8f 93       	push	r24
@@ -295,13 +295,13 @@ void format_time()
 	}
 	
 	if (minutes >= 10 && hour < 10)
- 1b4:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
- 1b8:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1b4:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+ 1b8:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
  1bc:	8a 30       	cpi	r24, 0x0A	; 10
  1be:	91 05       	cpc	r25, r1
  1c0:	e4 f0       	brlt	.+56     	; 0x1fa <format_time+0xd2>
- 1c2:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <hour>
- 1c6:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <hour+0x1>
+ 1c2:	20 91 74 00 	lds	r18, 0x0074	; 0x800074 <hour>
+ 1c6:	30 91 75 00 	lds	r19, 0x0075	; 0x800075 <hour+0x1>
  1ca:	2a 30       	cpi	r18, 0x0A	; 10
  1cc:	31 05       	cpc	r19, r1
  1ce:	ac f4       	brge	.+42     	; 0x1fa <format_time+0xd2>
@@ -311,7 +311,7 @@ void format_time()
  1d2:	8f 93       	push	r24
  1d4:	3f 93       	push	r19
  1d6:	2f 93       	push	r18
- 1d8:	8c e6       	ldi	r24, 0x6C	; 108
+ 1d8:	88 e6       	ldi	r24, 0x68	; 104
  1da:	90 e0       	ldi	r25, 0x00	; 0
  1dc:	9f 93       	push	r25
  1de:	8f 93       	push	r24
@@ -331,13 +331,13 @@ void format_time()
 	}
 	
 	if (minutes >= 10 && hour >= 10)
- 1fa:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
- 1fe:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1fa:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+ 1fe:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
  202:	8a 30       	cpi	r24, 0x0A	; 10
  204:	91 05       	cpc	r25, r1
  206:	e4 f0       	brlt	.+56     	; 0x240 <__EEPROM_REGION_LENGTH__+0x40>
- 208:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <hour>
- 20c:	30 91 63 00 	lds	r19, 0x0063	; 0x800063 <hour+0x1>
+ 208:	20 91 74 00 	lds	r18, 0x0074	; 0x800074 <hour>
+ 20c:	30 91 75 00 	lds	r19, 0x0075	; 0x800075 <hour+0x1>
  210:	2a 30       	cpi	r18, 0x0A	; 10
  212:	31 05       	cpc	r19, r1
  214:	ac f0       	brlt	.+42     	; 0x240 <__EEPROM_REGION_LENGTH__+0x40>
@@ -347,7 +347,7 @@ void format_time()
  218:	8f 93       	push	r24
  21a:	3f 93       	push	r19
  21c:	2f 93       	push	r18
- 21e:	8d e6       	ldi	r24, 0x6D	; 109
+ 21e:	89 e6       	ldi	r24, 0x69	; 105
  220:	90 e0       	ldi	r25, 0x00	; 0
  222:	9f 93       	push	r25
  224:	8f 93       	push	r24
@@ -398,24 +398,24 @@ ISR(TIMER1_OVF_vect)
  26c:	81 60       	ori	r24, 0x01	; 1
  26e:	8e bd       	out	0x2e, r24	; 46
 	seconds += 2;
- 270:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <__data_end>
- 274:	90 91 75 00 	lds	r25, 0x0075	; 0x800075 <__data_end+0x1>
+ 270:	80 91 70 00 	lds	r24, 0x0070	; 0x800070 <__data_end>
+ 274:	90 91 71 00 	lds	r25, 0x0071	; 0x800071 <__data_end+0x1>
  278:	02 96       	adiw	r24, 0x02	; 2
- 27a:	90 93 75 00 	sts	0x0075, r25	; 0x800075 <__data_end+0x1>
- 27e:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__data_end>
+ 27a:	90 93 71 00 	sts	0x0071, r25	; 0x800071 <__data_end+0x1>
+ 27e:	80 93 70 00 	sts	0x0070, r24	; 0x800070 <__data_end>
 	if (seconds == 60)
  282:	cc 97       	sbiw	r24, 0x3c	; 60
  284:	99 f4       	brne	.+38     	; 0x2ac <__vector_8+0x6a>
 	{
 		minutes++;
- 286:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
- 28a:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 286:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <minutes>
+ 28a:	90 91 73 00 	lds	r25, 0x0073	; 0x800073 <minutes+0x1>
  28e:	01 96       	adiw	r24, 0x01	; 1
- 290:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
- 294:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 290:	90 93 73 00 	sts	0x0073, r25	; 0x800073 <minutes+0x1>
+ 294:	80 93 72 00 	sts	0x0072, r24	; 0x800072 <minutes>
 		seconds = 0;
- 298:	10 92 75 00 	sts	0x0075, r1	; 0x800075 <__data_end+0x1>
- 29c:	10 92 74 00 	sts	0x0074, r1	; 0x800074 <__data_end>
+ 298:	10 92 71 00 	sts	0x0071, r1	; 0x800071 <__data_end+0x1>
+ 29c:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <__data_end>
 		control_time();
  2a0:	17 df       	rcall	.-466    	; 0xd0 <control_time>
 		clear_lcd();

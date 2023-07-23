@@ -5,8 +5,8 @@
 
 #define F_CPU 32768UL;
 
-int hour = 23;
-int minutes = 58;
+int hour = 0;
+int minutes = 0;
 int seconds = 0;
 char str[80];
 
