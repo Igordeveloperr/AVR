@@ -1,64 +1,81 @@
-#include <avr/io.h>
-#include <avr/delay.h>
 #include "main.h"
 
-void i2c_start()
-{
-	DDRC |= (1 << SDA);
-	_delay_ms(1);
-	DDRC |= (1 << SCL);
-}
+int hour = 0;
+int minutes = 0;
+int seconds = 0;
+char str[80];
 
-void i2c_stop()
-{
-	DDRC |= (1 << SDA);
-	_delay_ms(1);
-	DDRC &= ~(1 << SCL);
-	_delay_ms(1);
-	DDRC &= ~(1 << SDA);
-}
 
-uint8_t i2c_send(uint8_t data)
+void control_time()
 {
-	uint8_t i;
-	for(i = 8; i > 0; i--)
+	if (hour == 23 && minutes >= 60)
 	{
-		// если бит 1, то на шину 1, иначе 0
-		if (data & (1 << i))
-		{
-			DDRC &= ~(1 << SDA);
-		}
-		else
-		{
-			DDRC |= (1 << SDA);
-		}
-		_delay_ms(1);
-		// тактируем передачу бита
-		DDRC &= ~(1 << SCL);
-		_delay_ms(1);
-		DDRC |= (1 << SCL);
+		hour = 0;
+		minutes = 0;
+		seconds = 0;
 	}
-	DDRC &= ~(1 << SDA);
-	_delay_ms(1);
-	DDRC &= ~(1 << SCL);
-	_delay_ms(1);
-	i = (SDA & (1 << SDA));
-	DDRC |= (1 << SCL);
-	return i;
+	
+	if (minutes >= 60)
+	{
+		hour++;
+		minutes = 0;
+	}
+}
+
+void format_time()
+{
+	if (minutes < 10 && hour < 10)
+	{
+		sprintf(str, "0%d:0%d", hour, minutes);
+	}
+	
+	if (minutes < 10 && hour >= 10)
+	{
+		sprintf(str, "%d:0%d", hour, minutes);
+	}
+	
+	if (minutes >= 10 && hour < 10)
+	{
+		sprintf(str, "0%d:%d", hour, minutes);
+	}
+	
+	if (minutes >= 10 && hour >= 10)
+	{
+		sprintf(str, "%d:%d", hour, minutes);
+	}
+}
+
+ISR(TIMER1_OVF_vect)
+{
+	TCCR1B &= ~(1 << CS10);
+	TCCR1B |= (1 << CS10);
+	seconds += 2;
+	if (seconds == 60)
+	{
+		minutes++;
+		seconds = 0;
+		control_time();
+		//clear_lcd();
+		format_time();
+		//send_text(str);
+	}
 }
 
 int main(void)
 {
-			i2c_start();
-			i2c_send(0x38);
-			i2c_send(0x0E);
-			i2c_send(0x06);
-					//i2c_send(0x40);	// адрес дисплея
-					//i2c_send(0); // R/W bit в ноль
-					//i2c_send(0xF1); // данные
-			i2c_stop();
-    while (1) 
-    {
-    }
+	TIMSK |= (1 << TOIE1);
+	sei();
+	TCCR1B |= (1 << CS10);
+	
+	lcd_ini();	
+	
+	while(1)
+	{
+			send_byte(0x01, 1);
+			//clear_lcd();
+			_delay_ms(1000);
+			format_time();
+			lcd_str(str);
+	}
 }
 

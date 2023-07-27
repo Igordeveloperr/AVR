@@ -2,7 +2,13 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+i2c.c
+
+lcd.c
+
 LCD1602\lcd1602.c
 
 main.c
+
+pcf.c
 

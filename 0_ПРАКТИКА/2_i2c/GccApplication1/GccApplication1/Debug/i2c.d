@@ -1,4 +1,4 @@
-main.d main.o: .././main.c .././main.h \
+i2c.d i2c.o: .././i2c.c .././i2c.h .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -18,7 +18,9 @@ main.d main.o: .././main.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././i2c.h .././pcf.h .././lcd.h
+ .././pcf.h .././lcd.h
+
+.././i2c.h:
 
 .././main.h:
 
@@ -59,8 +61,6 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h:
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
-
-.././i2c.h:
 
 .././pcf.h:
 

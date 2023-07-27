@@ -1,9 +1,4 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <stdio.h>
-#include "LCD1602/lcd1602.h"
-
-#define F_CPU 32768UL;
+#include "main.h"
 
 int hour = 0;
 int minutes = 0;
@@ -60,25 +55,24 @@ ISR(TIMER1_OVF_vect)
 		minutes++;
 		seconds = 0;
 		control_time();
-		clear_lcd();
+		//clear_lcd();
 		format_time();
-		send_text(str);
+		//send_text(str);
 	}
 }
 
 int main(void)
 {	
-	LCD_RS_E_DDR = (1 << RS) | (1 << RW) | (1 << E);
-	LCD_DDR = 0b11110000;
-	lcd_init();
+	lcd_ini();
 
 	TIMSK |= (1 << TOIE1);
 	sei();
 	TCCR1B |= (1 << CS10);
 	
-	clear_lcd();
+	send_byte(0x01, 1);
+	//clear_lcd();
 	format_time();
-	send_text(str);
+	lcd_str(str);
 	
 	while(1)
 	{
