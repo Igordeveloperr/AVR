@@ -10,7 +10,7 @@ void execute_cmd()
 
 void lcd_init()
 {
-	LCD_PORT = 0x38;
+	LCD_PORT = 0x30;
 	execute_cmd();
 	LCD_PORT = 0x0E;
 	execute_cmd();

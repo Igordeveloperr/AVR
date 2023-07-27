@@ -19,15 +19,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000687  00000000  00000000  000012bc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000004ee  00000000  00000000  00001943  2**0
+  8 .debug_line   000004b2  00000000  00000000  00001943  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000190  00000000  00000000  00001e34  2**2
+  9 .debug_frame  00000190  00000000  00000000  00001df8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003b4  00000000  00000000  00001fc4  2**0
+ 10 .debug_str    000003be  00000000  00000000  00001f88  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000003be  00000000  00000000  00002378  2**0
+ 11 .debug_loc    000003be  00000000  00000000  00002346  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000060  00000000  00000000  00002736  2**0
+ 12 .debug_ranges 00000060  00000000  00000000  00002704  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -115,7 +115,7 @@ void next_line()
   76:	08 95       	ret
 
 00000078 <lcd_init>:
-  78:	88 e3       	ldi	r24, 0x38	; 56
+  78:	80 e3       	ldi	r24, 0x30	; 48
   7a:	82 bb       	out	0x12, r24	; 18
   7c:	f0 df       	rcall	.-32     	; 0x5e <execute_cmd>
   7e:	8e e0       	ldi	r24, 0x0E	; 14
@@ -453,8 +453,8 @@ int main(void)
 	LCD_RS_E_DDR = (1 << RS) | (1 << RW) | (1 << E);
  2ce:	87 e0       	ldi	r24, 0x07	; 7
  2d0:	84 bb       	out	0x14, r24	; 20
-	LCD_DDR = 0b11111111;
- 2d2:	8f ef       	ldi	r24, 0xFF	; 255
+	LCD_DDR = 0b11110000;
+ 2d2:	80 ef       	ldi	r24, 0xF0	; 240
  2d4:	81 bb       	out	0x11, r24	; 17
 	lcd_init();
  2d6:	d0 de       	rcall	.-608    	; 0x78 <lcd_init>

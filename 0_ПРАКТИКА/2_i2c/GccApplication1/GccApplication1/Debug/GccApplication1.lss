@@ -1,0 +1,260 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000112  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000166  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000166  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000198  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  000001d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000079e  00000000  00000000  0000020c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000591  00000000  00000000  000009aa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000303  00000000  00000000  00000f3b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000054  00000000  00000000  00001240  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000033b  00000000  00000000  00001294  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000236  00000000  00000000  000015cf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  00001805  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	64 d0       	rcall	.+200    	; 0xfc <main>
+  34:	6c c0       	rjmp	.+216    	; 0x10e <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <i2c_start>:
+#include <avr/delay.h>
+#include "main.h"
+
+void i2c_start()
+{
+	DDRC |= (1 << SDA);
+  38:	84 b3       	in	r24, 0x14	; 20
+  3a:	80 61       	ori	r24, 0x10	; 16
+  3c:	84 bb       	out	0x14, r24	; 20
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  3e:	89 ef       	ldi	r24, 0xF9	; 249
+  40:	90 e0       	ldi	r25, 0x00	; 0
+  42:	01 97       	sbiw	r24, 0x01	; 1
+  44:	f1 f7       	brne	.-4      	; 0x42 <__SREG__+0x3>
+  46:	00 c0       	rjmp	.+0      	; 0x48 <__SREG__+0x9>
+  48:	00 00       	nop
+	_delay_ms(1);
+	DDRC |= (1 << SCL);
+  4a:	84 b3       	in	r24, 0x14	; 20
+  4c:	80 62       	ori	r24, 0x20	; 32
+  4e:	84 bb       	out	0x14, r24	; 20
+  50:	08 95       	ret
+
+00000052 <i2c_stop>:
+}
+
+void i2c_stop()
+{
+	DDRC |= (1 << SDA);
+  52:	84 b3       	in	r24, 0x14	; 20
+  54:	80 61       	ori	r24, 0x10	; 16
+  56:	84 bb       	out	0x14, r24	; 20
+  58:	89 ef       	ldi	r24, 0xF9	; 249
+  5a:	90 e0       	ldi	r25, 0x00	; 0
+  5c:	01 97       	sbiw	r24, 0x01	; 1
+  5e:	f1 f7       	brne	.-4      	; 0x5c <i2c_stop+0xa>
+  60:	00 c0       	rjmp	.+0      	; 0x62 <i2c_stop+0x10>
+  62:	00 00       	nop
+	_delay_ms(1);
+	DDRC &= ~(1 << SCL);
+  64:	84 b3       	in	r24, 0x14	; 20
+  66:	8f 7d       	andi	r24, 0xDF	; 223
+  68:	84 bb       	out	0x14, r24	; 20
+  6a:	89 ef       	ldi	r24, 0xF9	; 249
+  6c:	90 e0       	ldi	r25, 0x00	; 0
+  6e:	01 97       	sbiw	r24, 0x01	; 1
+  70:	f1 f7       	brne	.-4      	; 0x6e <i2c_stop+0x1c>
+  72:	00 c0       	rjmp	.+0      	; 0x74 <i2c_stop+0x22>
+  74:	00 00       	nop
+	_delay_ms(1);
+	DDRC &= ~(1 << SDA);
+  76:	84 b3       	in	r24, 0x14	; 20
+  78:	8f 7e       	andi	r24, 0xEF	; 239
+  7a:	84 bb       	out	0x14, r24	; 20
+  7c:	08 95       	ret
+
+0000007e <i2c_send>:
+}
+
+uint8_t i2c_send(uint8_t data)
+{
+	uint8_t i;
+	for(i = 8; i > 0; i--)
+  7e:	98 e0       	ldi	r25, 0x08	; 8
+  80:	24 c0       	rjmp	.+72     	; 0xca <i2c_send+0x4c>
+	{
+		// если бит 1, то на шину 1, иначе 0
+		if (data & (1 << i))
+  82:	28 2f       	mov	r18, r24
+  84:	30 e0       	ldi	r19, 0x00	; 0
+  86:	09 2e       	mov	r0, r25
+  88:	02 c0       	rjmp	.+4      	; 0x8e <i2c_send+0x10>
+  8a:	35 95       	asr	r19
+  8c:	27 95       	ror	r18
+  8e:	0a 94       	dec	r0
+  90:	e2 f7       	brpl	.-8      	; 0x8a <i2c_send+0xc>
+  92:	20 ff       	sbrs	r18, 0
+  94:	04 c0       	rjmp	.+8      	; 0x9e <i2c_send+0x20>
+		{
+			DDRC &= ~(1 << SDA);
+  96:	24 b3       	in	r18, 0x14	; 20
+  98:	2f 7e       	andi	r18, 0xEF	; 239
+  9a:	24 bb       	out	0x14, r18	; 20
+  9c:	03 c0       	rjmp	.+6      	; 0xa4 <i2c_send+0x26>
+		}
+		else
+		{
+			DDRC |= (1 << SDA);
+  9e:	24 b3       	in	r18, 0x14	; 20
+  a0:	20 61       	ori	r18, 0x10	; 16
+  a2:	24 bb       	out	0x14, r18	; 20
+  a4:	e9 ef       	ldi	r30, 0xF9	; 249
+  a6:	f0 e0       	ldi	r31, 0x00	; 0
+  a8:	31 97       	sbiw	r30, 0x01	; 1
+  aa:	f1 f7       	brne	.-4      	; 0xa8 <i2c_send+0x2a>
+  ac:	00 c0       	rjmp	.+0      	; 0xae <i2c_send+0x30>
+  ae:	00 00       	nop
+		}
+		_delay_ms(1);
+		// тактируем передачу бита
+		DDRC &= ~(1 << SCL);
+  b0:	24 b3       	in	r18, 0x14	; 20
+  b2:	2f 7d       	andi	r18, 0xDF	; 223
+  b4:	24 bb       	out	0x14, r18	; 20
+  b6:	e9 ef       	ldi	r30, 0xF9	; 249
+  b8:	f0 e0       	ldi	r31, 0x00	; 0
+  ba:	31 97       	sbiw	r30, 0x01	; 1
+  bc:	f1 f7       	brne	.-4      	; 0xba <i2c_send+0x3c>
+  be:	00 c0       	rjmp	.+0      	; 0xc0 <i2c_send+0x42>
+  c0:	00 00       	nop
+		_delay_ms(1);
+		DDRC |= (1 << SCL);
+  c2:	24 b3       	in	r18, 0x14	; 20
+  c4:	20 62       	ori	r18, 0x20	; 32
+  c6:	24 bb       	out	0x14, r18	; 20
+}
+
+uint8_t i2c_send(uint8_t data)
+{
+	uint8_t i;
+	for(i = 8; i > 0; i--)
+  c8:	91 50       	subi	r25, 0x01	; 1
+  ca:	91 11       	cpse	r25, r1
+  cc:	da cf       	rjmp	.-76     	; 0x82 <i2c_send+0x4>
+		// тактируем передачу бита
+		DDRC &= ~(1 << SCL);
+		_delay_ms(1);
+		DDRC |= (1 << SCL);
+	}
+	DDRC &= ~(1 << SDA);
+  ce:	84 b3       	in	r24, 0x14	; 20
+  d0:	8f 7e       	andi	r24, 0xEF	; 239
+  d2:	84 bb       	out	0x14, r24	; 20
+  d4:	89 ef       	ldi	r24, 0xF9	; 249
+  d6:	90 e0       	ldi	r25, 0x00	; 0
+  d8:	01 97       	sbiw	r24, 0x01	; 1
+  da:	f1 f7       	brne	.-4      	; 0xd8 <i2c_send+0x5a>
+  dc:	00 c0       	rjmp	.+0      	; 0xde <i2c_send+0x60>
+  de:	00 00       	nop
+	_delay_ms(1);
+	DDRC &= ~(1 << SCL);
+  e0:	84 b3       	in	r24, 0x14	; 20
+  e2:	8f 7d       	andi	r24, 0xDF	; 223
+  e4:	84 bb       	out	0x14, r24	; 20
+  e6:	e9 ef       	ldi	r30, 0xF9	; 249
+  e8:	f0 e0       	ldi	r31, 0x00	; 0
+  ea:	31 97       	sbiw	r30, 0x01	; 1
+  ec:	f1 f7       	brne	.-4      	; 0xea <i2c_send+0x6c>
+  ee:	00 c0       	rjmp	.+0      	; 0xf0 <i2c_send+0x72>
+  f0:	00 00       	nop
+	_delay_ms(1);
+	i = (SDA & (1 << SDA));
+	DDRC |= (1 << SCL);
+  f2:	84 b3       	in	r24, 0x14	; 20
+  f4:	80 62       	ori	r24, 0x20	; 32
+  f6:	84 bb       	out	0x14, r24	; 20
+	return i;
+}
+  f8:	80 e0       	ldi	r24, 0x00	; 0
+  fa:	08 95       	ret
+
+000000fc <main>:
+
+int main(void)
+{
+			i2c_start();
+  fc:	9d df       	rcall	.-198    	; 0x38 <i2c_start>
+			i2c_send(0x38);
+  fe:	88 e3       	ldi	r24, 0x38	; 56
+ 100:	be df       	rcall	.-132    	; 0x7e <i2c_send>
+			i2c_send(0x0E);
+ 102:	8e e0       	ldi	r24, 0x0E	; 14
+ 104:	bc df       	rcall	.-136    	; 0x7e <i2c_send>
+			i2c_send(0x06);
+ 106:	86 e0       	ldi	r24, 0x06	; 6
+ 108:	ba df       	rcall	.-140    	; 0x7e <i2c_send>
+					//i2c_send(0x40);	// адрес дисплея
+					//i2c_send(0); // R/W bit в ноль
+					//i2c_send(0xF1); // данные
+			i2c_stop();
+ 10a:	a3 df       	rcall	.-186    	; 0x52 <i2c_stop>
+ 10c:	ff cf       	rjmp	.-2      	; 0x10c <main+0x10>
+
+0000010e <_exit>:
+ 10e:	f8 94       	cli
+
+00000110 <__stop_program>:
+ 110:	ff cf       	rjmp	.-2      	; 0x110 <__stop_program>

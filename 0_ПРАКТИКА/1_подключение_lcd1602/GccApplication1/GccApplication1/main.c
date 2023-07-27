@@ -69,7 +69,7 @@ ISR(TIMER1_OVF_vect)
 int main(void)
 {	
 	LCD_RS_E_DDR = (1 << RS) | (1 << RW) | (1 << E);
-	LCD_DDR = 0b11111111;
+	LCD_DDR = 0b11110000;
 	lcd_init();
 
 	TIMSK |= (1 << TOIE1);
