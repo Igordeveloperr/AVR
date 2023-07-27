@@ -54,11 +54,15 @@ ISR(TIMER1_OVF_vect)
 	{
 		minutes++;
 		seconds = 0;
-		control_time();
-		lcd_clear();
-		format_time();
-		lcd_str(str);
 	}
+}
+
+ISR(INT0_vect)
+{
+	control_time();
+	lcd_clear();
+	format_time();
+	lcd_str(str);
 }
 
 int main(void)
@@ -66,6 +70,13 @@ int main(void)
 	TIMSK |= (1 << TOIE1);
 	sei();
 	TCCR1B |= (1 << CS10);
+	
+	//внешние прерывания
+	MCUCR |= (1 << ISC01);
+	GICR |= (1 << INT0);
+	
+	DDRD = 0;
+	PORTD |= (1 << PD2);
 	
 	lcd_ini();	
 	lcd_clear();
