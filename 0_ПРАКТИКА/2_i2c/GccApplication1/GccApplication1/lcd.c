@@ -144,3 +144,9 @@ void lcd_animation(void){
 		status=1;
 	}
 }
+
+// чистим дисплей
+void lcd_clear()
+{
+	send_byte(1, 0);
+}

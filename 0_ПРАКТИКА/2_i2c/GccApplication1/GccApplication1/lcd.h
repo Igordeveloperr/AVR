@@ -9,4 +9,5 @@ void lcd_str(char* str);
 void lcd_pos(uint8_t line, uint8_t pos);
 void lcd_num(uint8_t num, uint8_t line, uint8_t pos);
 void lcd_animation(void);
+void lcd_clear();
 #endif 

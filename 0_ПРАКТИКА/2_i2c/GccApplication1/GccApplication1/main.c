@@ -55,9 +55,9 @@ ISR(TIMER1_OVF_vect)
 		minutes++;
 		seconds = 0;
 		control_time();
-		//clear_lcd();
+		lcd_clear();
 		format_time();
-		//send_text(str);
+		lcd_str(str);
 	}
 }
 
@@ -68,14 +68,12 @@ int main(void)
 	TCCR1B |= (1 << CS10);
 	
 	lcd_ini();	
+	lcd_clear();
+	format_time();
+	lcd_str(str);
 	
 	while(1)
 	{
-			send_byte(0x01, 1);
-			//clear_lcd();
-			_delay_ms(1000);
-			format_time();
-			lcd_str(str);
 	}
 }
 
