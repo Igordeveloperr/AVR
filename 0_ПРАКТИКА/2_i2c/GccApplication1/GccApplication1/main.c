@@ -74,9 +74,14 @@ int main(void)
 	//внешние прерывания
 	MCUCR |= (1 << ISC01);
 	GICR |= (1 << INT0);
-	
 	DDRD = 0;
 	PORTD |= (1 << PD2);
+	
+	// сонный режим
+	MCUCR |= (1 << SE);
+	MCUCR &= ~(1 << SM2);
+	MCUCR &= ~(1 << SM1);
+	MCUCR &= ~(1 << SM0);
 	
 	lcd_ini();	
 	lcd_clear();
