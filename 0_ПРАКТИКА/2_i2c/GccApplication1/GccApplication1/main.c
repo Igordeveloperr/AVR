@@ -5,6 +5,8 @@ int minutes = 0;
 int seconds = 0;
 char str[80];
 
+int interval = 0;
+
 
 void control_time()
 {
@@ -50,6 +52,7 @@ ISR(TIMER1_OVF_vect)
 	TCCR1B &= ~(1 << CS10);
 	TCCR1B |= (1 << CS10);
 	seconds += 2;
+	interval += 2;
 	if (seconds == 60)
 	{
 		minutes++;
@@ -59,6 +62,8 @@ ISR(TIMER1_OVF_vect)
 
 ISR(INT0_vect)
 {
+	PORTB |= (1 << PB0);
+	interval = 0;
 	control_time();
 	lcd_clear();
 	format_time();
@@ -72,16 +77,16 @@ int main(void)
 	TCCR1B |= (1 << CS10);
 	
 	//внешние прерывания
-	MCUCR |= (1 << ISC01);
 	GICR |= (1 << INT0);
 	DDRD = 0;
 	PORTD |= (1 << PD2);
 	
 	// сонный режим
 	MCUCR |= (1 << SE);
-	MCUCR &= ~(1 << SM2);
-	MCUCR &= ~(1 << SM1);
-	MCUCR &= ~(1 << SM0);
+	
+	// пин для дисплея
+	DDRB |= (1 << PB0);
+	PORTB |= (1 << PB0);
 	
 	lcd_ini();	
 	lcd_clear();
@@ -90,6 +95,11 @@ int main(void)
 	
 	while(1)
 	{
+		if (interval == 10)
+		{
+			PORTB &= ~(1 << PB0);
+			asm("sleep"); // погружение мк в сон
+		}
 	}
 }
 

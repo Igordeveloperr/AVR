@@ -294,7 +294,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x94c
+.text           0x00000000      0x996
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -403,45 +403,45 @@ END GROUP
                 0x00000192      0x11a main.o
                 0x00000192                format_time
  .text.__vector_8
-                0x000002ac       0x58 main.o
+                0x000002ac       0x74 main.o
                 0x000002ac                __vector_8
  .text.__vector_1
-                0x00000304       0x50 main.o
-                0x00000304                __vector_1
- .text.main     0x00000354       0x30 main.o
-                0x00000354                main
+                0x00000320       0x5e main.o
+                0x00000320                __vector_1
+ .text.main     0x0000037e       0x50 main.o
+                0x0000037e                main
  .text.pcf_write
-                0x00000384       0x14 pcf.o
-                0x00000384                pcf_write
+                0x000003ce       0x14 pcf.o
+                0x000003ce                pcf_write
  .text.avr-libc
-                0x00000398       0x3e c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(sprintf.o)
-                0x00000398                sprintf
+                0x000003e2       0x3e c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(sprintf.o)
+                0x000003e2                sprintf
  .text.avr-libc
-                0x000003d6      0x3a4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(vfprintf_std.o)
-                0x000003d6                vfprintf
+                0x00000420      0x3a4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(vfprintf_std.o)
+                0x00000420                vfprintf
  .text.avr-libc
-                0x0000077a       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen_P.o)
-                0x0000077a                strnlen_P
+                0x000007c4       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen_P.o)
+                0x000007c4                strnlen_P
  .text.avr-libc
-                0x00000790       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen.o)
-                0x00000790                strnlen
+                0x000007da       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(strnlen.o)
+                0x000007da                strnlen
  .text.avr-libc
-                0x000007a6       0x78 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(fputc.o)
-                0x000007a6                fputc
+                0x000007f0       0x78 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(fputc.o)
+                0x000007f0                fputc
  .text.avr-libc
-                0x0000081e       0xbc c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(ultoa_invert.o)
-                0x0000081e                __ultoa_invert
+                0x00000868       0xbc c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libc.a(ultoa_invert.o)
+                0x00000868                __ultoa_invert
  .text.libgcc.prologue
-                0x000008da       0x38 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_prologue.o)
-                0x000008da                __prologue_saves__
+                0x00000924       0x38 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_prologue.o)
+                0x00000924                __prologue_saves__
  .text.libgcc.prologue
-                0x00000912       0x36 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_epilogue.o)
-                0x00000912                __epilogue_restores__
-                0x00000948                . = ALIGN (0x2)
+                0x0000095c       0x36 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_epilogue.o)
+                0x0000095c                __epilogue_restores__
+                0x00000992                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000948        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000948                _exit
-                0x00000948                exit
+ .fini9         0x00000992        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000992                _exit
+                0x00000992                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -460,11 +460,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000948        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000992        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000094c                _etext = .
+                0x00000996                _etext = .
 
-.data           0x00800060       0x10 load address 0x0000094c
+.data           0x00800060       0x10 load address 0x00000996
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -480,28 +480,30 @@ END GROUP
                 0x00800070                _edata = .
                 0x00800070                PROVIDE (__data_end, .)
 
-.bss            0x00800070       0x56
+.bss            0x00800070       0x58
                 0x00800070                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.seconds   0x00800070        0x2 main.o
-                0x00800070                seconds
- .bss.minutes   0x00800072        0x2 main.o
-                0x00800072                minutes
- .bss.hour      0x00800074        0x2 main.o
-                0x00800074                hour
+ .bss.interval  0x00800070        0x2 main.o
+                0x00800070                interval
+ .bss.seconds   0x00800072        0x2 main.o
+                0x00800072                seconds
+ .bss.minutes   0x00800074        0x2 main.o
+                0x00800074                minutes
+ .bss.hour      0x00800076        0x2 main.o
+                0x00800076                hour
  *(COMMON)
- COMMON         0x00800076       0x50 main.o
-                0x00800076                str
-                0x008000c6                PROVIDE (__bss_end, .)
-                0x0000094c                __data_load_start = LOADADDR (.data)
-                0x0000095c                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800078       0x50 main.o
+                0x00800078                str
+                0x008000c8                PROVIDE (__bss_end, .)
+                0x00000996                __data_load_start = LOADADDR (.data)
+                0x000009a6                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000c6        0x0
+.noinit         0x008000c8        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x008000c6                _end = .
+                0x008000c8                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -587,13 +589,13 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x10fe
+.debug_info     0x00000000     0x1110
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_info    0x0000048c      0x140 i2c.o
  .debug_info    0x000005cc      0x858 lcd.o
- .debug_info    0x00000e24      0x1db main.o
- .debug_info    0x00000fff       0xff pcf.o
+ .debug_info    0x00000e24      0x1ed main.o
+ .debug_info    0x00001011       0xff pcf.o
 
 .debug_abbrev   0x00000000      0x8f8
  *(.debug_abbrev)
@@ -603,39 +605,39 @@ END GROUP
  .debug_abbrev  0x00000742      0x11e main.o
  .debug_abbrev  0x00000860       0x98 pcf.o
 
-.debug_line     0x00000000      0x7ee
+.debug_line     0x00000000      0x81e
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x13e i2c.o
  .debug_line    0x00000248      0x30a lcd.o
- .debug_line    0x00000552      0x1f1 main.o
- .debug_line    0x00000743       0xab pcf.o
+ .debug_line    0x00000552      0x221 main.o
+ .debug_line    0x00000773       0xab pcf.o
 
-.debug_frame    0x00000000      0x2c8
+.debug_frame    0x00000000      0x2d4
  *(.debug_frame)
  .debug_frame   0x00000000       0x74 i2c.o
  .debug_frame   0x00000074       0xfc lcd.o
- .debug_frame   0x00000170      0x12c main.o
- .debug_frame   0x0000029c       0x2c pcf.o
+ .debug_frame   0x00000170      0x138 main.o
+ .debug_frame   0x000002a8       0x2c pcf.o
 
-.debug_str      0x00000000      0x463
+.debug_str      0x00000000      0x46c
  *(.debug_str)
  .debug_str     0x00000000      0x17a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_str     0x0000017a      0x186 i2c.o
                                 0x1c4 (size before relaxing)
  .debug_str     0x00000300      0x103 lcd.o
                                 0x290 (size before relaxing)
- .debug_str     0x00000403       0x55 main.o
-                                0x1f5 (size before relaxing)
- .debug_str     0x00000458        0xb pcf.o
+ .debug_str     0x00000403       0x5e main.o
+                                0x1fe (size before relaxing)
+ .debug_str     0x00000461        0xb pcf.o
                                 0x1b4 (size before relaxing)
 
-.debug_loc      0x00000000      0xa50
+.debug_loc      0x00000000      0xa6a
  *(.debug_loc)
  .debug_loc     0x00000000       0x67 i2c.o
  .debug_loc     0x00000067      0x69e lcd.o
- .debug_loc     0x00000705      0x2fd main.o
- .debug_loc     0x00000a02       0x4e pcf.o
+ .debug_loc     0x00000705      0x317 main.o
+ .debug_loc     0x00000a1c       0x4e pcf.o
 
 .debug_macinfo
  *(.debug_macinfo)
