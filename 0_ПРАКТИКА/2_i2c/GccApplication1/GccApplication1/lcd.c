@@ -1,152 +1,243 @@
+//*****************************************************************************
+//
+// File Name	: 'lcd_lib.c'
+// Title		: 4 bit LCd interface
+// Author		: Scienceprog.com - Copyright (C) 2007
+// Modified	by	: Koryagin Andrey 2011
+// Created		: 2007-06-18
+// Modified		: 2011-03-23
+// Version		: 1.1
+// Target MCU	: Atmel AVR series
+//
+// This code is distributed under the GNU Public License
+//		which can be found at http://www.gnu.org/licenses/gpl.txt
+//
+//*****************************************************************************
 #include "lcd.h"
+#include <inttypes.h>
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#include <util/delay.h>
 
-#define E		2
-#define RS		0
-
-void write(uint8_t n){
-	n|=(1<<E);
-	pcf_write(n);
-	n&=~(1<<E);
-	pcf_write(n);
-}
-
-
-void send_byte(uint8_t byte, uint8_t tip){
-	uint8_t data=0;
-	if(tip) data|=(1<<RS); // если тип данные - на линии RS 1
-	
-	write(data|(byte&0xF0));// передача старшего полубайта
-	write(data|(byte<<4));// передача младшего полубайта
-}
-
-// загрузка своих символов
-void mychar(void){
-	
-	// массив с двум€ символами
-	uint8_t simvol[16]={
-		//  символ 1
-		0x04,
-		0x0E,
-		0x04,
-		0x1F,
-		0x04,
-		0x0A,
-		0x11,
-		0x00,
-		// символ 2
-		0x04,
-		0x0E,
-		0x15,
-		0x0E,
-		0x04,
-		0x0A,
-		0x0A,
-		0x00
-	};
-	send_byte(64,0); // перейти в €чейку 0 CGRAM пам€ти
-	
-	// загрузить массив с символами в пам€ть CGRAM
-	for (uint8_t i=0; i<16; i++)
-	{
-		send_byte(simvol[i], 1);
-	}
-	
-	// перейти обратно в видео пам€ть
-	lcd_pos(0,0);
-}
-
-
-void lcd_ini(void){
-	
-	//----------- магические действи€ инциализации----------------
-	
-	_delay_ms(40);// ждем 40 мс стабилизации питани€
-
-	write(3<<4);
-	_delay_ms(5);
-	write(3<<4);
-	_delay_us(150);
-	write(3<<4);
-	_delay_us(50);// минимальное врем€ выполнени€ команды
-	write(2<<4);
-	_delay_us(50);// минимальное врем€ выполнени€ команды
-	
-	// ---------------------- маги€ всЄ------------------------------
-	
-	// -----------команды инициализации--------------------
-	
-	send_byte(40,0);// команда Function Set 001_DL_N_F_X_X
-	// DL 0/1 -4bit/8bit
-	// N 0/1 -1/2 строки
-	// F 0/1 -5x7/5x11 шрифт
-	_delay_us(50);
-
-	send_byte(12,0);// команда DISPLAY SWITCH 00001_D_C_B
-	// D 0/1 - off/on display
-	// C 0/1 - off/on cursor
-	// B 0/1 - off/on blink
-	
-	_delay_us(50);
-	
-	send_byte(1,0);// команда очистка диспле€ (без параметров)
-	_delay_ms(2);
-	
-	send_byte(6,0);// команда INPUT SET 000001_ID_S
-	// ID 0/1 сдвиг влево/вправо
-	// S 0/1 shift
-	_delay_us(50);
-	
-	//--------------- команды всЄ ------------------------------------
-}
-
-
-// вывод строки на индикацию
-void lcd_str(char* str){
-	uint8_t n=0;// счетчик 
-	while(str[n])// пока н-ный символ не 0 работает цикл
-	{
-		send_byte(str[n],1);// выводим н-ный символна индикацию
-		n++;// мен€ем номер символа 
-	}
-}
-
-// смена активной €чейки видео пам€ти (позици€ курсора)
-void lcd_pos(uint8_t line, uint8_t pos){
-	uint8_t adress=(line*0x40+pos)|0x80;// вычисл€ем адрес и приводим значение в вид команды
-	send_byte(adress,0);// отправка команды
-	_delay_us(50);
-}
-
-// вывод 8 битного значени€ на индикацию
-void lcd_num(uint8_t num, uint8_t line, uint8_t pos) {
-	char buf[4];// буфер на 4 символа
-	
-	utoa(num, buf, 10);// конвертаци€ значени€ num в строку в массиве buf
-	lcd_pos(line, pos);// смена позиции курсора 
-	lcd_str("   ");// затираем три знакоместа пробелами
-	lcd_pos(line, pos);//  смена позиции курсора 
-	lcd_str(buf);// выводим строку
-}
-
-// анимаци€
-void lcd_animation(void){
-	static uint8_t status;
-	lcd_pos(1,15);
-	
-	if (status)
-	{
-		send_byte(0,1);//  символ с кодом 0
-		status=0;
-	} 
-	else
-	{
-		send_byte(1,1);// символ с кодом 1
-		status=1;
-	}
-}
-
-// чистим дисплей
-void lcd_clear()
+void LCDsendChar(uint8_t ch)		//Sends Char to LCD
 {
-	send_byte(1, 0);
+	LDP &= ~((0b11110000)>>(4-LCD_D4));
+	LDP |=((ch&0b11110000)>>(4-LCD_D4));
+
+	LCP|=1<<LCD_RS;
+	LCP|=1<<LCD_E;		
+	_delay_ms(1);
+	LCP&=~(1<<LCD_E);	
+	LCP&=~(1<<LCD_RS);
+	_delay_ms(1);
+	
+	LDP &= ~((0b11110000)>>(4-LCD_D4));
+	LDP |=((ch&0b00001111)<<(LCD_D4));
+	
+	LCP|=1<<LCD_RS;
+	LCP|=1<<LCD_E;		
+	_delay_ms(1);
+	LCP&=~(1<<LCD_E);	
+	LCP&=~(1<<LCD_RS);
+	_delay_ms(1);
 }
+
+void LCDsendCommand(uint8_t cmd)	//Sends Command to LCD
+{
+	LDP &= ~((0b11110000)>>(4-LCD_D4));
+	LDP |=((cmd&0b11110000)>>(4-LCD_D4));
+
+	LCP|=1<<LCD_E;		
+	_delay_ms(1);
+	LCP&=~(1<<LCD_E);
+	_delay_ms(1);
+
+	LDP &= ~((0b11110000)>>(4-LCD_D4));
+	LDP |=((cmd&0b00001111)<<(LCD_D4));
+
+	LCP|=1<<LCD_E;		
+	_delay_ms(1);
+	LCP&=~(1<<LCD_E);
+	_delay_ms(1);
+}
+
+void LCDinit(void)//Initializes LCD
+{
+	_delay_ms(1);
+	LDP &= ~(1<<LCD_D7|1<<LCD_D6|1<<LCD_D5|1<<LCD_D4);
+	//LCP &= ~(1<<LCD_E|1<<LCD_RW|1<<LCD_RS);
+	LCP &= ~(1<<LCD_E|1<<LCD_RS);
+	LDDR|=1<<LCD_D7|1<<LCD_D6|1<<LCD_D5|1<<LCD_D4;
+	//LCDR|=1<<LCD_E|1<<LCD_RW|1<<LCD_RS;
+	LCDR|=1<<LCD_E|1<<LCD_RS;
+   //---------one------
+	//4 bit mode
+	LDP |= (1<<LCD_D5|1<<LCD_D4);
+	LDP &= ~(1<<LCD_D7|1<<LCD_D6);
+	LCP|= (1<<LCD_E);
+	_delay_ms(1);
+	LCP &= ~(1<<LCD_E);
+	_delay_ms(1);
+	//-----------two-----------
+	LDP |= (1<<LCD_D5|1<<LCD_D4);
+	LDP &= ~(1<<LCD_D7|1<<LCD_D6);
+	LCP|= (1<<LCD_E);
+	_delay_ms(1);
+	LCP &= ~(1<<LCD_E);
+	_delay_ms(1);
+	//-------three-------------
+	LDP |= (1<<LCD_D5);
+	LDP &= ~(1<<LCD_D7|1<<LCD_D6|1<<LCD_D4);
+	LCP|= (1<<LCD_E);
+	_delay_ms(1);
+	LCP &= ~(1<<LCD_E);
+	_delay_ms(1);
+	//--------4 bit--dual line---------------
+	LCDsendCommand(0b00101000);
+   //-----increment address, cursor shift------
+	LCDsendCommand(0b00001110);
+}
+
+void LCDclr(void)				//Clears LCD
+{
+	LCDsendCommand(1<<LCD_CLR);
+}
+
+void LCDhome(void)			//LCD cursor home
+{
+	LCDsendCommand(1<<LCD_HOME);
+}
+
+void LCDstring(uint8_t* data, uint8_t nBytes)	//Outputs string to LCD
+{
+	register uint8_t i;
+
+	// check to make sure we have a good pointer
+	if (!data) return;
+
+	// print data
+	for(i=0; i<nBytes; i++)
+	{
+		LCDsendChar(data[i]);
+	}
+}
+
+void LCDGotoXY(uint8_t x, uint8_t y)	//Cursor to X Y position
+{
+	register uint8_t DDRAMAddr;
+	// remap lines into proper order
+	switch(y)
+	{
+	case 0: DDRAMAddr = LCD_LINE0_DDRAMADDR+x; break;
+	case 1: DDRAMAddr = LCD_LINE1_DDRAMADDR+x; break;
+	case 2: DDRAMAddr = LCD_LINE2_DDRAMADDR+x; break;
+	case 3: DDRAMAddr = LCD_LINE3_DDRAMADDR+x; break;
+	default: DDRAMAddr = LCD_LINE0_DDRAMADDR+x;
+	}
+	// set data address
+	LCDsendCommand(1<<LCD_DDRAM | DDRAMAddr);
+	
+}
+
+//Copies string from flash memory to LCD at x y position
+//const uint8_t welcomeln1[] PROGMEM="AVR LCD DEMO\0";
+//CopyStringtoLCD(welcomeln1, 3, 1);	
+void CopyStringtoLCD(const uint8_t *FlashLoc, uint8_t x, uint8_t y)
+{
+	uint8_t i;
+	LCDGotoXY(x,y);
+	for(i=0;(uint8_t)pgm_read_byte(&FlashLoc[i]);i++)
+	{
+		LCDsendChar((uint8_t)pgm_read_byte(&FlashLoc[i]));
+	}
+}
+
+//defines char symbol in CGRAM
+/*
+const uint8_t backslash[] PROGMEM= 
+{
+0b00000000,//back slash
+0b00010000,
+0b00001000,
+0b00000100,
+0b00000010,
+0b00000001,
+0b00000000,
+0b00000000
+};
+
+LCDdefinechar(backslash,0);
+*/
+
+void LCDdefinechar(const uint8_t *pc,uint8_t char_code){
+	uint8_t a, pcc;
+	uint16_t i;
+	a=(char_code<<3)|0x40;
+	for (i=0; i<8; i++){
+		pcc=pgm_read_byte(&pc[i]);
+		LCDsendCommand(a++);
+		LCDsendChar(pcc);
+		}
+}
+
+void LCDshiftLeft(uint8_t n)	//Scrol n of characters Right
+{
+	uint8_t i;
+	for (i=0;i<n;i++)
+	{
+		LCDsendCommand(0x1E);
+	}
+}
+
+void LCDshiftRight(uint8_t n)	//Scrol n of characters Left
+{
+	uint8_t i;
+	for (i=0;i<n;i++)
+	{
+		LCDsendCommand(0x18);
+	}
+}
+
+void LCDcursorOn(void) //displays LCD cursor
+{
+	LCDsendCommand(0x0E);
+}
+
+void LCDcursorOnBlink(void)	//displays LCD blinking cursor
+{
+	LCDsendCommand(0x0F);
+}
+
+void LCDcursorOFF(void)	//turns OFF cursor
+{
+	LCDsendCommand(0x0C);
+}
+
+void LCDblank(void)		//blanks LCD
+{
+	LCDsendCommand(0x08);
+}
+
+void LCDvisible(void)		//Shows LCD
+{
+	LCDsendCommand(0x0C);
+}
+
+void LCDcursorLeft(uint8_t n)	//Moves cursor by n poisitions left
+{
+	uint8_t i;
+	for (i=0;i<n;i++)
+	{
+		LCDsendCommand(0x10);
+	}
+}
+
+void LCDcursorRight(uint8_t n)	//Moves cursor by n poisitions left
+{
+	uint8_t i;
+	for (i=0;i<n;i++)
+	{
+		LCDsendCommand(0x14);
+	}
+}
+

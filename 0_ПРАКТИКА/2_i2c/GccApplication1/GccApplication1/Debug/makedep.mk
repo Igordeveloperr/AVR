@@ -6,6 +6,8 @@ i2c.c
 
 lcd.c
 
+lcd_pcf.c
+
 main.c
 
 pcf.c

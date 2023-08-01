@@ -18,7 +18,8 @@ main.d main.o: .././main.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././i2c.h .././pcf.h .././lcd.h
+ .././i2c.h .././pcf.h .././lcd.h .././lcd_pcf.h \
+ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h
 
 .././main.h:
 
@@ -65,3 +66,7 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.
 .././pcf.h:
 
 .././lcd.h:
+
+.././lcd_pcf.h:
+
+c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:

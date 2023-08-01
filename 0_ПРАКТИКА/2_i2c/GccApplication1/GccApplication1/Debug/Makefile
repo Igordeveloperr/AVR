@@ -39,6 +39,7 @@ SUBDIRS :=
 C_SRCS +=  \
 ../i2c.c \
 ../lcd.c \
+../lcd_pcf.c \
 ../main.c \
 ../pcf.c
 
@@ -52,24 +53,28 @@ ASM_SRCS +=
 OBJS +=  \
 i2c.o \
 lcd.o \
+lcd_pcf.o \
 main.o \
 pcf.o
 
 OBJS_AS_ARGS +=  \
 i2c.o \
 lcd.o \
+lcd_pcf.o \
 main.o \
 pcf.o
 
 C_DEPS +=  \
 i2c.d \
 lcd.d \
+lcd_pcf.d \
 main.d \
 pcf.d
 
 C_DEPS_AS_ARGS +=  \
 i2c.d \
 lcd.d \
+lcd_pcf.d \
 main.d \
 pcf.d
 
@@ -95,6 +100,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./lcd.o: .././lcd.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./lcd_pcf.o: .././lcd_pcf.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
