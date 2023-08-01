@@ -1,11 +1,12 @@
 #include "main.h"
 
-int hour = 15;
-int minutes = 6;
+int hour = 17;
+int minutes = 34;
 double seconds = 0;
 char str[80];
-
 double interval = 0;
+short avtive_menu = 0;
+
 
 
 void control_time()
@@ -30,25 +31,27 @@ void control_time()
 
 void format_time()
 {
+	char *out = "";
 	if (minutes < 10 && hour < 10)
 	{
-		sprintf(str, "0%d:0%d", hour, minutes);
+		out = "Kot el v: 0%d:0%d";
 	}
 	
 	if (minutes < 10 && hour >= 10)
 	{
-		sprintf(str, "%d:0%d", hour, minutes);
+		out = "Kot el v: %d:0%d";
 	}
 	
 	if (minutes >= 10 && hour < 10)
 	{
-		sprintf(str, "0%d:%d", hour, minutes);
+		out = "Kot el v: 0%d:%d";
 	}
 	
 	if (minutes >= 10 && hour >= 10)
 	{
-		sprintf(str, "%d:%d", hour, minutes);
+		out = "Kot el v: %d:%d";
 	}
+	sprintf(str, out, hour, minutes);
 }
 
 ISR(TIMER1_OVF_vect)
@@ -71,6 +74,15 @@ ISR(INT0_vect)
 	lcd_puts(str);
 }
 
+ISR(INT1_vect)
+{
+	if (!(PIND & (1 << MENU_BTN)))
+	{
+		avtive_menu = 1;
+		lcd_clrscr();
+	}
+}
+
 int main(void)
 {
 	TIMSK |= (1 << TOIE1);
@@ -78,9 +90,10 @@ int main(void)
 	TCCR1B |= (1 << CS12);
 	
 	//внешние прерывания
-	GICR |= (1 << INT0);
+	MCUCR = 0;
+	GICR |= (1 << INT0) | (1 << INT1);
 	DDRD = 0;
-	PORTD |= (1 << PD2);
+	PORTD |= (1 << PD2) | (1 << PD3) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
 	
 	// сонный режим
 	MCUCR |= (1 << SE);
@@ -89,7 +102,7 @@ int main(void)
 	DDRB |= (1 << PB0) | (1 << PB1);
 	PORTB |= (1 << PB0) | (1 << PB1);
 	
-	lcd_init(LCD_DISP_ON_BLINK);	
+	lcd_init(LCD_DISP_ON);	
 	lcd_home();
 	lcd_clrscr();
 	format_time();

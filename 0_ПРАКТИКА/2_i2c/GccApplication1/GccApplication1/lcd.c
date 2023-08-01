@@ -13,11 +13,9 @@
 //		which can be found at http://www.gnu.org/licenses/gpl.txt
 //
 //*****************************************************************************
-#include "lcd.h"
 #include <inttypes.h>
-#include <avr/io.h>
 #include <avr/pgmspace.h>
-#include <util/delay.h>
+#include "main.h"
 
 void LCDsendChar(uint8_t ch)		//Sends Char to LCD
 {

@@ -8,10 +8,7 @@ Please refer to LICENSE file for licensing information.
 */
 
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-
+#include "main.h"
 #include "pcf.h"
 
 //path to i2c fleury lib

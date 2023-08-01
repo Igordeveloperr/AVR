@@ -8,13 +8,9 @@ Please refer to LICENSE file for licensing information.
 */
 
 #include <inttypes.h>
-#include <avr/io.h>
 #include <avr/pgmspace.h>
+#include "main.h"
 
-#include "pcf.h"
-
-#include "lcd_pcf.h"
-#define F_CPU 16000000UL
 #define lcd_e_delay()   __asm__ __volatile__( "rjmp 1f\n 1:" );
 #define lcd_e_toggle()  toggle_e()
 
