@@ -71,6 +71,7 @@ ISR(INT0_vect)
 	PORTB |= (1 << PB0);
 	interval = 0;
 	control_time();
+	lcd_led(1);
 	lcd_clrscr();
 	format_time();
 	lcd_puts(data);
@@ -78,6 +79,7 @@ ISR(INT0_vect)
 
 ISR(INT1_vect)
 {
+	lcd_led(1);
 	lcd_clrscr();
 	lcd_home();
 	event_listener();

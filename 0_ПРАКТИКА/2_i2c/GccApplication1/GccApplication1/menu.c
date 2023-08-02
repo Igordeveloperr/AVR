@@ -30,11 +30,11 @@ void event_listener()
 	{
 		cursor_down();
 	}
-	print_menu();
 	if ((!(PIND & (1 << MENU_BTN))) && active_menu)
 	{
 		select_menu_item();
 	}
+	print_menu();
 }
 
 void cursor_up()
@@ -80,7 +80,10 @@ void print_menu()
 	{
 		line2 = "Exit";
 	}
-	lcd_puts(line1);
-	lcd_gotoxy(0,1);
-	lcd_puts(line2);
+	if (active_menu)
+	{
+		lcd_puts(line1);
+		lcd_gotoxy(0,1);
+		lcd_puts(line2);
+	}
 }
