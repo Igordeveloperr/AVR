@@ -16,5 +16,8 @@
 #include "pcf.h"
 #include "lcd.h"
 #include "lcd_pcf.h"
+#include "menu.h"
+
+char get_lcd_data();
 
 #endif

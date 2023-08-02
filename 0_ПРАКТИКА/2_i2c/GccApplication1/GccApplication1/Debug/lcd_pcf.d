@@ -20,7 +20,7 @@ lcd_pcf.d lcd_pcf.o: .././lcd_pcf.c \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././i2c.h .././pcf.h .././lcd.h .././lcd_pcf.h
+ .././i2c.h .././pcf.h .././lcd.h .././lcd_pcf.h .././menu.h
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h:
 
@@ -71,3 +71,5 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.
 .././lcd.h:
 
 .././lcd_pcf.h:
+
+.././menu.h:

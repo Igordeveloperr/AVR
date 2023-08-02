@@ -10,5 +10,7 @@ lcd_pcf.c
 
 main.c
 
+menu.c
+
 pcf.c
 
