@@ -13,6 +13,8 @@ void select_menu_item()
 		active_menu = 0;
 		menuItem = 0;
 		lcd_clrscr();
+		lcd_home();
+		lcd_puts(get_lcd_data());
 	}
 }
 

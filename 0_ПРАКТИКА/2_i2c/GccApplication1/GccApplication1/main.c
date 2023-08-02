@@ -71,7 +71,7 @@ ISR(INT0_vect)
 	PORTB |= (1 << PB0);
 	interval = 0;
 	control_time();
-	lcd_led(1);
+	lcd_led(0);
 	lcd_clrscr();
 	format_time();
 	lcd_puts(data);
@@ -79,7 +79,9 @@ ISR(INT0_vect)
 
 ISR(INT1_vect)
 {
-	lcd_led(1);
+	PORTB |= (1 << PB0);
+	interval = 0;
+	lcd_led(0);
 	lcd_clrscr();
 	lcd_home();
 	event_listener();
@@ -98,9 +100,6 @@ int main(void)
 	DDRD = 0;
 	PORTD |= (1 << PD2) | (1 << PD3) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
 	
-	// сонный режим
-	MCUCR |= (1 << SE);
-	
 	// пин для дисплея
 	DDRB |= (1 << PB0) | (1 << PB1);
 	PORTB |= (1 << PB0) | (1 << PB1);
@@ -115,8 +114,8 @@ int main(void)
 	{
 		if (interval >= 10)
 		{
+			lcd_led(1);
 			PORTB &= ~(1 << PB0);
-			asm("sleep"); // погружение мк в сон
 		}
 	}
 }
