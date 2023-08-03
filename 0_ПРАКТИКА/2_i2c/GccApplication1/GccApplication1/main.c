@@ -1,14 +1,18 @@
 #include "main.h"
 
-int hour = 15;
-int minutes = 55;
+int hour = 11;
+int minutes = 9;
 double seconds = 0;
 double interval = 0;
-char data[80];
 
-char get_lcd_data()
+int get_hour()
 {
-	return data;
+	return hour;
+}
+
+int get_min()
+{
+	return minutes;
 }
 
 void control_time()
@@ -31,29 +35,12 @@ void control_time()
 	}
 }
 
-void format_time()
+void activate_sleep_mode()
 {
-	char *output = "";
-	if (minutes < 10 && hour < 10)
-	{
-		output = "Kot el v: 0%d:0%d";
+	if (interval >= 10)
+	{	
+		TM1637_turnOff();
 	}
-	
-	if (minutes < 10 && hour >= 10)
-	{
-		output = "Kot el v: %d:0%d";
-	}
-	
-	if (minutes >= 10 && hour < 10)
-	{
-		output = "Kot el v: 0%d:%d";
-	}
-	
-	if (minutes >= 10 && hour >= 10)
-	{
-		output = "Kot el v: %d:%d";
-	}
-	sprintf(data, output, hour, minutes);
 }
 
 ISR(TIMER1_OVF_vect)
@@ -63,28 +50,24 @@ ISR(TIMER1_OVF_vect)
 	PORTB ^= (1 << PB1);
 	seconds += 2.1;
 	interval += 2.1;
+	activate_sleep_mode();
 	control_time();
 }
 
 ISR(INT0_vect)
 {
-	PORTB |= (1 << PB0);
-	interval = 0;
 	control_time();
-	lcd_led(0);
-	lcd_clrscr();
-	format_time();
-	lcd_puts(data);
+	interval = 0;
+	wakeup_display();
+	print_time_on_display();
 }
 
 ISR(INT1_vect)
 {
-	PORTB |= (1 << PB0);
-	interval = 0;
-	lcd_led(0);
-	lcd_clrscr();
-	lcd_home();
+	/*_delay_us(1);
+	lcd_wakeup();
 	event_listener();
+	interval = 0;*/
 }
 
 
@@ -95,28 +78,20 @@ int main(void)
 	TCCR1B |= (1 << CS12);
 	
 	//внешние прерывания
-	MCUCR = (1 << ISC11);
+	MCUCR = (1 << ISC11) | (1 << ISC01);
 	GICR |= (1 << INT0) | (1 << INT1);
 	DDRD = 0;
 	PORTD |= (1 << PD2) | (1 << PD3) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
 	
-	// пин для дисплея
-	DDRB |= (1 << PB0) | (1 << PB1);
-	PORTB |= (1 << PB0) | (1 << PB1);
+	// пин для диода
+	DDRB |= (1 << PB1);
+	PORTB |= (1 << PB1);
 	
-	lcd_init(LCD_DISP_ON);	
-	lcd_home();
-	lcd_clrscr();
-	format_time();
-	lcd_puts(data);
-	
+	TM1637_init();
+	TM1637_turnOnAndSetBrightness(BRIGHTNES);
+	print_time_on_display();
 	while(1)
 	{
-		if (interval >= 10)
-		{
-			lcd_led(1);
-			PORTB &= ~(1 << PB0);
-		}
 	}
 }
 

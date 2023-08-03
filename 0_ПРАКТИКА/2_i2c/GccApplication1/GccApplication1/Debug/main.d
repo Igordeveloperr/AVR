@@ -18,9 +18,8 @@ main.d main.o: .././main.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././i2c.h .././pcf.h .././lcd.h .././lcd_pcf.h \
- c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
- .././menu.h
+ .././TM1637.h .././pin_config.h .././segments_patterns.h \
+ .././control_tm1637.h
 
 .././main.h:
 
@@ -62,14 +61,10 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
-.././i2c.h:
+.././TM1637.h:
 
-.././pcf.h:
+.././pin_config.h:
 
-.././lcd.h:
+.././segments_patterns.h:
 
-.././lcd_pcf.h:
-
-c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
-
-.././menu.h:
+.././control_tm1637.h:

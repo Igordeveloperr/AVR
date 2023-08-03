@@ -1,0 +1,563 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000037a  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000012  00800060  0000037a  0000040e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000009  00800072  00800072  00000420  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000420  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000450  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000090  00000000  00000000  0000048c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000f32  00000000  00000000  0000051c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000006d9  00000000  00000000  0000144e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000007f9  00000000  00000000  00001b27  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000188  00000000  00000000  00002320  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000004e9  00000000  00000000  000024a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000898  00000000  00000000  00002991  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000098  00000000  00000000  00003229  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ea e7       	ldi	r30, 0x7A	; 122
+  3a:	f3 e0       	ldi	r31, 0x03	; 3
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a2 37       	cpi	r26, 0x72	; 114
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	a2 e7       	ldi	r26, 0x72	; 114
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	ab 37       	cpi	r26, 0x7B	; 123
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	4b d1       	rcall	.+662    	; 0x2f0 <main>
+  5a:	8d c1       	rjmp	.+794    	; 0x376 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <TM1637_writeByte>:
+	if((temp - Decimal)>0.5)temp--;
+  }
+  DecPoint = i;
+  BlankingFlag = 0;
+  TM1637_display_int_decimal(temp);
+}
+  5e:	40 e0       	ldi	r20, 0x00	; 0
+  60:	3b c0       	rjmp	.+118    	; 0xd8 <TM1637_writeByte+0x7a>
+  62:	95 b3       	in	r25, 0x15	; 21
+  64:	21 e0       	ldi	r18, 0x01	; 1
+  66:	30 e0       	ldi	r19, 0x00	; 0
+  68:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+  6c:	02 c0       	rjmp	.+4      	; 0x72 <TM1637_writeByte+0x14>
+  6e:	22 0f       	add	r18, r18
+  70:	33 1f       	adc	r19, r19
+  72:	0a 94       	dec	r0
+  74:	e2 f7       	brpl	.-8      	; 0x6e <TM1637_writeByte+0x10>
+  76:	20 95       	com	r18
+  78:	29 23       	and	r18, r25
+  7a:	25 bb       	out	0x15, r18	; 21
+  7c:	80 ff       	sbrs	r24, 0
+  7e:	0d c0       	rjmp	.+26     	; 0x9a <TM1637_writeByte+0x3c>
+  80:	95 b3       	in	r25, 0x15	; 21
+  82:	21 e0       	ldi	r18, 0x01	; 1
+  84:	30 e0       	ldi	r19, 0x00	; 0
+  86:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+  8a:	02 c0       	rjmp	.+4      	; 0x90 <TM1637_writeByte+0x32>
+  8c:	22 0f       	add	r18, r18
+  8e:	33 1f       	adc	r19, r19
+  90:	0a 94       	dec	r0
+  92:	e2 f7       	brpl	.-8      	; 0x8c <TM1637_writeByte+0x2e>
+  94:	29 2b       	or	r18, r25
+  96:	25 bb       	out	0x15, r18	; 21
+  98:	0d c0       	rjmp	.+26     	; 0xb4 <TM1637_writeByte+0x56>
+  9a:	95 b3       	in	r25, 0x15	; 21
+  9c:	21 e0       	ldi	r18, 0x01	; 1
+  9e:	30 e0       	ldi	r19, 0x00	; 0
+  a0:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+  a4:	02 c0       	rjmp	.+4      	; 0xaa <TM1637_writeByte+0x4c>
+  a6:	22 0f       	add	r18, r18
+  a8:	33 1f       	adc	r19, r19
+  aa:	0a 94       	dec	r0
+  ac:	e2 f7       	brpl	.-8      	; 0xa6 <TM1637_writeByte+0x48>
+  ae:	20 95       	com	r18
+  b0:	29 23       	and	r18, r25
+  b2:	25 bb       	out	0x15, r18	; 21
+  b4:	00 c0       	rjmp	.+0      	; 0xb6 <TM1637_writeByte+0x58>
+  b6:	00 00       	nop
+  b8:	85 95       	asr	r24
+  ba:	95 b3       	in	r25, 0x15	; 21
+  bc:	21 e0       	ldi	r18, 0x01	; 1
+  be:	30 e0       	ldi	r19, 0x00	; 0
+  c0:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+  c4:	02 c0       	rjmp	.+4      	; 0xca <TM1637_writeByte+0x6c>
+  c6:	22 0f       	add	r18, r18
+  c8:	33 1f       	adc	r19, r19
+  ca:	0a 94       	dec	r0
+  cc:	e2 f7       	brpl	.-8      	; 0xc6 <TM1637_writeByte+0x68>
+  ce:	29 2b       	or	r18, r25
+  d0:	25 bb       	out	0x15, r18	; 21
+  d2:	00 c0       	rjmp	.+0      	; 0xd4 <TM1637_writeByte+0x76>
+  d4:	00 00       	nop
+  d6:	4f 5f       	subi	r20, 0xFF	; 255
+  d8:	48 30       	cpi	r20, 0x08	; 8
+  da:	18 f2       	brcs	.-122    	; 0x62 <TM1637_writeByte+0x4>
+  dc:	35 b3       	in	r19, 0x15	; 21
+  de:	81 e0       	ldi	r24, 0x01	; 1
+  e0:	90 e0       	ldi	r25, 0x00	; 0
+  e2:	ac 01       	movw	r20, r24
+  e4:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+  e8:	02 c0       	rjmp	.+4      	; 0xee <TM1637_writeByte+0x90>
+  ea:	44 0f       	add	r20, r20
+  ec:	55 1f       	adc	r21, r21
+  ee:	0a 94       	dec	r0
+  f0:	e2 f7       	brpl	.-8      	; 0xea <TM1637_writeByte+0x8c>
+  f2:	24 2f       	mov	r18, r20
+  f4:	20 95       	com	r18
+  f6:	23 23       	and	r18, r19
+  f8:	25 bb       	out	0x15, r18	; 21
+  fa:	00 c0       	rjmp	.+0      	; 0xfc <TM1637_writeByte+0x9e>
+  fc:	00 c0       	rjmp	.+0      	; 0xfe <TM1637_writeByte+0xa0>
+  fe:	00 00       	nop
+ 100:	24 b3       	in	r18, 0x14	; 20
+ 102:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+ 106:	02 c0       	rjmp	.+4      	; 0x10c <TM1637_writeByte+0xae>
+ 108:	88 0f       	add	r24, r24
+ 10a:	99 1f       	adc	r25, r25
+ 10c:	0a 94       	dec	r0
+ 10e:	e2 f7       	brpl	.-8      	; 0x108 <TM1637_writeByte+0xaa>
+ 110:	80 95       	com	r24
+ 112:	82 23       	and	r24, r18
+ 114:	84 bb       	out	0x14, r24	; 20
+ 116:	83 b3       	in	r24, 0x13	; 19
+ 118:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <Datapin>
+ 11c:	42 2f       	mov	r20, r18
+ 11e:	90 e0       	ldi	r25, 0x00	; 0
+ 120:	02 c0       	rjmp	.+4      	; 0x126 <TM1637_writeByte+0xc8>
+ 122:	95 95       	asr	r25
+ 124:	87 95       	ror	r24
+ 126:	2a 95       	dec	r18
+ 128:	e2 f7       	brpl	.-8      	; 0x122 <TM1637_writeByte+0xc4>
+ 12a:	80 fd       	sbrc	r24, 0
+ 12c:	f4 cf       	rjmp	.-24     	; 0x116 <TM1637_writeByte+0xb8>
+ 12e:	54 b3       	in	r21, 0x14	; 20
+ 130:	81 e0       	ldi	r24, 0x01	; 1
+ 132:	90 e0       	ldi	r25, 0x00	; 0
+ 134:	9c 01       	movw	r18, r24
+ 136:	02 c0       	rjmp	.+4      	; 0x13c <TM1637_writeByte+0xde>
+ 138:	22 0f       	add	r18, r18
+ 13a:	33 1f       	adc	r19, r19
+ 13c:	4a 95       	dec	r20
+ 13e:	e2 f7       	brpl	.-8      	; 0x138 <TM1637_writeByte+0xda>
+ 140:	25 2b       	or	r18, r21
+ 142:	24 bb       	out	0x14, r18	; 20
+ 144:	45 b3       	in	r20, 0x15	; 21
+ 146:	9c 01       	movw	r18, r24
+ 148:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+ 14c:	02 c0       	rjmp	.+4      	; 0x152 <TM1637_writeByte+0xf4>
+ 14e:	22 0f       	add	r18, r18
+ 150:	33 1f       	adc	r19, r19
+ 152:	0a 94       	dec	r0
+ 154:	e2 f7       	brpl	.-8      	; 0x14e <TM1637_writeByte+0xf0>
+ 156:	24 2b       	or	r18, r20
+ 158:	25 bb       	out	0x15, r18	; 21
+ 15a:	00 c0       	rjmp	.+0      	; 0x15c <TM1637_writeByte+0xfe>
+ 15c:	25 b3       	in	r18, 0x15	; 21
+ 15e:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+ 162:	02 c0       	rjmp	.+4      	; 0x168 <TM1637_writeByte+0x10a>
+ 164:	88 0f       	add	r24, r24
+ 166:	99 1f       	adc	r25, r25
+ 168:	0a 94       	dec	r0
+ 16a:	e2 f7       	brpl	.-8      	; 0x164 <TM1637_writeByte+0x106>
+ 16c:	80 95       	com	r24
+ 16e:	82 23       	and	r24, r18
+ 170:	85 bb       	out	0x15, r24	; 21
+ 172:	08 95       	ret
+
+00000174 <TM1637_start>:
+ 174:	45 b3       	in	r20, 0x15	; 21
+ 176:	81 e0       	ldi	r24, 0x01	; 1
+ 178:	90 e0       	ldi	r25, 0x00	; 0
+ 17a:	9c 01       	movw	r18, r24
+ 17c:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+ 180:	02 c0       	rjmp	.+4      	; 0x186 <TM1637_start+0x12>
+ 182:	22 0f       	add	r18, r18
+ 184:	33 1f       	adc	r19, r19
+ 186:	0a 94       	dec	r0
+ 188:	e2 f7       	brpl	.-8      	; 0x182 <TM1637_start+0xe>
+ 18a:	24 2b       	or	r18, r20
+ 18c:	25 bb       	out	0x15, r18	; 21
+ 18e:	45 b3       	in	r20, 0x15	; 21
+ 190:	9c 01       	movw	r18, r24
+ 192:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+ 196:	02 c0       	rjmp	.+4      	; 0x19c <TM1637_start+0x28>
+ 198:	22 0f       	add	r18, r18
+ 19a:	33 1f       	adc	r19, r19
+ 19c:	0a 94       	dec	r0
+ 19e:	e2 f7       	brpl	.-8      	; 0x198 <TM1637_start+0x24>
+ 1a0:	24 2b       	or	r18, r20
+ 1a2:	25 bb       	out	0x15, r18	; 21
+ 1a4:	00 c0       	rjmp	.+0      	; 0x1a6 <TM1637_start+0x32>
+ 1a6:	25 b3       	in	r18, 0x15	; 21
+ 1a8:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+ 1ac:	02 c0       	rjmp	.+4      	; 0x1b2 <TM1637_start+0x3e>
+ 1ae:	88 0f       	add	r24, r24
+ 1b0:	99 1f       	adc	r25, r25
+ 1b2:	0a 94       	dec	r0
+ 1b4:	e2 f7       	brpl	.-8      	; 0x1ae <TM1637_start+0x3a>
+ 1b6:	80 95       	com	r24
+ 1b8:	82 23       	and	r24, r18
+ 1ba:	85 bb       	out	0x15, r24	; 21
+ 1bc:	08 95       	ret
+
+000001be <TM1637_stop>:
+ 1be:	35 b3       	in	r19, 0x15	; 21
+ 1c0:	81 e0       	ldi	r24, 0x01	; 1
+ 1c2:	90 e0       	ldi	r25, 0x00	; 0
+ 1c4:	ac 01       	movw	r20, r24
+ 1c6:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+ 1ca:	02 c0       	rjmp	.+4      	; 0x1d0 <TM1637_stop+0x12>
+ 1cc:	44 0f       	add	r20, r20
+ 1ce:	55 1f       	adc	r21, r21
+ 1d0:	0a 94       	dec	r0
+ 1d2:	e2 f7       	brpl	.-8      	; 0x1cc <TM1637_stop+0xe>
+ 1d4:	24 2f       	mov	r18, r20
+ 1d6:	20 95       	com	r18
+ 1d8:	23 23       	and	r18, r19
+ 1da:	25 bb       	out	0x15, r18	; 21
+ 1dc:	00 c0       	rjmp	.+0      	; 0x1de <TM1637_stop+0x20>
+ 1de:	35 b3       	in	r19, 0x15	; 21
+ 1e0:	ac 01       	movw	r20, r24
+ 1e2:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+ 1e6:	02 c0       	rjmp	.+4      	; 0x1ec <TM1637_stop+0x2e>
+ 1e8:	44 0f       	add	r20, r20
+ 1ea:	55 1f       	adc	r21, r21
+ 1ec:	0a 94       	dec	r0
+ 1ee:	e2 f7       	brpl	.-8      	; 0x1e8 <TM1637_stop+0x2a>
+ 1f0:	24 2f       	mov	r18, r20
+ 1f2:	20 95       	com	r18
+ 1f4:	23 23       	and	r18, r19
+ 1f6:	25 bb       	out	0x15, r18	; 21
+ 1f8:	00 c0       	rjmp	.+0      	; 0x1fa <TM1637_stop+0x3c>
+ 1fa:	45 b3       	in	r20, 0x15	; 21
+ 1fc:	9c 01       	movw	r18, r24
+ 1fe:	00 90 73 00 	lds	r0, 0x0073	; 0x800073 <Clkpin>
+ 202:	02 c0       	rjmp	.+4      	; 0x208 <__EEPROM_REGION_LENGTH__+0x8>
+ 204:	22 0f       	add	r18, r18
+ 206:	33 1f       	adc	r19, r19
+ 208:	0a 94       	dec	r0
+ 20a:	e2 f7       	brpl	.-8      	; 0x204 <__EEPROM_REGION_LENGTH__+0x4>
+ 20c:	24 2b       	or	r18, r20
+ 20e:	25 bb       	out	0x15, r18	; 21
+ 210:	00 c0       	rjmp	.+0      	; 0x212 <__EEPROM_REGION_LENGTH__+0x12>
+ 212:	25 b3       	in	r18, 0x15	; 21
+ 214:	00 90 79 00 	lds	r0, 0x0079	; 0x800079 <Datapin>
+ 218:	02 c0       	rjmp	.+4      	; 0x21e <__EEPROM_REGION_LENGTH__+0x1e>
+ 21a:	88 0f       	add	r24, r24
+ 21c:	99 1f       	adc	r25, r25
+ 21e:	0a 94       	dec	r0
+ 220:	e2 f7       	brpl	.-8      	; 0x21a <__EEPROM_REGION_LENGTH__+0x1a>
+ 222:	82 2b       	or	r24, r18
+ 224:	85 bb       	out	0x15, r24	; 21
+ 226:	08 95       	ret
+
+00000228 <TM1637_coding>:
+ 228:	e8 2f       	mov	r30, r24
+ 22a:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <_PointFlag>
+ 22e:	81 30       	cpi	r24, 0x01	; 1
+ 230:	11 f4       	brne	.+4      	; 0x236 <TM1637_coding+0xe>
+ 232:	80 e8       	ldi	r24, 0x80	; 128
+ 234:	01 c0       	rjmp	.+2      	; 0x238 <TM1637_coding+0x10>
+ 236:	80 e0       	ldi	r24, 0x00	; 0
+ 238:	ef 37       	cpi	r30, 0x7F	; 127
+ 23a:	29 f0       	breq	.+10     	; 0x246 <TM1637_coding+0x1e>
+ 23c:	f0 e0       	ldi	r31, 0x00	; 0
+ 23e:	e0 5a       	subi	r30, 0xA0	; 160
+ 240:	ff 4f       	sbci	r31, 0xFF	; 255
+ 242:	90 81       	ld	r25, Z
+ 244:	89 0f       	add	r24, r25
+ 246:	08 95       	ret
+
+00000248 <TM1637_display>:
+ 248:	cf 93       	push	r28
+ 24a:	df 93       	push	r29
+ 24c:	d8 2f       	mov	r29, r24
+ 24e:	86 2f       	mov	r24, r22
+ 250:	eb df       	rcall	.-42     	; 0x228 <TM1637_coding>
+ 252:	c8 2f       	mov	r28, r24
+ 254:	8f df       	rcall	.-226    	; 0x174 <TM1637_start>
+ 256:	84 e4       	ldi	r24, 0x44	; 68
+ 258:	02 df       	rcall	.-508    	; 0x5e <TM1637_writeByte>
+ 25a:	b1 df       	rcall	.-158    	; 0x1be <TM1637_stop>
+ 25c:	8b df       	rcall	.-234    	; 0x174 <TM1637_start>
+ 25e:	8d 2f       	mov	r24, r29
+ 260:	80 6c       	ori	r24, 0xC0	; 192
+ 262:	fd de       	rcall	.-518    	; 0x5e <TM1637_writeByte>
+ 264:	8c 2f       	mov	r24, r28
+ 266:	fb de       	rcall	.-522    	; 0x5e <TM1637_writeByte>
+ 268:	aa df       	rcall	.-172    	; 0x1be <TM1637_stop>
+ 26a:	84 df       	rcall	.-248    	; 0x174 <TM1637_start>
+ 26c:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <Cmd_DispCtrl>
+ 270:	f6 de       	rcall	.-532    	; 0x5e <TM1637_writeByte>
+ 272:	a5 df       	rcall	.-182    	; 0x1be <TM1637_stop>
+ 274:	df 91       	pop	r29
+ 276:	cf 91       	pop	r28
+ 278:	08 95       	ret
+
+0000027a <TM1637_clearDisplay>:
+
+void TM1637_clearDisplay(void) // чистит дисплей
+{
+  TM1637_display(0x00,0x7f);
+ 27a:	6f e7       	ldi	r22, 0x7F	; 127
+ 27c:	80 e0       	ldi	r24, 0x00	; 0
+ 27e:	e4 df       	rcall	.-56     	; 0x248 <TM1637_display>
+  TM1637_display(0x01,0x7f);
+ 280:	6f e7       	ldi	r22, 0x7F	; 127
+ 282:	81 e0       	ldi	r24, 0x01	; 1
+ 284:	e1 df       	rcall	.-62     	; 0x248 <TM1637_display>
+  TM1637_display(0x02,0x7f);
+ 286:	6f e7       	ldi	r22, 0x7F	; 127
+ 288:	82 e0       	ldi	r24, 0x02	; 2
+ 28a:	de df       	rcall	.-68     	; 0x248 <TM1637_display>
+  TM1637_display(0x03,0x7f);  
+ 28c:	6f e7       	ldi	r22, 0x7F	; 127
+ 28e:	83 e0       	ldi	r24, 0x03	; 3
+ 290:	db df       	rcall	.-74     	; 0x248 <TM1637_display>
+ 292:	08 95       	ret
+
+00000294 <TM1637_init>:
+}
+void TM1637_init(uint8_t DispType,uint8_t Clk, uint8_t Data)// инициализирует переменные, назначает порт и пины для связи с дисплеем, а потом чистит дисплей
+{
+	Clkpin = Clk;
+ 294:	60 93 73 00 	sts	0x0073, r22	; 0x800073 <Clkpin>
+	Datapin = Data;
+ 298:	40 93 79 00 	sts	0x0079, r20	; 0x800079 <Datapin>
+	DDR |= (1<<Clkpin) | (1<<Datapin);
+ 29c:	94 b3       	in	r25, 0x14	; 20
+ 29e:	21 e0       	ldi	r18, 0x01	; 1
+ 2a0:	30 e0       	ldi	r19, 0x00	; 0
+ 2a2:	f9 01       	movw	r30, r18
+ 2a4:	02 c0       	rjmp	.+4      	; 0x2aa <TM1637_init+0x16>
+ 2a6:	ee 0f       	add	r30, r30
+ 2a8:	ff 1f       	adc	r31, r31
+ 2aa:	6a 95       	dec	r22
+ 2ac:	e2 f7       	brpl	.-8      	; 0x2a6 <TM1637_init+0x12>
+ 2ae:	02 c0       	rjmp	.+4      	; 0x2b4 <TM1637_init+0x20>
+ 2b0:	22 0f       	add	r18, r18
+ 2b2:	33 1f       	adc	r19, r19
+ 2b4:	4a 95       	dec	r20
+ 2b6:	e2 f7       	brpl	.-8      	; 0x2b0 <TM1637_init+0x1c>
+ 2b8:	2e 2b       	or	r18, r30
+ 2ba:	29 2b       	or	r18, r25
+ 2bc:	24 bb       	out	0x14, r18	; 20
+	_DispType = DispType;
+ 2be:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <_DispType>
+	BlankingFlag = 1;
+ 2c2:	81 e0       	ldi	r24, 0x01	; 1
+ 2c4:	80 93 77 00 	sts	0x0077, r24	; 0x800077 <BlankingFlag>
+	DecPoint = 3;
+ 2c8:	83 e0       	ldi	r24, 0x03	; 3
+ 2ca:	80 93 72 00 	sts	0x0072, r24	; 0x800072 <__data_end>
+	TM1637_clearDisplay();
+ 2ce:	d5 df       	rcall	.-86     	; 0x27a <TM1637_clearDisplay>
+ 2d0:	08 95       	ret
+
+000002d2 <TM1637_set>:
+}
+void TM1637_set(uint8_t brightness,uint8_t SetData,uint8_t SetAddr)// по большому счету только для установки яркости нужна
+{
+  Cmd_SetData = SetData;
+ 2d2:	60 93 75 00 	sts	0x0075, r22	; 0x800075 <Cmd_SetData>
+  Cmd_SetAddr = SetAddr;
+ 2d6:	40 93 74 00 	sts	0x0074, r20	; 0x800074 <Cmd_SetAddr>
+  Cmd_DispCtrl = 0x88 + brightness;
+ 2da:	88 57       	subi	r24, 0x78	; 120
+ 2dc:	80 93 78 00 	sts	0x0078, r24	; 0x800078 <Cmd_DispCtrl>
+ 2e0:	08 95       	ret
+
+000002e2 <TM1637_point>:
+}
+void TM1637_point(uint8_t PointFlag)//не знаю зачем скопировал, пусть будет
+{
+  if(_DispType == D4036B) _PointFlag = PointFlag;
+ 2e2:	90 91 76 00 	lds	r25, 0x0076	; 0x800076 <_DispType>
+ 2e6:	91 11       	cpse	r25, r1
+ 2e8:	02 c0       	rjmp	.+4      	; 0x2ee <TM1637_point+0xc>
+ 2ea:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <_PointFlag>
+ 2ee:	08 95       	ret
+
+000002f0 <main>:
+
+{
+	unsigned char one = 0, dec = 0, hun = 0, tau = 0;
+
+
+	TM1637_init(1,5,4);//устанавливаем пины SCL и SDA
+ 2f0:	44 e0       	ldi	r20, 0x04	; 4
+ 2f2:	65 e0       	ldi	r22, 0x05	; 5
+ 2f4:	81 e0       	ldi	r24, 0x01	; 1
+ 2f6:	ce df       	rcall	.-100    	; 0x294 <TM1637_init>
+	TM1637_set(2,0,0xC0);// ставим яркость 2
+ 2f8:	40 ec       	ldi	r20, 0xC0	; 192
+ 2fa:	60 e0       	ldi	r22, 0x00	; 0
+ 2fc:	82 e0       	ldi	r24, 0x02	; 2
+ 2fe:	e9 df       	rcall	.-46     	; 0x2d2 <TM1637_set>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 300:	2f e7       	ldi	r18, 0x7F	; 127
+ 302:	8a e1       	ldi	r24, 0x1A	; 26
+ 304:	96 e0       	ldi	r25, 0x06	; 6
+ 306:	21 50       	subi	r18, 0x01	; 1
+ 308:	80 40       	sbci	r24, 0x00	; 0
+ 30a:	90 40       	sbci	r25, 0x00	; 0
+ 30c:	e1 f7       	brne	.-8      	; 0x306 <main+0x16>
+ 30e:	00 c0       	rjmp	.+0      	; 0x310 <main+0x20>
+ 310:	00 00       	nop
+
+
+int main(void)// пример использования вышеописанных функций
+
+{
+	unsigned char one = 0, dec = 0, hun = 0, tau = 0;
+ 312:	00 e0       	ldi	r16, 0x00	; 0
+ 314:	d0 e0       	ldi	r29, 0x00	; 0
+ 316:	10 e0       	ldi	r17, 0x00	; 0
+ 318:	c0 e0       	ldi	r28, 0x00	; 0
+ 31a:	04 c0       	rjmp	.+8      	; 0x324 <main+0x34>
+
+		++one;
+		if(one > 9){++dec; one = 0;}
+		if(dec > 5){++hun; dec = 0;}
+		if(hun > 9){++tau; hun = 0;}
+		if((tau ==2) && (hun > 3)){one = 0, dec = 0, hun = 0, tau = 0;}
+ 31c:	00 e0       	ldi	r16, 0x00	; 0
+ 31e:	d0 e0       	ldi	r29, 0x00	; 0
+ 320:	10 e0       	ldi	r17, 0x00	; 0
+ 322:	c0 e0       	ldi	r28, 0x00	; 0
+	TM1637_set(2,0,0xC0);// ставим яркость 2
+	_delay_ms(2000);//не знаю зачем, но тупим немного
+	while(1)
+	{
+
+		TM1637_display(3,one);
+ 324:	6c 2f       	mov	r22, r28
+ 326:	83 e0       	ldi	r24, 0x03	; 3
+ 328:	8f df       	rcall	.-226    	; 0x248 <TM1637_display>
+		TM1637_display(2,dec);
+ 32a:	61 2f       	mov	r22, r17
+ 32c:	82 e0       	ldi	r24, 0x02	; 2
+ 32e:	8c df       	rcall	.-232    	; 0x248 <TM1637_display>
+		TM1637_display(1,hun);
+ 330:	6d 2f       	mov	r22, r29
+ 332:	81 e0       	ldi	r24, 0x01	; 1
+ 334:	89 df       	rcall	.-238    	; 0x248 <TM1637_display>
+		TM1637_display(0,tau);
+ 336:	60 2f       	mov	r22, r16
+ 338:	80 e0       	ldi	r24, 0x00	; 0
+ 33a:	86 df       	rcall	.-244    	; 0x248 <TM1637_display>
+		TM1637_point(POINT_ON);
+ 33c:	81 e0       	ldi	r24, 0x01	; 1
+ 33e:	d1 df       	rcall	.-94     	; 0x2e2 <TM1637_point>
+ 340:	2f e3       	ldi	r18, 0x3F	; 63
+ 342:	8d e0       	ldi	r24, 0x0D	; 13
+ 344:	93 e0       	ldi	r25, 0x03	; 3
+ 346:	21 50       	subi	r18, 0x01	; 1
+ 348:	80 40       	sbci	r24, 0x00	; 0
+ 34a:	90 40       	sbci	r25, 0x00	; 0
+ 34c:	e1 f7       	brne	.-8      	; 0x346 <main+0x56>
+ 34e:	00 c0       	rjmp	.+0      	; 0x350 <main+0x60>
+ 350:	00 00       	nop
+		_delay_ms(1000);
+
+		++one;
+ 352:	cf 5f       	subi	r28, 0xFF	; 255
+		if(one > 9){++dec; one = 0;}
+ 354:	ca 30       	cpi	r28, 0x0A	; 10
+ 356:	10 f0       	brcs	.+4      	; 0x35c <main+0x6c>
+ 358:	1f 5f       	subi	r17, 0xFF	; 255
+ 35a:	c0 e0       	ldi	r28, 0x00	; 0
+		if(dec > 5){++hun; dec = 0;}
+ 35c:	16 30       	cpi	r17, 0x06	; 6
+ 35e:	10 f0       	brcs	.+4      	; 0x364 <main+0x74>
+ 360:	df 5f       	subi	r29, 0xFF	; 255
+ 362:	10 e0       	ldi	r17, 0x00	; 0
+		if(hun > 9){++tau; hun = 0;}
+ 364:	da 30       	cpi	r29, 0x0A	; 10
+ 366:	10 f0       	brcs	.+4      	; 0x36c <main+0x7c>
+ 368:	0f 5f       	subi	r16, 0xFF	; 255
+ 36a:	d0 e0       	ldi	r29, 0x00	; 0
+		if((tau ==2) && (hun > 3)){one = 0, dec = 0, hun = 0, tau = 0;}
+ 36c:	02 30       	cpi	r16, 0x02	; 2
+ 36e:	d1 f6       	brne	.-76     	; 0x324 <main+0x34>
+ 370:	d4 30       	cpi	r29, 0x04	; 4
+ 372:	a0 f6       	brcc	.-88     	; 0x31c <main+0x2c>
+ 374:	d7 cf       	rjmp	.-82     	; 0x324 <main+0x34>
+
+00000376 <_exit>:
+ 376:	f8 94       	cli
+
+00000378 <__stop_program>:
+ 378:	ff cf       	rjmp	.-2      	; 0x378 <__stop_program>

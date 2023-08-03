@@ -120,28 +120,10 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="control_tm1637.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="control_tm1637.h">
+    <Compile Include="dysplay_TM1637.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="main.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="pin_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="segments_patterns.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TM1637.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TM1637.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
