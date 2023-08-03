@@ -287,14 +287,14 @@ int get_min()
 
 void control_time()
 {
-	if (seconds >= 58.8)
+	if (seconds >= 60)
  11a:	60 91 72 00 	lds	r22, 0x0072	; 0x800072 <seconds>
  11e:	70 91 73 00 	lds	r23, 0x0073	; 0x800073 <seconds+0x1>
  122:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <seconds+0x2>
  126:	90 91 75 00 	lds	r25, 0x0075	; 0x800075 <seconds+0x3>
- 12a:	23 e3       	ldi	r18, 0x33	; 51
- 12c:	33 e3       	ldi	r19, 0x33	; 51
- 12e:	4b e6       	ldi	r20, 0x6B	; 107
+ 12a:	20 e0       	ldi	r18, 0x00	; 0
+ 12c:	30 e0       	ldi	r19, 0x00	; 0
+ 12e:	40 e7       	ldi	r20, 0x70	; 112
  130:	52 e4       	ldi	r21, 0x42	; 66
  132:	a0 d3       	rcall	.+1856   	; 0x874 <__gesf2>
  134:	88 23       	and	r24, r24
@@ -416,10 +416,10 @@ ISR(TIMER1_OVF_vect)
  214:	82 e0       	ldi	r24, 0x02	; 2
  216:	89 27       	eor	r24, r25
  218:	88 bb       	out	0x18, r24	; 24
-	seconds += 2.1;
- 21a:	26 e6       	ldi	r18, 0x66	; 102
- 21c:	36 e6       	ldi	r19, 0x66	; 102
- 21e:	46 e0       	ldi	r20, 0x06	; 6
+	seconds += 2.5;
+ 21a:	20 e0       	ldi	r18, 0x00	; 0
+ 21c:	30 e0       	ldi	r19, 0x00	; 0
+ 21e:	40 e2       	ldi	r20, 0x20	; 32
  220:	50 e4       	ldi	r21, 0x40	; 64
  222:	60 91 72 00 	lds	r22, 0x0072	; 0x800072 <seconds>
  226:	70 91 73 00 	lds	r23, 0x0073	; 0x800073 <seconds+0x1>
@@ -430,10 +430,10 @@ ISR(TIMER1_OVF_vect)
  238:	70 93 73 00 	sts	0x0073, r23	; 0x800073 <seconds+0x1>
  23c:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <seconds+0x2>
  240:	90 93 75 00 	sts	0x0075, r25	; 0x800075 <seconds+0x3>
-	interval += 2.1;
- 244:	26 e6       	ldi	r18, 0x66	; 102
- 246:	36 e6       	ldi	r19, 0x66	; 102
- 248:	46 e0       	ldi	r20, 0x06	; 6
+	interval += 2.5;
+ 244:	20 e0       	ldi	r18, 0x00	; 0
+ 246:	30 e0       	ldi	r19, 0x00	; 0
+ 248:	40 e2       	ldi	r20, 0x20	; 32
  24a:	50 e4       	ldi	r21, 0x40	; 64
  24c:	60 91 6e 00 	lds	r22, 0x006E	; 0x80006e <__data_end>
  250:	70 91 6f 00 	lds	r23, 0x006F	; 0x80006f <__data_end+0x1>

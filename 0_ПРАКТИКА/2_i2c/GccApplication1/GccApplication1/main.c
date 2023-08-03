@@ -1,7 +1,7 @@
 #include "main.h"
 
-int hour = 11;
-int minutes = 9;
+int hour = 18;
+int minutes = 50;
 double seconds = 0;
 double interval = 0;
 
@@ -17,7 +17,7 @@ int get_min()
 
 void control_time()
 {
-	if (seconds >= 58.8)
+	if (seconds >= 60)
 	{
 		minutes++;
 		seconds = 0;
@@ -50,8 +50,8 @@ ISR(TIMER1_OVF_vect)
 	TCCR1B &= ~(1 << CS12);
 	TCCR1B |= (1 << CS12);
 	PORTB ^= (1 << PB1);
-	seconds += 2.1;
-	interval += 2.1;
+	seconds += 2.5;
+	interval += 2.5;
 	control_time();
 }
 
