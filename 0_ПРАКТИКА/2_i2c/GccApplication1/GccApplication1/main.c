@@ -40,6 +40,8 @@ void activate_sleep_mode()
 	if (interval >= 10)
 	{	
 		TM1637_turnOff();
+		sleep_enable();
+		sleep_cpu();
 	}
 }
 
@@ -50,12 +52,12 @@ ISR(TIMER1_OVF_vect)
 	PORTB ^= (1 << PB1);
 	seconds += 2.1;
 	interval += 2.1;
-	activate_sleep_mode();
 	control_time();
 }
 
 ISR(INT0_vect)
 {
+	sleep_disable();
 	control_time();
 	interval = 0;
 	wakeup_display();
@@ -73,13 +75,14 @@ ISR(INT1_vect)
 
 int main(void)
 {
+	ACSR |= (1 << ACD); // ÎÒÊËÞ×ÅÍÈÅ ÀÖÏ
+	
 	TIMSK |= (1 << TOIE1);
-	sei();
 	TCCR1B |= (1 << CS12);
 	
 	//âíåøíèå ïðåðûâàíèÿ
-	MCUCR = (1 << ISC11) | (1 << ISC01);
 	GICR |= (1 << INT0) | (1 << INT1);
+	MCUCR = (1 << ISC11) | (1 << ISC01);
 	DDRD = 0;
 	PORTD |= (1 << PD2) | (1 << PD3) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
 	
@@ -87,11 +90,16 @@ int main(void)
 	DDRB |= (1 << PB1);
 	PORTB |= (1 << PB1);
 	
+	sei();
+	
 	TM1637_init();
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
 	print_time_on_display();
+	set_sleep_mode(SLEEP_MODE_IDLE);
+	
 	while(1)
 	{
+		activate_sleep_mode();
 	}
 }
 

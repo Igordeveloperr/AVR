@@ -303,7 +303,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x8fc
+.text           0x00000000      0x916
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -397,81 +397,81 @@ END GROUP
  .text.control_time
                 0x0000011a       0xa0 main.o
                 0x0000011a                control_time
- .text.sleep_mode
-                0x000001ba       0x22 main.o
-                0x000001ba                sleep_mode
+ .text.activate_sleep_mode
+                0x000001ba       0x2a main.o
+                0x000001ba                activate_sleep_mode
  .text.__vector_8
-                0x000001dc       0xb0 main.o
-                0x000001dc                __vector_8
+                0x000001e4       0xae main.o
+                0x000001e4                __vector_8
  .text.__vector_1
-                0x0000028c       0x5a main.o
-                0x0000028c                __vector_1
+                0x00000292       0x60 main.o
+                0x00000292                __vector_1
  .text.__vector_2
-                0x000002e6       0x14 main.o
-                0x000002e6                __vector_2
- .text.main     0x000002fa       0x36 main.o
-                0x000002fa                main
+                0x000002f2       0x14 main.o
+                0x000002f2                __vector_2
+ .text.main     0x00000306       0x44 main.o
+                0x00000306                main
  .text.TM1637_init
-                0x00000330       0xd2 TM1637.o
-                0x00000330                TM1637_init
+                0x0000034a       0xd2 TM1637.o
+                0x0000034a                TM1637_init
  .text.TM1637_turnOff
-                0x00000402       0xd0 TM1637.o
-                0x00000402                TM1637_turnOff
+                0x0000041c       0xd0 TM1637.o
+                0x0000041c                TM1637_turnOff
  .text.TM1637_turnOnAndSetBrightness
-                0x000004d2       0xce TM1637.o
-                0x000004d2                TM1637_turnOnAndSetBrightness
+                0x000004ec       0xce TM1637.o
+                0x000004ec                TM1637_turnOnAndSetBrightness
  .text.TM1637_setSegments
-                0x000005a0      0x14e TM1637.o
-                0x000005a0                TM1637_setSegments
+                0x000005ba      0x14e TM1637.o
+                0x000005ba                TM1637_setSegments
  .text.avr-libc.fplib
-                0x000006ee        0xa c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(addsf3.o)
-                0x000006ee                __subsf3
-                0x000006f0                __addsf3
+                0x00000708        0xa c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(addsf3.o)
+                0x00000708                __subsf3
+                0x0000070a                __addsf3
  .text.avr-libc.fplib
-                0x000006f8       0xc0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(addsf3x.o)
-                0x00000712                __addsf3x
+                0x00000712       0xc0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(addsf3x.o)
+                0x0000072c                __addsf3x
  .text.avr-libc.fplib
-                0x000007b8        0xc c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_inf.o)
-                0x000007b8                __fp_inf
+                0x000007d2        0xc c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_inf.o)
+                0x000007d2                __fp_inf
  .text.avr-libc.fplib
-                0x000007c4        0x6 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_nan.o)
-                0x000007c4                __fp_nan
+                0x000007de        0x6 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_nan.o)
+                0x000007de                __fp_nan
  .text.avr-libc.fplib
-                0x000007ca        0xe c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_pscA.o)
-                0x000007ca                __fp_pscA
+                0x000007e4        0xe c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_pscA.o)
+                0x000007e4                __fp_pscA
  .text.avr-libc.fplib
-                0x000007d8        0xe c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_pscB.o)
-                0x000007d8                __fp_pscB
+                0x000007f2        0xe c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_pscB.o)
+                0x000007f2                __fp_pscB
  .text.avr-libc.fplib
-                0x000007e6       0x22 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_round.o)
-                0x000007e6                __fp_round
+                0x00000800       0x22 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_round.o)
+                0x00000800                __fp_round
  .text.avr-libc.fplib
-                0x00000808       0x44 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_split3.o)
-                0x00000808                __fp_split3
-                0x00000818                __fp_splitA
+                0x00000822       0x44 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_split3.o)
+                0x00000822                __fp_split3
+                0x00000832                __fp_splitA
  .text.avr-libc.fplib
-                0x0000084c        0xe c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_zero.o)
-                0x0000084c                __fp_zero
-                0x0000084e                __fp_szero
+                0x00000866        0xe c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_zero.o)
+                0x00000866                __fp_zero
+                0x00000868                __fp_szero
  .text.avr-libc.fplib
-                0x0000085a        0x8 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(gesf2.o)
-                0x0000085a                __gesf2
-                0x0000085a                __gtsf2
+                0x00000874        0x8 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(gesf2.o)
+                0x00000874                __gesf2
+                0x00000874                __gtsf2
  .text.avr-libc.fplib
-                0x00000862       0x48 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_cmp.o)
-                0x00000862                __fp_cmp
+                0x0000087c       0x48 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a(fp_cmp.o)
+                0x0000087c                __fp_cmp
  .text.libgcc.div
-                0x000008aa       0x28 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
-                0x000008aa                __udivmodhi4
+                0x000008c4       0x28 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
+                0x000008c4                __udivmodhi4
  .text.libgcc.div
-                0x000008d2       0x26 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_divmodhi4.o)
-                0x000008d2                _div
-                0x000008d2                __divmodhi4
-                0x000008f8                . = ALIGN (0x2)
+                0x000008ec       0x26 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_divmodhi4.o)
+                0x000008ec                _div
+                0x000008ec                __divmodhi4
+                0x00000912                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000008f8        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x000008f8                _exit
-                0x000008f8                exit
+ .fini9         0x00000912        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000912                _exit
+                0x00000912                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -490,11 +490,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000008f8        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000912        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x000008fc                _etext = .
+                0x00000916                _etext = .
 
-.data           0x00800060        0xe load address 0x000008fc
+.data           0x00800060        0xe load address 0x00000916
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -525,8 +525,8 @@ END GROUP
  COMMON         0x00800076        0x1 control_tm1637.o
                 0x00800076                TM1637_brightness_reg
                 0x00800077                PROVIDE (__bss_end, .)
-                0x000008fc                __data_load_start = LOADADDR (.data)
-                0x0000090a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000916                __data_load_start = LOADADDR (.data)
+                0x00000924                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800077        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -625,12 +625,12 @@ END GROUP
  .debug_abbrev  0x00000562      0x131 main.o
  .debug_abbrev  0x00000693      0x24a TM1637.o
 
-.debug_line     0x00000000      0xffd
+.debug_line     0x00000000     0x101f
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x147 control_tm1637.o
- .debug_line    0x00000251      0x213 main.o
- .debug_line    0x00000464      0xb99 TM1637.o
+ .debug_line    0x00000251      0x235 main.o
+ .debug_line    0x00000486      0xb99 TM1637.o
 
 .debug_frame    0x00000000      0x288
  *(.debug_frame)
@@ -638,14 +638,14 @@ END GROUP
  .debug_frame   0x00000064      0x130 main.o
  .debug_frame   0x00000194       0xf4 TM1637.o
 
-.debug_str      0x00000000      0x569
+.debug_str      0x00000000      0x572
  *(.debug_str)
  .debug_str     0x00000000      0x17a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_str     0x0000017a      0x205 control_tm1637.o
                                 0x252 (size before relaxing)
- .debug_str     0x0000037f       0x85 main.o
-                                0x271 (size before relaxing)
- .debug_str     0x00000404      0x165 TM1637.o
+ .debug_str     0x0000037f       0x8e main.o
+                                0x27a (size before relaxing)
+ .debug_str     0x0000040d      0x165 TM1637.o
                                 0x35f (size before relaxing)
 
 .debug_loc      0x00000000     0x1d3f

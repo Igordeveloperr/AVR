@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
+#include <avr/sleep.h>
 
 #include "TM1637.h"
 #include "control_tm1637.h"
