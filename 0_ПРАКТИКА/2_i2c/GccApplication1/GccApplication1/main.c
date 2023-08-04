@@ -23,46 +23,10 @@ uint8_t get_sec()
 	return seconds;
 }
 
-void control_seconds()
-{
-	if (seconds >= SEC_OVF)
-	{
-		minutes++;
-		seconds = 0;
-	}
-}
-
-void control_min()
-{
-	if (minutes >= MIN_OVF)
-	{
-		hour++;
-		minutes = 0;
-	}
-}
-
-void control_hour()
-{
-	if (hour == HOUR_OVF && minutes >= MIN_OVF)
-	{
-		hour = 0;
-		minutes = 0;
-		seconds = 0;
-	}
-}
-
-/* конвертация секунд в минуты и тд */
-void control_time()
-{
-	control_seconds();
-	control_min();
-	control_hour();
-}
-
 /* реализация спящего режима */
 void activate_sleep_mode()
 {
-	if (interval >= 10)
+	if (interval >= MAX_INTERVAL)
 	{	
 		TM1637_turnOff();
 		OCR2 = 1;
@@ -77,16 +41,20 @@ void activate_sleep_mode()
 ISR(TIMER2_OVF_vect)
 {
 	TCNT2 = 0;
-	seconds += 2;
-	interval += 2;
-	control_time();
+	seconds += STEP;
+	interval += STEP;
+	control_seconds(&seconds, &minutes);
+	control_min(&minutes, &hour);
+	control_hour(&seconds, &minutes, &hour);
 }
 
 /* выход из сна + метка когда кот ел */
 ISR(INT0_vect)
 {
 	sleep_disable();
-	control_time();
+	control_seconds(&seconds, &minutes);
+	control_min(&minutes, &hour);
+	control_hour(&seconds, &minutes, &hour);
 	interval = 0;
 	wakeup_display();
 	print_time_on_display();

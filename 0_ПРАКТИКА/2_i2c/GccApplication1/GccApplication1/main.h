@@ -15,6 +15,8 @@
 #define SEC_OVF 60
 #define MIN_OVF 60
 #define HOUR_OVF 23
+#define STEP 2
+#define MAX_INTERVAL 10
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -25,6 +27,7 @@
 
 #include "TM1637.h"
 #include "control_tm1637.h"
+#include "myTime.h"
 
 uint8_t get_hour();
 uint8_t get_min();
