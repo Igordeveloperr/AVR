@@ -132,6 +132,9 @@
     <Compile Include="main.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="myTime.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="pin_config.h">
       <SubType>compile</SubType>
     </Compile>

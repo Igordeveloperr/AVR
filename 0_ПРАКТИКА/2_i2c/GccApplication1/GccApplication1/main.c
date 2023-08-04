@@ -1,33 +1,49 @@
 #include "main.h"
 
-int hour = 18;
-int minutes = 50;
-double seconds = 0;
-double interval = 0;
+uint8_t hour = 12;
+uint8_t minutes = 5;
+uint8_t seconds = 0;
+uint8_t interval = 0;
 
-int get_hour()
+/* часы по значению */
+uint8_t get_hour()
 {
 	return hour;
 }
 
-int get_min()
+/* минуты по значению */
+uint8_t get_min()
 {
 	return minutes;
 }
 
-void control_time()
+/* секунды по значению */
+uint8_t get_sec()
 {
-	if (seconds >= 60)
+	return seconds;
+}
+
+void control_seconds()
+{
+	if (seconds >= SEC_OVF)
 	{
 		minutes++;
 		seconds = 0;
 	}
-	if (minutes >= 60)
+}
+
+void control_min()
+{
+	if (minutes >= MIN_OVF)
 	{
 		hour++;
 		minutes = 0;
 	}
-	if (hour == 23 && minutes >= 60)
+}
+
+void control_hour()
+{
+	if (hour == HOUR_OVF && minutes >= MIN_OVF)
 	{
 		hour = 0;
 		minutes = 0;
@@ -35,26 +51,38 @@ void control_time()
 	}
 }
 
+/* конвертация секунд в минуты и тд */
+void control_time()
+{
+	control_seconds();
+	control_min();
+	control_hour();
+}
+
+/* реализация спящего режима */
 void activate_sleep_mode()
 {
 	if (interval >= 10)
 	{	
 		TM1637_turnOff();
+		OCR2 = 1;
+		/* жду сброс флагов */
+		while (ASSR != ASSR_REG_REDY);
 		sleep_enable();
 		sleep_cpu();
 	}
 }
 
-ISR(TIMER1_OVF_vect)
+/* отсчет времени */
+ISR(TIMER2_OVF_vect)
 {
-	TCCR1B &= ~(1 << CS12);
-	TCCR1B |= (1 << CS12);
-	PORTB ^= (1 << PB1);
-	seconds += 2.5;
-	interval += 2.5;
+	TCNT2 = 0;
+	seconds += 2;
+	interval += 2;
 	control_time();
 }
 
+/* выход из сна + метка когда кот ел */
 ISR(INT0_vect)
 {
 	sleep_disable();
@@ -72,30 +100,44 @@ ISR(INT1_vect)
 	interval = 0;*/
 }
 
+/* настройка Timer/Counter2 */
+void start_timer2_async()
+{
+	ASSR |= (1 << AS2); // вклю асинхронный режим
+	/* чищу регистры таймера от мусора */
+	TCCR2 = 0;
+	OCR2 = 0;
+	TCNT2 = 0;
+	/* делитель частоты = 256 */
+	TCCR2 |= (1 << CS22) | (1 << CS21);
+	/* жду сброс флагов для старта в асинхронном режиме */
+	while (ASSR != ASSR_REG_REDY);
+	/* чистим флаги прерываний */
+	TIFR |= (1 << OCF2) | (1 << TOV2);
+	/* включаю прерывание по переполнению таймера */
+	TIMSK |= (1 << TOIE2);
+}
+
+/* настройка внешних прерываний */
+void setup_ext_interrapt()
+{
+	GICR |= (1 << INT0) | (1 << INT1);
+	MCUCR |= (1 << ISC11);
+	DDRD = 0;
+	PORTD |= (1 << INT0_PIN) | (1 << INT1_PIN) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
+}
 
 int main(void)
 {
 	ACSR |= (1 << ACD); // ОТКЛЮЧЕНИЕ АЦП
-	
-	TIMSK |= (1 << TOIE1);
-	TCCR1B |= (1 << CS12);
-	
-	//внешние прерывания
-	GICR |= (1 << INT0) | (1 << INT1);
-	MCUCR = (1 << ISC11) | (1 << ISC01);
-	DDRD = 0;
-	PORTD |= (1 << PD2) | (1 << PD3) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
-	
-	// пин для диода
-	DDRB |= (1 << PB1);
-	PORTB |= (1 << PB1);
-	
+	start_timer2_async();
+	setup_ext_interrapt();
 	sei();
 	
 	TM1637_init();
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
 	print_time_on_display();
-	set_sleep_mode(SLEEP_MODE_IDLE);
+	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
 	
 	while(1)
 	{
