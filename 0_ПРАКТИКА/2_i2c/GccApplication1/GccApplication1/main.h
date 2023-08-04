@@ -28,9 +28,7 @@
 #include "TM1637.h"
 #include "control_tm1637.h"
 #include "myTime.h"
+#include "menu.h"
 
-uint8_t get_hour();
-uint8_t get_min();
-uint8_t get_sec();
 
 #endif

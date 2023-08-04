@@ -1,4 +1,4 @@
-control_tm1637.d control_tm1637.o: .././control_tm1637.c .././main.h \
+menu.d menu.o: .././menu.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \

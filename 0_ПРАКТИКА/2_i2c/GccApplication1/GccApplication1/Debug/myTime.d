@@ -20,7 +20,7 @@ myTime.d myTime.o: .././myTime.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
  .././TM1637.h .././pin_config.h .././segments_patterns.h \
- .././control_tm1637.h .././myTime.h
+ .././control_tm1637.h .././myTime.h .././menu.h
 
 .././main.h:
 
@@ -73,3 +73,5 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 .././control_tm1637.h:
 
 .././myTime.h:
+
+.././menu.h:

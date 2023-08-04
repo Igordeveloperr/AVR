@@ -3,31 +3,18 @@
 uint8_t hour = 12;
 uint8_t minutes = 5;
 uint8_t seconds = 0;
+
+uint8_t cat_hour = 0;
+uint8_t cat_minutes = 0;
+
 uint8_t interval = 0;
-
-/* часы по значению */
-uint8_t get_hour()
-{
-	return hour;
-}
-
-/* минуты по значению */
-uint8_t get_min()
-{
-	return minutes;
-}
-
-/* секунды по значению */
-uint8_t get_sec()
-{
-	return seconds;
-}
 
 /* реализация спящего режима */
 void activate_sleep_mode()
 {
 	if (interval >= MAX_INTERVAL)
 	{	
+		close_menu();
 		TM1637_turnOff();
 		OCR2 = 1;
 		/* жду сброс флагов */
@@ -41,6 +28,7 @@ void activate_sleep_mode()
 ISR(TIMER2_OVF_vect)
 {
 	TCNT2 = 0;
+	PORTB ^= (1 << PB1);
 	seconds += STEP;
 	interval += STEP;
 	control_seconds(&seconds, &minutes);
@@ -52,20 +40,22 @@ ISR(TIMER2_OVF_vect)
 ISR(INT0_vect)
 {
 	sleep_disable();
-	control_seconds(&seconds, &minutes);
-	control_min(&minutes, &hour);
-	control_hour(&seconds, &minutes, &hour);
+	cat_hour = hour;
+	cat_minutes = minutes;
 	interval = 0;
 	wakeup_display();
-	print_time_on_display();
+	print_time_on_display(cat_hour, cat_minutes);
 }
 
 ISR(INT1_vect)
 {
-	/*_delay_us(1);
-	lcd_wakeup();
+	sleep_disable();
+	wakeup_display();
 	event_listener();
-	interval = 0;*/
+	_delay_ms(1000);
+	setup_time(&seconds, &minutes, &hour);
+	print_time_on_display(hour, minutes);
+	interval = 0;
 }
 
 /* настройка Timer/Counter2 */
@@ -90,7 +80,6 @@ void start_timer2_async()
 void setup_ext_interrapt()
 {
 	GICR |= (1 << INT0) | (1 << INT1);
-	MCUCR |= (1 << ISC11);
 	DDRD = 0;
 	PORTD |= (1 << INT0_PIN) | (1 << INT1_PIN) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
 }
@@ -104,8 +93,11 @@ int main(void)
 	
 	TM1637_init();
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
-	print_time_on_display();
+	print_time_on_display(hour, minutes);
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
+	
+	DDRB |= (1 << PB1);
+	PORTB &= ~(1 << PB1);
 	
 	while(1)
 	{
