@@ -240,7 +240,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x932
+.text           0x00000000      0x93a
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -362,40 +362,40 @@ END GROUP
                 0x00000366       0x2e menu/menu.o
                 0x00000366                tune_min
  .text.event_listener
-                0x00000394       0x44 menu/menu.o
+                0x00000394       0x4c menu/menu.o
                 0x00000394                event_listener
  .text.setup_time
-                0x000003d8       0x16 menu/menu.o
-                0x000003d8                setup_time
+                0x000003e0       0x16 menu/menu.o
+                0x000003e0                setup_time
  .text.control_seconds
-                0x000003ee       0x16 myTime/myTime.o
-                0x000003ee                control_seconds
+                0x000003f6       0x16 myTime/myTime.o
+                0x000003f6                control_seconds
  .text.control_min
-                0x00000404       0x16 myTime/myTime.o
-                0x00000404                control_min
+                0x0000040c       0x16 myTime/myTime.o
+                0x0000040c                control_min
  .text.control_hour
-                0x0000041a       0x24 myTime/myTime.o
-                0x0000041a                control_hour
+                0x00000422       0x24 myTime/myTime.o
+                0x00000422                control_hour
  .text.TM1637_init
-                0x0000043e       0xd2 tm1637/TM1637.o
-                0x0000043e                TM1637_init
+                0x00000446       0xd2 tm1637/TM1637.o
+                0x00000446                TM1637_init
  .text.TM1637_turnOff
-                0x00000510       0xd0 tm1637/TM1637.o
-                0x00000510                TM1637_turnOff
+                0x00000518       0xd0 tm1637/TM1637.o
+                0x00000518                TM1637_turnOff
  .text.TM1637_turnOnAndSetBrightness
-                0x000005e0       0xce tm1637/TM1637.o
-                0x000005e0                TM1637_turnOnAndSetBrightness
+                0x000005e8       0xce tm1637/TM1637.o
+                0x000005e8                TM1637_turnOnAndSetBrightness
  .text.TM1637_setSegments
-                0x000006ae      0x14e tm1637/TM1637.o
-                0x000006ae                TM1637_setSegments
+                0x000006b6      0x14e tm1637/TM1637.o
+                0x000006b6                TM1637_setSegments
  .text.TM1637_clear
-                0x000007fc      0x132 tm1637/TM1637.o
-                0x000007fc                TM1637_clear
-                0x0000092e                . = ALIGN (0x2)
+                0x00000804      0x132 tm1637/TM1637.o
+                0x00000804                TM1637_clear
+                0x00000936                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000092e        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x0000092e                _exit
-                0x0000092e                exit
+ .fini9         0x00000936        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000936                _exit
+                0x00000936                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -414,11 +414,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000092e        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000936        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000932                _etext = .
+                0x0000093a                _etext = .
 
-.data           0x00800060        0xc load address 0x00000932
+.data           0x00800060        0xc load address 0x0000093a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -461,8 +461,8 @@ END GROUP
  COMMON         0x00800073        0x1 control_tm1637/control_tm1637.o
                 0x00800073                TM1637_brightness_reg
                 0x00800074                PROVIDE (__bss_end, .)
-                0x00000932                __data_load_start = LOADADDR (.data)
-                0x0000093e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000093a                __data_load_start = LOADADDR (.data)
+                0x00000946                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800074        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -571,14 +571,14 @@ END GROUP
  .debug_abbrev  0x00000873       0x8b myTime/myTime.o
  .debug_abbrev  0x000008fe      0x24a tm1637/TM1637.o
 
-.debug_line     0x00000000     0x1472
+.debug_line     0x00000000     0x147e
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x150 control_tm1637/control_tm1637.o
  .debug_line    0x0000025a      0x2f3 main.o
- .debug_line    0x0000054d      0x267 menu/menu.o
- .debug_line    0x000007b4      0x120 myTime/myTime.o
- .debug_line    0x000008d4      0xb9e tm1637/TM1637.o
+ .debug_line    0x0000054d      0x273 menu/menu.o
+ .debug_line    0x000007c0      0x120 myTime/myTime.o
+ .debug_line    0x000008e0      0xb9e tm1637/TM1637.o
 
 .debug_frame    0x00000000      0x37c
  *(.debug_frame)

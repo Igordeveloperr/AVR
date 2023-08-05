@@ -40,13 +40,13 @@ uint8_t set_time_down(uint8_t val, uint8_t max_val)
 
 void tune_hour()
 {
-	if (!(PIND & (1 << UP_BTN)))
+	if (UP_BTN_CLICK)
 	{
 		wait_time = 0;
 		hr = set_time_up(hr, HOUR_OVF);
 	}
 			
-	if (!(PIND & (1 << DOWN_BTN)))
+	if (DOWN_BTN_CLICK)
 	{
 		wait_time = 0;
 		hr = set_time_down(hr, HOUR_OVF);
@@ -55,13 +55,13 @@ void tune_hour()
 
 void tune_min()
 {
-	if (!(PIND & (1 << UP_BTN)))
+	if (UP_BTN_CLICK)
 	{
 		wait_time = MAX_WAIT_TIME;
 		min = set_time_up(min, MIN_OVF-1);
 	}
 			
-	if (!(PIND & (1 << DOWN_BTN)))
+	if (DOWN_BTN_CLICK)
 	{
 		wait_time = MAX_WAIT_TIME;
 		min = set_time_down(min, MIN_OVF-1);
@@ -70,8 +70,10 @@ void tune_min()
 
 void event_listener()
 {
+	hr = 0;
+	min = 0;
 	update_menu();
-	while(!(PIND & (1 << MENU_BTN)))
+	while(MENU_BTN_CLICK)
 	{
 		if (wait_time < MAX_WAIT_TIME)
 		{
