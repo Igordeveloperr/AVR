@@ -1,7 +1,7 @@
 #include "main.h"
 
-uint8_t hour = 12;
-uint8_t minutes = 5;
+uint8_t hour = 23;
+uint8_t minutes = 59;
 uint8_t seconds = 0;
 
 uint8_t cat_hour = 0;
@@ -14,7 +14,6 @@ void activate_sleep_mode()
 {
 	if (interval >= MAX_INTERVAL)
 	{	
-		close_menu();
 		TM1637_turnOff();
 		OCR2 = 1;
 		/* жду сброс флагов */
@@ -66,8 +65,8 @@ void start_timer2_async()
 	TCCR2 = 0;
 	OCR2 = 0;
 	TCNT2 = 0;
-	/* делитель частоты = 256 */
-	TCCR2 |= (1 << CS22) | (1 << CS21);
+	/* делитель частоты = 128 */
+	TCCR2 |= (1 << CS22) | (1 << CS20);
 	/* жду сброс флагов для старта в асинхронном режиме */
 	while (ASSR != ASSR_REG_REDY);
 	/* чистим флаги прерываний */

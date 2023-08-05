@@ -15,7 +15,7 @@
 #define SEC_OVF 60
 #define MIN_OVF 60
 #define HOUR_OVF 23
-#define STEP 2
+#define STEP 1
 #define MAX_INTERVAL 10
 
 #include <avr/io.h>
@@ -25,10 +25,10 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 
-#include "TM1637.h"
-#include "control_tm1637.h"
-#include "myTime.h"
-#include "menu.h"
+#include "./tm1637/TM1637.h"
+#include "./control_tm1637/control_tm1637.h"
+#include "./myTime/myTime.h"
+#include "./menu/menu.h"
 
 
 #endif

@@ -32,16 +32,20 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
-SUBDIRS := 
+SUBDIRS :=  \
+../menu \
+../control_tm1637 \
+../myTime \
+../tm1637
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../control_tm1637.c \
+../control_tm1637/control_tm1637.c \
 ../main.c \
-../menu.c \
-../myTime.c \
-../TM1637.c
+../menu/menu.c \
+../myTime/myTime.c \
+../tm1637/TM1637.c
 
 
 PREPROCESSING_SRCS += 
@@ -51,32 +55,32 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-control_tm1637.o \
+control_tm1637/control_tm1637.o \
 main.o \
-menu.o \
-myTime.o \
-TM1637.o
+menu/menu.o \
+myTime/myTime.o \
+tm1637/TM1637.o
 
 OBJS_AS_ARGS +=  \
-control_tm1637.o \
+control_tm1637/control_tm1637.o \
 main.o \
-menu.o \
-myTime.o \
-TM1637.o
+menu/menu.o \
+myTime/myTime.o \
+tm1637/TM1637.o
 
 C_DEPS +=  \
-control_tm1637.d \
+control_tm1637/control_tm1637.d \
 main.d \
-menu.d \
-myTime.d \
-TM1637.d
+menu/menu.d \
+myTime/myTime.d \
+tm1637/TM1637.d
 
 C_DEPS_AS_ARGS +=  \
-control_tm1637.d \
+control_tm1637/control_tm1637.d \
 main.d \
-menu.d \
-myTime.d \
-TM1637.d
+menu/menu.d \
+myTime/myTime.d \
+tm1637/TM1637.d
 
 OUTPUT_FILE_PATH +=GccApplication1.elf
 
@@ -92,7 +96,7 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-./control_tm1637.o: .././control_tm1637.c
+control_tm1637/control_tm1637.o: ../control_tm1637/control_tm1637.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -106,21 +110,21 @@ LINKER_SCRIPT_DEP+=
 	@echo Finished building: $<
 	
 
-./menu.o: .././menu.c
+menu/menu.o: ../menu/menu.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
-./myTime.o: .././myTime.c
+myTime/myTime.o: ../myTime/myTime.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
-./TM1637.o: .././TM1637.c
+tm1637/TM1637.o: ../tm1637/TM1637.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

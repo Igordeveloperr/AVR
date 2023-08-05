@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../main.h"
 
 uint8_t display_digit[] =
 {

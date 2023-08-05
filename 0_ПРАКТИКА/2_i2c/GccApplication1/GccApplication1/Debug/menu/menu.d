@@ -1,4 +1,4 @@
-myTime.d myTime.o: .././myTime.c .././main.h \
+menu/menu.d menu/menu.o: ../menu/menu.c ../menu/../main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -19,10 +19,12 @@ myTime.d myTime.o: .././myTime.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
- .././TM1637.h .././pin_config.h .././segments_patterns.h \
- .././control_tm1637.h .././myTime.h .././menu.h
+ ../menu/.././tm1637/TM1637.h ../menu/.././tm1637/pin_config.h \
+ ../menu/.././tm1637/segments_patterns.h \
+ ../menu/.././control_tm1637/control_tm1637.h \
+ ../menu/.././myTime/myTime.h ../menu/.././menu/menu.h
 
-.././main.h:
+../menu/../main.h:
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -64,14 +66,14 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 
-.././TM1637.h:
+../menu/.././tm1637/TM1637.h:
 
-.././pin_config.h:
+../menu/.././tm1637/pin_config.h:
 
-.././segments_patterns.h:
+../menu/.././tm1637/segments_patterns.h:
 
-.././control_tm1637.h:
+../menu/.././control_tm1637/control_tm1637.h:
 
-.././myTime.h:
+../menu/.././myTime/myTime.h:
 
-.././menu.h:
+../menu/.././menu/menu.h:

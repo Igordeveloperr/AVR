@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../main.h"
 
 void control_seconds(uint8_t* seconds, uint8_t* minutes)
 {
@@ -20,7 +20,7 @@ void control_min(uint8_t* minutes, uint8_t* hour)
 
 void control_hour(uint8_t* seconds, uint8_t* minutes, uint8_t* hour)
 {
-	if (*hour == HOUR_OVF && *minutes >= MIN_OVF)
+	if (*hour == HOUR_OVF && *minutes >= 59 && *seconds >= 59)
 	{
 		*hour = 0;
 		*minutes = 0;
