@@ -2,9 +2,6 @@
 #define MAIN_H_
 
 #define F_CPU 1000000UL
-#define MENU_BTN PD4
-#define UP_BTN PD5
-#define DOWN_BTN PD6
 #define BRIGHTNES 1
 #define DISP_LEN 4
 #define START_POS 0

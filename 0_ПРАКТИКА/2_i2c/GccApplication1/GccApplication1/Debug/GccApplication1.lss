@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000168  00000000  00000000  00000a48  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00002c69  00000000  00000000  00000bb0  2**0
+  6 .debug_info   00002c04  00000000  00000000  00000bb0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000b48  00000000  00000000  00003819  2**0
+  7 .debug_abbrev 00000ae0  00000000  00000000  000037b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000147e  00000000  00000000  00004361  2**0
+  8 .debug_line   00001433  00000000  00000000  00004294  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000037c  00000000  00000000  000057e0  2**2
+  9 .debug_frame  0000037c  00000000  00000000  000056c8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000658  00000000  00000000  00005b5c  2**0
+ 10 .debug_str    00000658  00000000  00000000  00005a44  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001fec  00000000  00000000  000061b4  2**0
+ 11 .debug_loc    00001fa4  00000000  00000000  0000609c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000001c0  00000000  00000000  000081a0  2**0
+ 12 .debug_ranges 000001c0  00000000  00000000  00008040  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -429,25 +429,23 @@ ISR(INT1_vect)
  24e:	85 bf       	out	0x35, r24	; 53
 	wakeup_display();
  250:	10 df       	rcall	.-480    	; 0x72 <wakeup_display>
-	event_listener();
- 252:	a0 d0       	rcall	.+320    	; 0x394 <event_listener>
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
- 254:	2f e3       	ldi	r18, 0x3F	; 63
- 256:	8d e0       	ldi	r24, 0x0D	; 13
- 258:	93 e0       	ldi	r25, 0x03	; 3
- 25a:	21 50       	subi	r18, 0x01	; 1
- 25c:	80 40       	sbci	r24, 0x00	; 0
- 25e:	90 40       	sbci	r25, 0x00	; 0
- 260:	e1 f7       	brne	.-8      	; 0x25a <__vector_2+0x32>
- 262:	00 c0       	rjmp	.+0      	; 0x264 <__vector_2+0x3c>
- 264:	00 00       	nop
-	_delay_ms(1000);
-	setup_time(&seconds, &minutes, &hour);
+	if (VIEW_BTN_CLICK)
+ 252:	87 99       	sbic	0x10, 7	; 16
+ 254:	07 c0       	rjmp	.+14     	; 0x264 <__vector_2+0x3c>
+	{
+		TM1637_clear();
+ 256:	d6 d2       	rcall	.+1452   	; 0x804 <TM1637_clear>
+		print_time_on_display(cat_hour, cat_minutes);
+ 258:	60 91 6d 00 	lds	r22, 0x006D	; 0x80006d <cat_minutes>
+ 25c:	80 91 6e 00 	lds	r24, 0x006E	; 0x80006e <cat_hour>
+ 260:	0b df       	rcall	.-490    	; 0x78 <print_time_on_display>
+ 262:	0d c0       	rjmp	.+26     	; 0x27e <__vector_2+0x56>
+	}
+	else
+	{
+		event_listener();
+ 264:	97 d0       	rcall	.+302    	; 0x394 <event_listener>
+		setup_time(&seconds, &minutes, &hour);
  266:	4b e6       	ldi	r20, 0x6B	; 107
  268:	50 e0       	ldi	r21, 0x00	; 0
  26a:	6a e6       	ldi	r22, 0x6A	; 106
@@ -455,10 +453,11 @@ ISR(INT1_vect)
  26e:	8f e6       	ldi	r24, 0x6F	; 111
  270:	90 e0       	ldi	r25, 0x00	; 0
  272:	b6 d0       	rcall	.+364    	; 0x3e0 <setup_time>
-	print_time_on_display(hour, minutes);
+		print_time_on_display(hour, minutes);
  274:	60 91 6a 00 	lds	r22, 0x006A	; 0x80006a <minutes>
  278:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <hour>
  27c:	fd de       	rcall	.-518    	; 0x78 <print_time_on_display>
+	}
 	interval = 0;
  27e:	10 92 6c 00 	sts	0x006C, r1	; 0x80006c <__data_end>
 }
@@ -530,9 +529,9 @@ void setup_ext_interrapt()
  2ce:	8b bf       	out	0x3b, r24	; 59
 	DDRD = 0;
  2d0:	11 ba       	out	0x11, r1	; 17
-	PORTD |= (1 << INT0_PIN) | (1 << INT1_PIN) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
+	PORTD |= (1 << INT0_PIN) | (1 << INT1_PIN) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN) | (1 << VIEW_BTN);
  2d2:	82 b3       	in	r24, 0x12	; 18
- 2d4:	8c 67       	ori	r24, 0x7C	; 124
+ 2d4:	8c 6f       	ori	r24, 0xFC	; 252
  2d6:	82 bb       	out	0x12, r24	; 18
  2d8:	08 95       	ret
 
@@ -590,6 +589,12 @@ void update_menu()
 {
 	TM1637_clear();
  30e:	7a d2       	rcall	.+1268   	; 0x804 <TM1637_clear>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
  310:	2f e9       	ldi	r18, 0x9F	; 159
  312:	86 e8       	ldi	r24, 0x86	; 134
  314:	91 e0       	ldi	r25, 0x01	; 1

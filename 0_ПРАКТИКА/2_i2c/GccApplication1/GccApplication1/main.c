@@ -50,10 +50,17 @@ ISR(INT1_vect)
 {
 	sleep_disable();
 	wakeup_display();
-	event_listener();
-	_delay_ms(1000);
-	setup_time(&seconds, &minutes, &hour);
-	print_time_on_display(hour, minutes);
+	if (VIEW_BTN_CLICK)
+	{
+		TM1637_clear();
+		print_time_on_display(cat_hour, cat_minutes);
+	}
+	else
+	{
+		event_listener();
+		setup_time(&seconds, &minutes, &hour);
+		print_time_on_display(hour, minutes);
+	}
 	interval = 0;
 }
 
@@ -80,7 +87,7 @@ void setup_ext_interrapt()
 {
 	GICR |= (1 << INT0) | (1 << INT1);
 	DDRD = 0;
-	PORTD |= (1 << INT0_PIN) | (1 << INT1_PIN) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN);
+	PORTD |= (1 << INT0_PIN) | (1 << INT1_PIN) | (1 << MENU_BTN) | (1 << UP_BTN) | (1 << DOWN_BTN) | (1 << VIEW_BTN);
 }
 
 int main(void)

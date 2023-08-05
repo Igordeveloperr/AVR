@@ -553,32 +553,32 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2c69
+.debug_info     0x00000000     0x2c04
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_info    0x0000048c      0x1c8 control_tm1637/control_tm1637.o
- .debug_info    0x00000654      0x3e3 main.o
- .debug_info    0x00000a37      0x35e menu/menu.o
- .debug_info    0x00000d95      0x158 myTime/myTime.o
- .debug_info    0x00000eed     0x1d7c tm1637/TM1637.o
+ .debug_info    0x00000654      0x37e main.o
+ .debug_info    0x000009d2      0x35e menu/menu.o
+ .debug_info    0x00000d30      0x158 myTime/myTime.o
+ .debug_info    0x00000e88     0x1d7c tm1637/TM1637.o
 
-.debug_abbrev   0x00000000      0xb48
+.debug_abbrev   0x00000000      0xae0
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_abbrev  0x0000044e      0x125 control_tm1637/control_tm1637.o
- .debug_abbrev  0x00000573      0x15a main.o
- .debug_abbrev  0x000006cd      0x1a6 menu/menu.o
- .debug_abbrev  0x00000873       0x8b myTime/myTime.o
- .debug_abbrev  0x000008fe      0x24a tm1637/TM1637.o
+ .debug_abbrev  0x00000573       0xf2 main.o
+ .debug_abbrev  0x00000665      0x1a6 menu/menu.o
+ .debug_abbrev  0x0000080b       0x8b myTime/myTime.o
+ .debug_abbrev  0x00000896      0x24a tm1637/TM1637.o
 
-.debug_line     0x00000000     0x147e
+.debug_line     0x00000000     0x1433
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x150 control_tm1637/control_tm1637.o
- .debug_line    0x0000025a      0x2f3 main.o
- .debug_line    0x0000054d      0x273 menu/menu.o
- .debug_line    0x000007c0      0x120 myTime/myTime.o
- .debug_line    0x000008e0      0xb9e tm1637/TM1637.o
+ .debug_line    0x0000025a      0x2a8 main.o
+ .debug_line    0x00000502      0x273 menu/menu.o
+ .debug_line    0x00000775      0x120 myTime/myTime.o
+ .debug_line    0x00000895      0xb9e tm1637/TM1637.o
 
 .debug_frame    0x00000000      0x37c
  *(.debug_frame)
@@ -593,22 +593,22 @@ END GROUP
  .debug_str     0x00000000      0x17a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_str     0x0000017a      0x201 control_tm1637/control_tm1637.o
                                 0x253 (size before relaxing)
- .debug_str     0x0000037b      0x134 main.o
-                                0x31f (size before relaxing)
- .debug_str     0x000004af       0x6e menu/menu.o
+ .debug_str     0x0000037b       0xf6 main.o
+                                0x2e1 (size before relaxing)
+ .debug_str     0x00000471       0xac menu/menu.o
                                 0x291 (size before relaxing)
  .debug_str     0x0000051d       0x13 myTime/myTime.o
                                 0x1e4 (size before relaxing)
  .debug_str     0x00000530      0x128 tm1637/TM1637.o
                                 0x364 (size before relaxing)
 
-.debug_loc      0x00000000     0x1fec
+.debug_loc      0x00000000     0x1fa4
  *(.debug_loc)
  .debug_loc     0x00000000      0x109 control_tm1637/control_tm1637.o
- .debug_loc     0x00000109      0x2a9 main.o
- .debug_loc     0x000003b2      0x15f menu/menu.o
- .debug_loc     0x00000511       0x28 myTime/myTime.o
- .debug_loc     0x00000539     0x1ab3 tm1637/TM1637.o
+ .debug_loc     0x00000109      0x261 main.o
+ .debug_loc     0x0000036a      0x15f menu/menu.o
+ .debug_loc     0x000004c9       0x28 myTime/myTime.o
+ .debug_loc     0x000004f1     0x1ab3 tm1637/TM1637.o
 
 .debug_macinfo
  *(.debug_macinfo)
