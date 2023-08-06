@@ -51,15 +51,16 @@ ISR(INT0_vect)
 ISR(INT1_vect)
 {
 	sleep_disable();
-	wakeup_display();
 
 	if (VIEW_BTN_CLICK)
 	{
+		wakeup_display();
 		print_time_on_display(cat_hour, cat_minutes);
 	}
 	
 	if(MENU_BTN_CLICK)
 	{
+		wakeup_display();
 		event_listener();
 		setup_time(&seconds, &minutes, &hour);
 		print_time_on_display(hour, minutes);
