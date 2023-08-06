@@ -43,13 +43,19 @@ Discarded input sections
                 0x00000000       0xd2 tm1637/TM1637.o
  .text.TM1637_setBrightness
                 0x00000000       0xd4 tm1637/TM1637.o
+ .text.TM1637_displayNumber
+                0x00000000      0x1aa tm1637/TM1637.o
  .text.TM1637_displayDigits
                 0x00000000       0x4e tm1637/TM1637.o
+ .rodata.TM1637_digitToSegment
+                0x00000000       0x10 tm1637/TM1637.o
  .text          0x00000000        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
  .data          0x00000000        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
  .bss           0x00000000        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
  .text.libgcc.mul
                 0x00000000        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.div
+                0x00000000       0x28 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
  .text.libgcc   0x00000000        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
  .text.libgcc.prologue
                 0x00000000        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
@@ -238,7 +244,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xb64
+.text           0x00000000      0x984
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -340,72 +346,66 @@ END GROUP
                 0x000001ec       0x76 main.o
                 0x000001ec                __vector_1
  .text.__vector_2
-                0x00000262       0x7e main.o
+                0x00000262       0x7c main.o
                 0x00000262                __vector_2
  .text.start_timer2_async
-                0x000002e0       0x26 main.o
-                0x000002e0                start_timer2_async
+                0x000002de       0x26 main.o
+                0x000002de                start_timer2_async
  .text.setup_ext_interrapt
-                0x00000306       0x10 main.o
-                0x00000306                setup_ext_interrapt
- .text.main     0x00000316       0x44 main.o
-                0x00000316                main
+                0x00000304       0x10 main.o
+                0x00000304                setup_ext_interrapt
+ .text.main     0x00000314       0x44 main.o
+                0x00000314                main
  .text.update_menu
-                0x0000035a       0x22 menu/menu.o
-                0x0000035a                update_menu
+                0x00000358       0x16 menu/menu.o
+                0x00000358                update_menu
  .text.set_time_up
-                0x0000037c        0xc menu/menu.o
-                0x0000037c                set_time_up
+                0x0000036e        0xc menu/menu.o
+                0x0000036e                set_time_up
  .text.set_time_down
-                0x00000388        0xc menu/menu.o
-                0x00000388                set_time_down
+                0x0000037a        0xc menu/menu.o
+                0x0000037a                set_time_down
  .text.tune_hour
-                0x00000394       0x2a menu/menu.o
-                0x00000394                tune_hour
+                0x00000386       0x2a menu/menu.o
+                0x00000386                tune_hour
  .text.tune_min
-                0x000003be       0x2e menu/menu.o
-                0x000003be                tune_min
+                0x000003b0       0x2e menu/menu.o
+                0x000003b0                tune_min
  .text.event_listener
-                0x000003ec       0x4c menu/menu.o
-                0x000003ec                event_listener
+                0x000003de       0x4c menu/menu.o
+                0x000003de                event_listener
  .text.setup_time
-                0x00000438       0x16 menu/menu.o
-                0x00000438                setup_time
+                0x0000042a       0x16 menu/menu.o
+                0x0000042a                setup_time
  .text.control_seconds
-                0x0000044e       0x16 myTime/myTime.o
-                0x0000044e                control_seconds
+                0x00000440       0x16 myTime/myTime.o
+                0x00000440                control_seconds
  .text.control_min
-                0x00000464       0x16 myTime/myTime.o
-                0x00000464                control_min
+                0x00000456       0x16 myTime/myTime.o
+                0x00000456                control_min
  .text.control_hour
-                0x0000047a       0x24 myTime/myTime.o
-                0x0000047a                control_hour
+                0x0000046c       0x24 myTime/myTime.o
+                0x0000046c                control_hour
  .text.TM1637_init
-                0x0000049e       0xd2 tm1637/TM1637.o
-                0x0000049e                TM1637_init
+                0x00000490       0xd2 tm1637/TM1637.o
+                0x00000490                TM1637_init
  .text.TM1637_turnOff
-                0x00000570       0xd0 tm1637/TM1637.o
-                0x00000570                TM1637_turnOff
+                0x00000562       0xd0 tm1637/TM1637.o
+                0x00000562                TM1637_turnOff
  .text.TM1637_turnOnAndSetBrightness
-                0x00000640       0xce tm1637/TM1637.o
-                0x00000640                TM1637_turnOnAndSetBrightness
+                0x00000632       0xce tm1637/TM1637.o
+                0x00000632                TM1637_turnOnAndSetBrightness
  .text.TM1637_setSegments
-                0x0000070e      0x14e tm1637/TM1637.o
-                0x0000070e                TM1637_setSegments
+                0x00000700      0x14e tm1637/TM1637.o
+                0x00000700                TM1637_setSegments
  .text.TM1637_clear
-                0x0000085c      0x132 tm1637/TM1637.o
-                0x0000085c                TM1637_clear
- .text.TM1637_displayNumber
-                0x0000098e      0x1aa tm1637/TM1637.o
-                0x0000098e                TM1637_displayNumber
- .text.libgcc.div
-                0x00000b38       0x28 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_udivmodhi4.o)
-                0x00000b38                __udivmodhi4
-                0x00000b60                . = ALIGN (0x2)
+                0x0000084e      0x132 tm1637/TM1637.o
+                0x0000084e                TM1637_clear
+                0x00000980                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000b60        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000b60                _exit
-                0x00000b60                exit
+ .fini9         0x00000980        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000980                _exit
+                0x00000980                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -424,11 +424,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000b60        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000980        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000b64                _etext = .
+                0x00000984                _etext = .
 
-.data           0x00800060       0x1c load address 0x00000b64
+.data           0x00800060        0xc load address 0x00000984
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -442,46 +442,43 @@ END GROUP
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
- .rodata.TM1637_digitToSegment
-                0x0080006c       0x10 tm1637/TM1637.o
-                0x0080006c                TM1637_digitToSegment
  *(.gnu.linkonce.r*)
-                0x0080007c                . = ALIGN (0x2)
-                0x0080007c                _edata = .
-                0x0080007c                PROVIDE (__data_end, .)
+                0x0080006c                . = ALIGN (0x2)
+                0x0080006c                _edata = .
+                0x0080006c                PROVIDE (__data_end, .)
 
-.bss            0x0080007c        0x8
-                0x0080007c                PROVIDE (__bss_start, .)
+.bss            0x0080006c        0x8
+                0x0080006c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.interval  0x0080007c        0x1 main.o
-                0x0080007c                interval
+ .bss.interval  0x0080006c        0x1 main.o
+                0x0080006c                interval
  .bss.cat_minutes
-                0x0080007d        0x1 main.o
-                0x0080007d                cat_minutes
- .bss.cat_hour  0x0080007e        0x1 main.o
-                0x0080007e                cat_hour
- .bss.seconds   0x0080007f        0x1 main.o
-                0x0080007f                seconds
+                0x0080006d        0x1 main.o
+                0x0080006d                cat_minutes
+ .bss.cat_hour  0x0080006e        0x1 main.o
+                0x0080006e                cat_hour
+ .bss.seconds   0x0080006f        0x1 main.o
+                0x0080006f                seconds
  .bss.wait_time
-                0x00800080        0x1 menu/menu.o
-                0x00800080                wait_time
- .bss.min       0x00800081        0x1 menu/menu.o
-                0x00800081                min
- .bss.hr        0x00800082        0x1 menu/menu.o
-                0x00800082                hr
+                0x00800070        0x1 menu/menu.o
+                0x00800070                wait_time
+ .bss.min       0x00800071        0x1 menu/menu.o
+                0x00800071                min
+ .bss.hr        0x00800072        0x1 menu/menu.o
+                0x00800072                hr
  *(COMMON)
- COMMON         0x00800083        0x1 control_tm1637/control_tm1637.o
-                0x00800083                TM1637_brightness_reg
-                0x00800084                PROVIDE (__bss_end, .)
-                0x00000b64                __data_load_start = LOADADDR (.data)
-                0x00000b80                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800073        0x1 control_tm1637/control_tm1637.o
+                0x00800073                TM1637_brightness_reg
+                0x00800074                PROVIDE (__bss_end, .)
+                0x00000984                __data_load_start = LOADADDR (.data)
+                0x00000990                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800084        0x0
+.noinit         0x00800074        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800084                _end = .
+                0x00800074                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -569,15 +566,15 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2d8e
+.debug_info     0x00000000     0x2d4a
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_info    0x0000048c      0x1c8 control_tm1637/control_tm1637.o
  .debug_info    0x00000654       0xf6 EEPROM/eeprom.o
- .debug_info    0x0000074a      0x3e4 main.o
- .debug_info    0x00000b2e      0x38c menu/menu.o
- .debug_info    0x00000eba      0x158 myTime/myTime.o
- .debug_info    0x00001012     0x1d7c tm1637/TM1637.o
+ .debug_info    0x0000074a      0x3ce main.o
+ .debug_info    0x00000b18      0x35e menu/menu.o
+ .debug_info    0x00000e76      0x158 myTime/myTime.o
+ .debug_info    0x00000fce     0x1d7c tm1637/TM1637.o
 
 .debug_abbrev   0x00000000      0xb7e
  *(.debug_abbrev)
@@ -589,15 +586,15 @@ END GROUP
  .debug_abbrev  0x000008a9       0x8b myTime/myTime.o
  .debug_abbrev  0x00000934      0x24a tm1637/TM1637.o
 
-.debug_line     0x00000000     0x1573
+.debug_line     0x00000000     0x1567
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x150 control_tm1637/control_tm1637.o
  .debug_line    0x0000025a      0x102 EEPROM/eeprom.o
- .debug_line    0x0000035c      0x2e0 main.o
- .debug_line    0x0000063c      0x279 menu/menu.o
- .debug_line    0x000008b5      0x120 myTime/myTime.o
- .debug_line    0x000009d5      0xb9e tm1637/TM1637.o
+ .debug_line    0x0000035c      0x2da main.o
+ .debug_line    0x00000636      0x273 menu/menu.o
+ .debug_line    0x000008a9      0x120 myTime/myTime.o
+ .debug_line    0x000009c9      0xb9e tm1637/TM1637.o
 
 .debug_frame    0x00000000      0x3b0
  *(.debug_frame)
@@ -615,13 +612,13 @@ END GROUP
                                 0x253 (size before relaxing)
  .debug_str     0x0000037b       0x42 EEPROM/eeprom.o
                                 0x1d5 (size before relaxing)
- .debug_str     0x000003bd       0xf6 main.o
-                                0x2fa (size before relaxing)
- .debug_str     0x000004b3       0xc1 menu/menu.o
-                                0x2a6 (size before relaxing)
- .debug_str     0x00000574       0x13 myTime/myTime.o
+ .debug_str     0x000003bd       0xe9 main.o
+                                0x2ed (size before relaxing)
+ .debug_str     0x000004a6       0xb9 menu/menu.o
+                                0x291 (size before relaxing)
+ .debug_str     0x0000055f       0x13 myTime/myTime.o
                                 0x1e4 (size before relaxing)
- .debug_str     0x00000587      0x105 tm1637/TM1637.o
+ .debug_str     0x00000572      0x11a tm1637/TM1637.o
                                 0x364 (size before relaxing)
 
 .debug_loc      0x00000000     0x1fe6

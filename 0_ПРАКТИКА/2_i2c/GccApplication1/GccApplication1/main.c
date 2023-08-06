@@ -52,9 +52,9 @@ ISR(INT1_vect)
 {
 	sleep_disable();
 	wakeup_display();
+
 	if (VIEW_BTN_CLICK)
 	{
-		TM1637_clear();
 		print_time_on_display(cat_hour, cat_minutes);
 	}
 	
@@ -64,7 +64,6 @@ ISR(INT1_vect)
 		setup_time(&seconds, &minutes, &hour);
 		print_time_on_display(hour, minutes);
 	}
-	
 	interval = 0;
 }
 
