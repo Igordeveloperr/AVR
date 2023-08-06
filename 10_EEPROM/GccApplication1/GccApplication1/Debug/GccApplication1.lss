@@ -1,0 +1,240 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000de  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000132  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000132  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000164  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  000001a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000006b4  00000000  00000000  000001d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005bd  00000000  00000000  00000884  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002cc  00000000  00000000  00000e41  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000044  00000000  00000000  00001110  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000350  00000000  00000000  00001154  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000a9  00000000  00000000  000014a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  0000154d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	19 d0       	rcall	.+50     	; 0x66 <main>
+  34:	52 c0       	rjmp	.+164    	; 0xda <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <EEPROM_write>:
+#include "avr/delay.h"
+
+void EEPROM_write(uint8_t address, uint8_t data)
+{
+	/* ожидаем завершение процедуры записи */
+	while(EECR & (1<<EEWE));
+  38:	e1 99       	sbic	0x1c, 1	; 28
+  3a:	fe cf       	rjmp	.-4      	; 0x38 <EEPROM_write>
+	/* записываем адрес в регистр адреса */
+	EEAR = address;
+  3c:	90 e0       	ldi	r25, 0x00	; 0
+  3e:	9f bb       	out	0x1f, r25	; 31
+  40:	8e bb       	out	0x1e, r24	; 30
+	/* записываем данные в регистр данных */
+	EEDR = data;
+  42:	6d bb       	out	0x1d, r22	; 29
+	/* разрешаем запись в EEPROM */
+	EECR |= (1<<EEMWE);
+  44:	8c b3       	in	r24, 0x1c	; 28
+  46:	84 60       	ori	r24, 0x04	; 4
+  48:	8c bb       	out	0x1c, r24	; 28
+	/* производим запись в EEPROM */
+	EECR |= (1<<EEWE);
+  4a:	8c b3       	in	r24, 0x1c	; 28
+  4c:	82 60       	ori	r24, 0x02	; 2
+  4e:	8c bb       	out	0x1c, r24	; 28
+  50:	08 95       	ret
+
+00000052 <EEPROM_read>:
+}
+
+uint8_t EEPROM_read(uint8_t address)
+{
+	/* ожидаем завершение процедуры записи */
+	while(EECR & (1<<EEWE));
+  52:	e1 99       	sbic	0x1c, 1	; 28
+  54:	fe cf       	rjmp	.-4      	; 0x52 <EEPROM_read>
+	/* указываем адрес где лежат нужные данные */
+	EEAR = address;
+  56:	90 e0       	ldi	r25, 0x00	; 0
+  58:	9f bb       	out	0x1f, r25	; 31
+  5a:	8e bb       	out	0x1e, r24	; 30
+	/* получаем данные из EEPROM */
+	EECR |= (1<<EERE);
+  5c:	8c b3       	in	r24, 0x1c	; 28
+  5e:	81 60       	ori	r24, 0x01	; 1
+  60:	8c bb       	out	0x1c, r24	; 28
+	/* */
+	return EEDR;
+  62:	8d b3       	in	r24, 0x1d	; 29
+}
+  64:	08 95       	ret
+
+00000066 <main>:
+
+int main(void)
+{
+	uint8_t count1, count2 = 0;
+	
+	DDRB |= (1 << PB0) | (1 << PB1) | (1 << PB2) | (1 << PB3);
+  66:	87 b3       	in	r24, 0x17	; 23
+  68:	8f 60       	ori	r24, 0x0F	; 15
+  6a:	87 bb       	out	0x17, r24	; 23
+	DDRC |= (1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3);
+  6c:	84 b3       	in	r24, 0x14	; 20
+  6e:	8f 60       	ori	r24, 0x0F	; 15
+  70:	84 bb       	out	0x14, r24	; 20
+	DDRD = 0;
+  72:	11 ba       	out	0x11, r1	; 17
+	PORTD |= (1 << PD0) | (1 << PD1);
+  74:	82 b3       	in	r24, 0x12	; 18
+  76:	83 60       	ori	r24, 0x03	; 3
+  78:	82 bb       	out	0x12, r24	; 18
+	PORTB = EEPROM_read(0x00);
+  7a:	80 e0       	ldi	r24, 0x00	; 0
+  7c:	ea df       	rcall	.-44     	; 0x52 <EEPROM_read>
+  7e:	88 bb       	out	0x18, r24	; 24
+	PORTC = EEPROM_read(0x01);
+  80:	81 e0       	ldi	r24, 0x01	; 1
+  82:	e7 df       	rcall	.-50     	; 0x52 <EEPROM_read>
+  84:	85 bb       	out	0x15, r24	; 21
+	return EEDR;
+}
+
+int main(void)
+{
+	uint8_t count1, count2 = 0;
+  86:	c0 e0       	ldi	r28, 0x00	; 0
+	PORTB = EEPROM_read(0x00);
+	PORTC = EEPROM_read(0x01);
+	
+    while (1) 
+    {
+		if (!(PIND & (1 << PD0)))
+  88:	80 99       	sbic	0x10, 0	; 16
+  8a:	09 c0       	rjmp	.+18     	; 0x9e <main+0x38>
+		{
+			if(count1 < 10)
+  8c:	da 30       	cpi	r29, 0x0A	; 10
+  8e:	10 f4       	brcc	.+4      	; 0x94 <main+0x2e>
+			{
+				count1++;
+  90:	df 5f       	subi	r29, 0xFF	; 255
+  92:	01 c0       	rjmp	.+2      	; 0x96 <main+0x30>
+			}
+			else
+			{
+				count1 = 0;
+  94:	d0 e0       	ldi	r29, 0x00	; 0
+			}
+			PORTB = count1;
+  96:	d8 bb       	out	0x18, r29	; 24
+			EEPROM_write(0x00, count1);
+  98:	6d 2f       	mov	r22, r29
+  9a:	80 e0       	ldi	r24, 0x00	; 0
+  9c:	cd df       	rcall	.-102    	; 0x38 <EEPROM_write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  9e:	2f e5       	ldi	r18, 0x5F	; 95
+  a0:	8a ee       	ldi	r24, 0xEA	; 234
+  a2:	90 e0       	ldi	r25, 0x00	; 0
+  a4:	21 50       	subi	r18, 0x01	; 1
+  a6:	80 40       	sbci	r24, 0x00	; 0
+  a8:	90 40       	sbci	r25, 0x00	; 0
+  aa:	e1 f7       	brne	.-8      	; 0xa4 <main+0x3e>
+  ac:	00 c0       	rjmp	.+0      	; 0xae <main+0x48>
+  ae:	00 00       	nop
+		}
+		_delay_ms(300);
+		
+		if (!(PIND & (1 << PD1)))
+  b0:	81 99       	sbic	0x10, 1	; 16
+  b2:	09 c0       	rjmp	.+18     	; 0xc6 <main+0x60>
+		{
+			if(count2 < 10)
+  b4:	ca 30       	cpi	r28, 0x0A	; 10
+  b6:	10 f4       	brcc	.+4      	; 0xbc <main+0x56>
+			{
+				count2++;
+  b8:	cf 5f       	subi	r28, 0xFF	; 255
+  ba:	01 c0       	rjmp	.+2      	; 0xbe <main+0x58>
+			}
+			else
+			{
+				count2 = 0;
+  bc:	c0 e0       	ldi	r28, 0x00	; 0
+			}
+			PORTC = count2;
+  be:	c5 bb       	out	0x15, r28	; 21
+			EEPROM_write(0x01, count2);
+  c0:	6c 2f       	mov	r22, r28
+  c2:	81 e0       	ldi	r24, 0x01	; 1
+  c4:	b9 df       	rcall	.-142    	; 0x38 <EEPROM_write>
+  c6:	2f e5       	ldi	r18, 0x5F	; 95
+  c8:	8a ee       	ldi	r24, 0xEA	; 234
+  ca:	90 e0       	ldi	r25, 0x00	; 0
+  cc:	21 50       	subi	r18, 0x01	; 1
+  ce:	80 40       	sbci	r24, 0x00	; 0
+  d0:	90 40       	sbci	r25, 0x00	; 0
+  d2:	e1 f7       	brne	.-8      	; 0xcc <main+0x66>
+  d4:	00 c0       	rjmp	.+0      	; 0xd6 <main+0x70>
+  d6:	00 00       	nop
+  d8:	d7 cf       	rjmp	.-82     	; 0x88 <main+0x22>
+
+000000da <_exit>:
+  da:	f8 94       	cli
+
+000000dc <__stop_program>:
+  dc:	ff cf       	rjmp	.-2      	; 0xdc <__stop_program>
