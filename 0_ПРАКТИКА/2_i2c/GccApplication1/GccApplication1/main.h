@@ -26,6 +26,6 @@
 #include "./control_tm1637/control_tm1637.h"
 #include "./myTime/myTime.h"
 #include "./menu/menu.h"
-
+#include "./EEPROM/eeprom.h"
 
 #endif

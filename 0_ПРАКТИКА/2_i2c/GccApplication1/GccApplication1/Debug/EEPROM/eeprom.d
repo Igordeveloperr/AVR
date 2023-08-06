@@ -1,4 +1,4 @@
-main.d main.o: .././main.c .././main.h \
+EEPROM/eeprom.d EEPROM/eeprom.o: ../EEPROM/eeprom.c ../EEPROM/../main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -19,11 +19,13 @@ main.d main.o: .././main.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
- ../././tm1637/TM1637.h ../././tm1637/pin_config.h \
- ../././tm1637/segments_patterns.h ../././control_tm1637/control_tm1637.h \
- ../././myTime/myTime.h ../././menu/menu.h ../././EEPROM/eeprom.h
+ ../EEPROM/.././tm1637/TM1637.h ../EEPROM/.././tm1637/pin_config.h \
+ ../EEPROM/.././tm1637/segments_patterns.h \
+ ../EEPROM/.././control_tm1637/control_tm1637.h \
+ ../EEPROM/.././myTime/myTime.h ../EEPROM/.././menu/menu.h \
+ ../EEPROM/.././EEPROM/eeprom.h
 
-.././main.h:
+../EEPROM/../main.h:
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -65,16 +67,16 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 
-../././tm1637/TM1637.h:
+../EEPROM/.././tm1637/TM1637.h:
 
-../././tm1637/pin_config.h:
+../EEPROM/.././tm1637/pin_config.h:
 
-../././tm1637/segments_patterns.h:
+../EEPROM/.././tm1637/segments_patterns.h:
 
-../././control_tm1637/control_tm1637.h:
+../EEPROM/.././control_tm1637/control_tm1637.h:
 
-../././myTime/myTime.h:
+../EEPROM/.././myTime/myTime.h:
 
-../././menu/menu.h:
+../EEPROM/.././menu/menu.h:
 
-../././EEPROM/eeprom.h:
+../EEPROM/.././EEPROM/eeprom.h:

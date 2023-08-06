@@ -4,6 +4,8 @@
 
 control_tm1637\control_tm1637.c
 
+EEPROM\eeprom.c
+
 main.c
 
 menu\menu.c

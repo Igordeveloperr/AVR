@@ -126,6 +126,12 @@
     <Compile Include="control_tm1637\control_tm1637.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="EEPROM\eeprom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEPROM\eeprom.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -161,6 +167,7 @@
     <Folder Include="menu" />
     <Folder Include="control_tm1637" />
     <Folder Include="myTime" />
+    <Folder Include="EEPROM" />
     <Folder Include="tm1637" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

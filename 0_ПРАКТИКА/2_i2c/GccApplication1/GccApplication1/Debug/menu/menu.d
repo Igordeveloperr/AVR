@@ -22,7 +22,8 @@ menu/menu.d menu/menu.o: ../menu/menu.c ../menu/../main.h \
  ../menu/.././tm1637/TM1637.h ../menu/.././tm1637/pin_config.h \
  ../menu/.././tm1637/segments_patterns.h \
  ../menu/.././control_tm1637/control_tm1637.h \
- ../menu/.././myTime/myTime.h ../menu/.././menu/menu.h
+ ../menu/.././myTime/myTime.h ../menu/.././menu/menu.h \
+ ../menu/.././EEPROM/eeprom.h
 
 ../menu/../main.h:
 
@@ -77,3 +78,5 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 ../menu/.././myTime/myTime.h:
 
 ../menu/.././menu/menu.h:
+
+../menu/.././EEPROM/eeprom.h:

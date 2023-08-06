@@ -41,9 +41,11 @@ ISR(INT0_vect)
 	sleep_disable();
 	cat_hour = hour;
 	cat_minutes = minutes;
-	interval = 0;
+	EEPROM_write(HOUR_ADDRESS, cat_hour);
+	EEPROM_write(MIN_ADDRESS, cat_minutes);
 	wakeup_display();
 	print_time_on_display(cat_hour, cat_minutes);
+	interval = 0;
 }
 
 ISR(INT1_vect)
@@ -55,12 +57,14 @@ ISR(INT1_vect)
 		TM1637_clear();
 		print_time_on_display(cat_hour, cat_minutes);
 	}
-	else
+	
+	if(MENU_BTN_CLICK)
 	{
 		event_listener();
 		setup_time(&seconds, &minutes, &hour);
 		print_time_on_display(hour, minutes);
 	}
+	
 	interval = 0;
 }
 
@@ -96,6 +100,9 @@ int main(void)
 	start_timer2_async();
 	setup_ext_interrapt();
 	sei();
+	
+	cat_hour = EEPROM_read(HOUR_ADDRESS);
+	cat_minutes = EEPROM_read(MIN_ADDRESS);
 	
 	TM1637_init();
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
