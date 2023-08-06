@@ -1,7 +1,7 @@
 #include "main.h"
 
-uint8_t hour = 23;
-uint8_t minutes = 59;
+uint8_t hour = 13;
+uint8_t minutes = 34;
 uint8_t seconds = 0;
 
 uint8_t cat_hour = 0;
@@ -44,7 +44,7 @@ ISR(INT0_vect)
 	EEPROM_write(HOUR_ADDRESS, cat_hour);
 	EEPROM_write(MIN_ADDRESS, cat_minutes);
 	wakeup_display();
-	print_time_on_display(cat_hour, cat_minutes);
+	TM1637_setSegments(EAT_WORD, DISP_LEN, START_POS);
 	interval = 0;
 }
 
@@ -106,6 +106,8 @@ int main(void)
 	
 	TM1637_init();
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
+	TM1637_setSegments(HI_WORD, DISP_LEN, START_POS);
+	_delay_ms(WAIT1S);
 	print_time_on_display(hour, minutes);
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
 	

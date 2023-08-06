@@ -31,10 +31,8 @@
 
 //=== Letters
 //                       .GFEDCBA
-#define H_RUS 0b01110110
-#define E_RUS 0b01111001
-#define A_RUS 0b01110111
 
+#define TM1637_SPAT_HAPPY 0b00001111
 #define TM1637_SPAT_A  0b01110111
 #define TM1637_SPAT_b  0b01111100
 #define TM1637_SPAT_c  0b01011000

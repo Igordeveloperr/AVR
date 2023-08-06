@@ -1,6 +1,7 @@
 #ifndef MENU_H_
 #define MENU_H_
-#define WAIT 500
+#define WAIT1S 1000
+#define WAIT500MS 500
 #define MAX_WAIT_TIME 8
 #define MENU_BTN PD4
 #define UP_BTN PD5

@@ -6,8 +6,8 @@ uint8_t wait_time = 0;
 
 void update_menu()
 {
+	_delay_ms(WAIT1S);
 	TM1637_clear();
-	_delay_ms(WAIT);
 }
 
 uint8_t set_time_up(uint8_t val, uint8_t max_val)
@@ -72,6 +72,7 @@ void event_listener()
 {
 	hr = 0;
 	min = 0;
+	TM1637_setSegments(SET_WORD, DISP_LEN, START_POS);
 	update_menu();
 	while(MENU_BTN_CLICK)
 	{
@@ -84,10 +85,11 @@ void event_listener()
 			tune_min();
 		}
 		wait_time++;
-		_delay_ms(WAIT);
+		_delay_ms(WAIT500MS);
 		print_time_on_display(hr,min);
 	}
 	wait_time = 0;
+	TM1637_setSegments(DONE_WORD, DISP_LEN, START_POS);
 	update_menu();
 }
 
