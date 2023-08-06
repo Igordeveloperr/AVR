@@ -27,7 +27,6 @@ void activate_sleep_mode()
 ISR(TIMER2_OVF_vect)
 {
 	TCNT2 = 0;
-	PORTB ^= (1 << PB1);
 	seconds += STEP;
 	interval += STEP;
 	control_seconds(&seconds, &minutes);
@@ -110,9 +109,6 @@ int main(void)
 	_delay_ms(WAIT1S);
 	print_time_on_display(hour, minutes);
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
-	
-	DDRB |= (1 << PB1);
-	PORTB &= ~(1 << PB1);
 	
 	while(1)
 	{
