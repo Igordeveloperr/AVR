@@ -1,4 +1,4 @@
-main.d main.o: .././main.c .././main.h \
+ds1307/ds1307.d ds1307/ds1307.o: ../ds1307/ds1307.c ../ds1307/../main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -20,12 +20,13 @@ main.d main.o: .././main.c .././main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
- ../././tm1637/TM1637.h ../././tm1637/pin_config.h \
- ../././tm1637/segments_patterns.h ../././control_tm1637/control_tm1637.h \
- ../././myTime/myTime.h ../././menu/menu.h ../././EEPROM/eeprom.h \
- ../././ds1307/ds1307.h
+ ../ds1307/.././tm1637/TM1637.h ../ds1307/.././tm1637/pin_config.h \
+ ../ds1307/.././tm1637/segments_patterns.h \
+ ../ds1307/.././control_tm1637/control_tm1637.h \
+ ../ds1307/.././myTime/myTime.h ../ds1307/.././menu/menu.h \
+ ../ds1307/.././EEPROM/eeprom.h ../ds1307/.././ds1307/ds1307.h
 
-.././main.h:
+../ds1307/../main.h:
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -69,18 +70,18 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
-../././tm1637/TM1637.h:
+../ds1307/.././tm1637/TM1637.h:
 
-../././tm1637/pin_config.h:
+../ds1307/.././tm1637/pin_config.h:
 
-../././tm1637/segments_patterns.h:
+../ds1307/.././tm1637/segments_patterns.h:
 
-../././control_tm1637/control_tm1637.h:
+../ds1307/.././control_tm1637/control_tm1637.h:
 
-../././myTime/myTime.h:
+../ds1307/.././myTime/myTime.h:
 
-../././menu/menu.h:
+../ds1307/.././menu/menu.h:
 
-../././EEPROM/eeprom.h:
+../ds1307/.././EEPROM/eeprom.h:
 
-../././ds1307/ds1307.h:
+../ds1307/.././ds1307/ds1307.h:

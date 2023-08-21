@@ -20,13 +20,15 @@ control_tm1637/control_tm1637.d control_tm1637/control_tm1637.o: \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
+ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
  ../control_tm1637/.././tm1637/TM1637.h \
  ../control_tm1637/.././tm1637/pin_config.h \
  ../control_tm1637/.././tm1637/segments_patterns.h \
  ../control_tm1637/.././control_tm1637/control_tm1637.h \
  ../control_tm1637/.././myTime/myTime.h \
  ../control_tm1637/.././menu/menu.h \
- ../control_tm1637/.././EEPROM/eeprom.h
+ ../control_tm1637/.././EEPROM/eeprom.h \
+ ../control_tm1637/.././ds1307/ds1307.h
 
 ../control_tm1637/../main.h:
 
@@ -70,6 +72,8 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 
+c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
+
 ../control_tm1637/.././tm1637/TM1637.h:
 
 ../control_tm1637/.././tm1637/pin_config.h:
@@ -83,3 +87,5 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 ../control_tm1637/.././menu/menu.h:
 
 ../control_tm1637/.././EEPROM/eeprom.h:
+
+../control_tm1637/.././ds1307/ds1307.h:
