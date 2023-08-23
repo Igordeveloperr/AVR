@@ -61,8 +61,6 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .text.activate_sleep_mode
-                0x00000000       0x1e main.o
  .text          0x00000000        0x0 menu/menu.o
  .data          0x00000000        0x0 menu/menu.o
  .bss           0x00000000        0x0 menu/menu.o
@@ -92,8 +90,6 @@ Discarded input sections
                 0x00000000       0xdc tm1637/TM1637.o
  .text.TM1637_turnOn
                 0x00000000       0xd2 tm1637/TM1637.o
- .text.TM1637_turnOff
-                0x00000000       0xd0 tm1637/TM1637.o
  .text.TM1637_setBrightness
                 0x00000000       0xd4 tm1637/TM1637.o
  .text.TM1637_displayNumber
@@ -299,7 +295,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xa9e
+.text           0x00000000      0xb6a
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -367,6 +363,7 @@ END GROUP
                 0x0000005c                __vector_17
                 0x0000005c                __vector_7
                 0x0000005c                __vector_5
+                0x0000005c                __vector_4
                 0x0000005c                __vector_9
                 0x0000005c                __vector_15
                 0x0000005c                __vector_8
@@ -412,61 +409,61 @@ END GROUP
  .text.EEPROM_read
                 0x0000031c       0x14 EEPROM/eeprom.o
                 0x0000031c                EEPROM_read
- .text.__vector_4
-                0x00000330       0x16 main.o
-                0x00000330                __vector_4
+ .text.activate_sleep_mode
+                0x00000330       0x26 main.o
+                0x00000330                activate_sleep_mode
  .text.__vector_1
-                0x00000346       0x9e main.o
-                0x00000346                __vector_1
+                0x00000356       0xa0 main.o
+                0x00000356                __vector_1
  .text.__vector_2
-                0x000003e4       0x7e main.o
-                0x000003e4                __vector_2
- .text.start_timer2_async
-                0x00000462       0x26 main.o
-                0x00000462                start_timer2_async
+                0x000003f6       0x7e main.o
+                0x000003f6                __vector_2
  .text.setup_ext_interrapt
-                0x00000488       0x10 main.o
-                0x00000488                setup_ext_interrapt
- .text.main     0x00000498       0xa4 main.o
-                0x00000498                main
+                0x00000474       0x10 main.o
+                0x00000474                setup_ext_interrapt
+ .text.main     0x00000484       0x72 main.o
+                0x00000484                main
  .text.update_menu
-                0x0000053c       0x16 menu/menu.o
-                0x0000053c                update_menu
+                0x000004f6       0x16 menu/menu.o
+                0x000004f6                update_menu
  .text.set_time_up
-                0x00000552        0xc menu/menu.o
-                0x00000552                set_time_up
+                0x0000050c        0xc menu/menu.o
+                0x0000050c                set_time_up
  .text.set_time_down
-                0x0000055e        0xc menu/menu.o
-                0x0000055e                set_time_down
+                0x00000518        0xc menu/menu.o
+                0x00000518                set_time_down
  .text.tune_hour
-                0x0000056a       0x2a menu/menu.o
-                0x0000056a                tune_hour
+                0x00000524       0x2a menu/menu.o
+                0x00000524                tune_hour
  .text.tune_min
-                0x00000594       0x2e menu/menu.o
-                0x00000594                tune_min
+                0x0000054e       0x2e menu/menu.o
+                0x0000054e                tune_min
  .text.event_listener
-                0x000005c2       0xa2 menu/menu.o
-                0x000005c2                event_listener
+                0x0000057c       0xa2 menu/menu.o
+                0x0000057c                event_listener
  .text.setup_time
-                0x00000664       0x16 menu/menu.o
-                0x00000664                setup_time
+                0x0000061e       0x58 menu/menu.o
+                0x0000061e                setup_time
  .text.TM1637_init
-                0x0000067a       0xd2 tm1637/TM1637.o
-                0x0000067a                TM1637_init
+                0x00000676       0xd2 tm1637/TM1637.o
+                0x00000676                TM1637_init
+ .text.TM1637_turnOff
+                0x00000748       0xd0 tm1637/TM1637.o
+                0x00000748                TM1637_turnOff
  .text.TM1637_turnOnAndSetBrightness
-                0x0000074c       0xce tm1637/TM1637.o
-                0x0000074c                TM1637_turnOnAndSetBrightness
+                0x00000818       0xce tm1637/TM1637.o
+                0x00000818                TM1637_turnOnAndSetBrightness
  .text.TM1637_setSegments
-                0x0000081a      0x14e tm1637/TM1637.o
-                0x0000081a                TM1637_setSegments
+                0x000008e6      0x14e tm1637/TM1637.o
+                0x000008e6                TM1637_setSegments
  .text.TM1637_clear
-                0x00000968      0x132 tm1637/TM1637.o
-                0x00000968                TM1637_clear
-                0x00000a9a                . = ALIGN (0x2)
+                0x00000a34      0x132 tm1637/TM1637.o
+                0x00000a34                TM1637_clear
+                0x00000b66                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000a9a        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000a9a                _exit
-                0x00000a9a                exit
+ .fini9         0x00000b66        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000b66                _exit
+                0x00000b66                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -485,11 +482,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000a9a        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000b66        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000a9e                _etext = .
+                0x00000b6a                _etext = .
 
-.data           0x00800060        0xc load address 0x00000a9e
+.data           0x00800060        0xc load address 0x00000b6a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -533,8 +530,8 @@ END GROUP
                 0x00800073                TM1637_brightness_reg
                 0x00800074                DateTime
                 0x0080007d                PROVIDE (__bss_end, .)
-                0x00000a9e                __data_load_start = LOADADDR (.data)
-                0x00000aaa                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000b6a                __data_load_start = LOADADDR (.data)
+                0x00000b76                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080007d        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -610,7 +607,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x1b0
+.debug_aranges  0x00000000      0x1a0
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 control_tm1637/control_tm1637.o
@@ -619,55 +616,55 @@ END GROUP
  .debug_aranges
                 0x00000080       0x28 EEPROM/eeprom.o
  .debug_aranges
-                0x000000a8       0x50 main.o
+                0x000000a8       0x40 main.o
  .debug_aranges
-                0x000000f8       0x50 menu/menu.o
+                0x000000e8       0x50 menu/menu.o
  .debug_aranges
-                0x00000148       0x68 tm1637/TM1637.o
+                0x00000138       0x68 tm1637/TM1637.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3541
+.debug_info     0x00000000     0x34f8
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_info    0x0000048c      0x26c control_tm1637/control_tm1637.o
  .debug_info    0x000006f8      0x612 ds/ds1302.o
  .debug_info    0x00000d0a      0x19a EEPROM/eeprom.o
- .debug_info    0x00000ea4      0x4cc main.o
- .debug_info    0x00001370      0x455 menu/menu.o
- .debug_info    0x000017c5     0x1d7c tm1637/TM1637.o
+ .debug_info    0x00000ea4      0x473 main.o
+ .debug_info    0x00001317      0x465 menu/menu.o
+ .debug_info    0x0000177c     0x1d7c tm1637/TM1637.o
 
-.debug_abbrev   0x00000000      0xe0a
+.debug_abbrev   0x00000000      0xdf2
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_abbrev  0x0000044e      0x150 control_tm1637/control_tm1637.o
  .debug_abbrev  0x0000059e      0x1d3 ds/ds1302.o
  .debug_abbrev  0x00000771       0xc9 EEPROM/eeprom.o
- .debug_abbrev  0x0000083a      0x19d main.o
- .debug_abbrev  0x000009d7      0x1e9 menu/menu.o
- .debug_abbrev  0x00000bc0      0x24a tm1637/TM1637.o
+ .debug_abbrev  0x0000083a      0x185 main.o
+ .debug_abbrev  0x000009bf      0x1e9 menu/menu.o
+ .debug_abbrev  0x00000ba8      0x24a tm1637/TM1637.o
 
-.debug_line     0x00000000     0x18d2
+.debug_line     0x00000000     0x1862
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x176 control_tm1637/control_tm1637.o
  .debug_line    0x00000280      0x38e ds/ds1302.o
  .debug_line    0x0000060e      0x120 EEPROM/eeprom.o
- .debug_line    0x0000072e      0x362 main.o
- .debug_line    0x00000a90      0x2a4 menu/menu.o
- .debug_line    0x00000d34      0xb9e tm1637/TM1637.o
+ .debug_line    0x0000072e      0x2b6 main.o
+ .debug_line    0x000009e4      0x2e0 menu/menu.o
+ .debug_line    0x00000cc4      0xb9e tm1637/TM1637.o
 
-.debug_frame    0x00000000      0x400
+.debug_frame    0x00000000      0x3f4
  *(.debug_frame)
  .debug_frame   0x00000000       0x64 control_tm1637/control_tm1637.o
  .debug_frame   0x00000064       0xa0 ds/ds1302.o
  .debug_frame   0x00000104       0x34 EEPROM/eeprom.o
- .debug_frame   0x00000138      0x140 main.o
- .debug_frame   0x00000278       0x94 menu/menu.o
- .debug_frame   0x0000030c       0xf4 tm1637/TM1637.o
+ .debug_frame   0x00000138      0x114 main.o
+ .debug_frame   0x0000024c       0xb4 menu/menu.o
+ .debug_frame   0x00000300       0xf4 tm1637/TM1637.o
 
-.debug_str      0x00000000      0x78a
+.debug_str      0x00000000      0x76c
  *(.debug_str)
  .debug_str     0x00000000      0x17a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_str     0x0000017a      0x23a control_tm1637/control_tm1637.o
@@ -676,21 +673,21 @@ END GROUP
                                 0x2b1 (size before relaxing)
  .debug_str     0x000004a6       0x3d EEPROM/eeprom.o
                                 0x217 (size before relaxing)
- .debug_str     0x000004e3       0xd7 main.o
-                                0x38d (size before relaxing)
- .debug_str     0x000005ba       0x67 menu/menu.o
-                                0x2e6 (size before relaxing)
- .debug_str     0x00000621      0x169 tm1637/TM1637.o
+ .debug_str     0x000004e3       0xb9 main.o
+                                0x35a (size before relaxing)
+ .debug_str     0x0000059c       0x67 menu/menu.o
+                                0x2fb (size before relaxing)
+ .debug_str     0x00000603      0x169 tm1637/TM1637.o
                                 0x364 (size before relaxing)
 
-.debug_loc      0x00000000     0x230e
+.debug_loc      0x00000000     0x23b0
  *(.debug_loc)
  .debug_loc     0x00000000      0x109 control_tm1637/control_tm1637.o
  .debug_loc     0x00000109      0x2e2 ds/ds1302.o
  .debug_loc     0x000003eb       0x42 EEPROM/eeprom.o
- .debug_loc     0x0000042d      0x288 main.o
- .debug_loc     0x000006b5      0x1a6 menu/menu.o
- .debug_loc     0x0000085b     0x1ab3 tm1637/TM1637.o
+ .debug_loc     0x0000042d      0x259 main.o
+ .debug_loc     0x00000686      0x277 menu/menu.o
+ .debug_loc     0x000008fd     0x1ab3 tm1637/TM1637.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -710,14 +707,14 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x1f8
+.debug_ranges   0x00000000      0x1e8
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 control_tm1637/control_tm1637.o
  .debug_ranges  0x00000020       0x40 ds/ds1302.o
  .debug_ranges  0x00000060       0x18 EEPROM/eeprom.o
- .debug_ranges  0x00000078       0x40 main.o
- .debug_ranges  0x000000b8       0x40 menu/menu.o
- .debug_ranges  0x000000f8      0x100 tm1637/TM1637.o
+ .debug_ranges  0x00000078       0x30 main.o
+ .debug_ranges  0x000000a8       0x40 menu/menu.o
+ .debug_ranges  0x000000e8      0x100 tm1637/TM1637.o
 
 .debug_macro
  *(.debug_macro)

@@ -3,21 +3,18 @@
 uint8_t hour = 13;
 uint8_t minutes = 34;
 uint8_t seconds = 0;
-
 uint8_t cat_hour = 0;
 uint8_t cat_minutes = 0;
-
 uint8_t interval = 0;
 
 /* реализация спящего режима */
 void activate_sleep_mode()
 {
-	if (interval >= MAX_INTERVAL)
+	DS1302_ReadDateTime();
+	if ((DateTime.Sec - interval) >= MAX_INTERVAL)
 	{	
+		interval = DateTime.Sec;
 		TM1637_turnOff();
-		OCR2 = 1;
-		/* жду сброс флагов */
-		while (ASSR != ASSR_REG_REDY);
 		sleep_enable();
 		sleep_cpu();
 	}
@@ -87,9 +84,7 @@ int main(void)
 	
 	while(1)
 	{
-		DS1302_ReadDateTime();
-		print_time_on_display(DateTime.Hour, DateTime.Min);
-		//activate_sleep_mode();
+		activate_sleep_mode();
 	}
 }
 
