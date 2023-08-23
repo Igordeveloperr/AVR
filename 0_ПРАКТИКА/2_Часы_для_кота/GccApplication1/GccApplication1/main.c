@@ -13,7 +13,6 @@ void activate_sleep_mode()
 	DS1302_ReadDateTime();
 	if ((DateTime.Sec - interval) >= MAX_INTERVAL)
 	{	
-		interval = DateTime.Sec;
 		TM1637_turnOff();
 		sleep_enable();
 		sleep_cpu();
@@ -25,13 +24,14 @@ ISR(INT0_vect)
 {
 	sleep_disable();
 	DS1302_ReadDateTime();
+	interval = DateTime.Sec;
 	cat_hour = DateTime.Hour;
 	cat_minutes = DateTime.Min;
 	EEPROM_write(HOUR_ADDRESS, cat_hour);
 	EEPROM_write(MIN_ADDRESS, cat_minutes);
 	wakeup_display();
 	TM1637_setSegments(EAT_WORD, DISP_LEN, START_POS);
-	interval = 0;
+	
 }
 
 ISR(INT1_vect)
@@ -51,7 +51,6 @@ ISR(INT1_vect)
 		setup_time(&seconds, &minutes, &hour);
 		print_time_on_display(hour, minutes);
 	}
-	interval = 0;
 }
 
 /* настройка внешних прерываний */
@@ -79,6 +78,7 @@ int main(void)
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
 	TM1637_setSegments(HI_WORD, DISP_LEN, START_POS);
 	_delay_ms(WAIT1S);
+	print_time_on_display(cat_hour, cat_minutes);
 	
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
 	
