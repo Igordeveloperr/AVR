@@ -23,18 +23,6 @@ void activate_sleep_mode()
 	}
 }
 
-/* отсчет времени */
-ISR(TIMER2_OVF_vect)
-{
-	TCNT2 = 0;
-	/*seconds += STEP;
-	interval += STEP;
-	PORTB ^= (1 << PB0);
-	control_seconds(&seconds, &minutes);
-	control_min(&minutes, &hour);
-	control_hour(&seconds, &minutes, &hour);*/
-}
-
 /* выход из сна + метка когда кот ел */
 ISR(INT0_vect)
 {
@@ -69,24 +57,6 @@ ISR(INT1_vect)
 	interval = 0;
 }
 
-/* настройка Timer/Counter2 */
-void start_timer2_async()
-{
-	ASSR |= (1 << AS2); // вклю асинхронный режим
-	/* чищу регистры таймера от мусора */
-	TCCR2 = 0;
-	OCR2 = 0;
-	TCNT2 = 0;
-	/* делитель частоты = 128 */
-	TCCR2 |= (1 << CS22) | (1 << CS20);
-	/* жду сброс флагов для старта в асинхронном режиме */
-	while (ASSR != ASSR_REG_REDY);
-	/* чистим флаги прерываний */
-	TIFR |= (1 << OCF2) | (1 << TOV2);
-	/* включаю прерывание по переполнению таймера */
-	TIMSK |= (1 << TOIE2);
-}
-
 /* настройка внешних прерываний */
 void setup_ext_interrapt()
 {
@@ -99,7 +69,6 @@ int main(void)
 {
 	cli();
 	ACSR |= (1 << ACD); // ОТКЛЮЧЕНИЕ АЦП
-	start_timer2_async();
 	setup_ext_interrapt();
 	sei();
 	
@@ -112,23 +81,9 @@ int main(void)
 	TM1637_init();
 	TM1637_turnOnAndSetBrightness(BRIGHTNES);
 	TM1637_setSegments(HI_WORD, DISP_LEN, START_POS);
-	print_time_on_display(14, 8);
 	_delay_ms(WAIT1S);
 	
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
-	
-	// Задаем время и параметры (AM/PM следует задавать только при H12)
-	DateTime.Sec = 0;
-	DateTime.Min = 34;
-	DateTime.Hour = 11;
-	DateTime.Month = 8;
-	DateTime.Day = 16;
-	DateTime.Year = 11;
-	DateTime.WeekDay = 2;
-	DateTime.H12_24 = H24;  //H12/H24
-	
-	// Записываем время в микросхему ds1302
-	DS1302_WriteDateTime();
 	
 	while(1)
 	{
