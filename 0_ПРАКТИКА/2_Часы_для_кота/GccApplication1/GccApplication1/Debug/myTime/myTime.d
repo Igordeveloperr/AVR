@@ -20,11 +20,13 @@ myTime/myTime.d myTime/myTime.o: ../myTime/myTime.c ../myTime/../main.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h \
  c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
+ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  ../myTime/.././tm1637/TM1637.h ../myTime/.././tm1637/pin_config.h \
  ../myTime/.././tm1637/segments_patterns.h \
  ../myTime/.././control_tm1637/control_tm1637.h \
  ../myTime/.././myTime/myTime.h ../myTime/.././menu/menu.h \
- ../myTime/.././EEPROM/eeprom.h ../myTime/.././ds1307/ds1307.h
+ ../myTime/.././EEPROM/eeprom.h ../myTime/.././ds/ds1302.h \
+ ../myTime/.././i2chw/i2cmaster.h
 
 ../myTime/../main.h:
 
@@ -70,6 +72,8 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sleep.h:
 
 c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
+c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
+
 ../myTime/.././tm1637/TM1637.h:
 
 ../myTime/.././tm1637/pin_config.h:
@@ -84,4 +88,6 @@ c:\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\
 
 ../myTime/.././EEPROM/eeprom.h:
 
-../myTime/.././ds1307/ds1307.h:
+../myTime/.././ds/ds1302.h:
+
+../myTime/.././i2chw/i2cmaster.h:

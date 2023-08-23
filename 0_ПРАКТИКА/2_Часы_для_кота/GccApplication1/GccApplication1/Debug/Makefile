@@ -37,15 +37,17 @@ SUBDIRS :=  \
 ../control_tm1637 \
 ../myTime \
 ../EEPROM \
-../ds1307 \
+../ds \
+../i2chw \
 ../tm1637
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../control_tm1637/control_tm1637.c \
-../ds1307/ds1307.c \
+../ds/ds1302.c \
 ../EEPROM/eeprom.c \
+../i2chw/twimaster.c \
 ../main.c \
 ../menu/menu.c \
 ../myTime/myTime.c \
@@ -60,8 +62,9 @@ ASM_SRCS +=
 
 OBJS +=  \
 control_tm1637/control_tm1637.o \
-ds1307/ds1307.o \
+ds/ds1302.o \
 EEPROM/eeprom.o \
+i2chw/twimaster.o \
 main.o \
 menu/menu.o \
 myTime/myTime.o \
@@ -69,8 +72,9 @@ tm1637/TM1637.o
 
 OBJS_AS_ARGS +=  \
 control_tm1637/control_tm1637.o \
-ds1307/ds1307.o \
+ds/ds1302.o \
 EEPROM/eeprom.o \
+i2chw/twimaster.o \
 main.o \
 menu/menu.o \
 myTime/myTime.o \
@@ -78,8 +82,9 @@ tm1637/TM1637.o
 
 C_DEPS +=  \
 control_tm1637/control_tm1637.d \
-ds1307/ds1307.d \
+ds/ds1302.d \
 EEPROM/eeprom.d \
+i2chw/twimaster.d \
 main.d \
 menu/menu.d \
 myTime/myTime.d \
@@ -87,8 +92,9 @@ tm1637/TM1637.d
 
 C_DEPS_AS_ARGS +=  \
 control_tm1637/control_tm1637.d \
-ds1307/ds1307.d \
+ds/ds1302.d \
 EEPROM/eeprom.d \
+i2chw/twimaster.d \
 main.d \
 menu/menu.d \
 myTime/myTime.d \
@@ -115,7 +121,7 @@ control_tm1637/control_tm1637.o: ../control_tm1637/control_tm1637.c
 	@echo Finished building: $<
 	
 
-ds1307/ds1307.o: ../ds1307/ds1307.c
+ds/ds1302.o: ../ds/ds1302.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -123,6 +129,13 @@ ds1307/ds1307.o: ../ds1307/ds1307.c
 	
 
 EEPROM/eeprom.o: ../EEPROM/eeprom.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+i2chw/twimaster.o: ../i2chw/twimaster.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega8 -B "C:\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega8" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -22,12 +22,14 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <stdbool.h>
+#include <avr/pgmspace.h>
 
 #include "./tm1637/TM1637.h"
 #include "./control_tm1637/control_tm1637.h"
 #include "./myTime/myTime.h"
 #include "./menu/menu.h"
 #include "./EEPROM/eeprom.h"
-#include "./ds1307/ds1307.h"
+#include "./ds/ds1302.h"
+#include "./i2chw/i2cmaster.h"
 
 #endif

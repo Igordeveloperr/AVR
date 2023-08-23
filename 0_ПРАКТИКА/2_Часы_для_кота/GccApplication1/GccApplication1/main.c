@@ -27,12 +27,12 @@ void activate_sleep_mode()
 ISR(TIMER2_OVF_vect)
 {
 	TCNT2 = 0;
-	/*seconds += STEP;
+	seconds += STEP;
 	interval += STEP;
 	PORTB ^= (1 << PB0);
 	control_seconds(&seconds, &minutes);
 	control_min(&minutes, &hour);
-	control_hour(&seconds, &minutes, &hour);*/
+	control_hour(&seconds, &minutes, &hour);
 }
 
 /* выход из сна + метка когда кот ел */
@@ -116,22 +116,11 @@ int main(void)
 	
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
 	
-	i2c_init();
-	// Запускаем ход часов
-	uint8_t temp;
-	DS1307Read(0x00,&temp);
-	temp &= ~(1 << 7); // обнуляем 7 бит
-	DS1307Write(0x00,temp);
+	
 	
 	while(1)
 	{
-		uint8_t hour1, minute1, temp1;
-		DS1307Read(0x01,&temp1); // Чтение регистра минут
-		minute1 = (((temp1 & 0xF0) >> 4)*10)+(temp1 & 0x0F);
-		DS1307Read(0x02,&temp1); // Чтение регистра часов
-		hour1 = (((temp1 & 0xF0) >> 4)*10)+(temp1 & 0x0F);
-		
-		print_time_on_display(hour1, minute1);
+		print_time_on_display(14, 88);
 		//activate_sleep_mode();
 	}
 }
