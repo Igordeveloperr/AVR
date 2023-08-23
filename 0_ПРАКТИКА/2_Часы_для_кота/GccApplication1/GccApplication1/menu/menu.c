@@ -95,6 +95,16 @@ void event_listener()
 
 void setup_time(uint8_t* seconds, uint8_t* minutes, uint8_t* hour)
 {
+	DateTime.Sec = 0;
+	DateTime.Min = min;
+	DateTime.Hour = hr;
+	DateTime.Month = 8;
+	DateTime.Day = 16;
+	DateTime.Year = 11;
+	DateTime.WeekDay = 2;
+	DateTime.H12_24 = H24;  
+	DS1302_WriteDateTime();
+	
 	*seconds = 0;
 	*minutes = min;
 	*hour = hr;

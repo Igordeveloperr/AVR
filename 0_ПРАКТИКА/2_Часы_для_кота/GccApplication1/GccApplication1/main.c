@@ -27,20 +27,21 @@ void activate_sleep_mode()
 ISR(TIMER2_OVF_vect)
 {
 	TCNT2 = 0;
-	seconds += STEP;
+	/*seconds += STEP;
 	interval += STEP;
 	PORTB ^= (1 << PB0);
 	control_seconds(&seconds, &minutes);
 	control_min(&minutes, &hour);
-	control_hour(&seconds, &minutes, &hour);
+	control_hour(&seconds, &minutes, &hour);*/
 }
 
 /* выход из сна + метка когда кот ел */
 ISR(INT0_vect)
 {
 	sleep_disable();
-	cat_hour = hour;
-	cat_minutes = minutes;
+	DS1302_ReadDateTime();
+	cat_hour = DateTime.Hour;
+	cat_minutes = DateTime.Min;
 	EEPROM_write(HOUR_ADDRESS, cat_hour);
 	EEPROM_write(MIN_ADDRESS, cat_minutes);
 	wakeup_display();
@@ -116,11 +117,23 @@ int main(void)
 	
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
 	
+	// «адаем врем€ и параметры (AM/PM следует задавать только при H12)
+	DateTime.Sec = 0;
+	DateTime.Min = 34;
+	DateTime.Hour = 11;
+	DateTime.Month = 8;
+	DateTime.Day = 16;
+	DateTime.Year = 11;
+	DateTime.WeekDay = 2;
+	DateTime.H12_24 = H24;  //H12/H24
 	
+	// «аписываем врем€ в микросхему ds1302
+	DS1302_WriteDateTime();
 	
 	while(1)
 	{
-		print_time_on_display(14, 88);
+		DS1302_ReadDateTime();
+		print_time_on_display(DateTime.Hour, DateTime.Min);
 		//activate_sleep_mode();
 	}
 }

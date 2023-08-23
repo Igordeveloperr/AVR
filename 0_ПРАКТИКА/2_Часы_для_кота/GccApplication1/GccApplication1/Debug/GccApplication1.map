@@ -26,30 +26,6 @@ Discarded input sections
  .text          0x00000000        0x0 ds/ds1302.o
  .data          0x00000000        0x0 ds/ds1302.o
  .bss           0x00000000        0x0 ds/ds1302.o
- .text.DS1302_Bin8_To_BCD
-                0x00000000       0x28 ds/ds1302.o
- .text.DS1302_BCD_To_Bin8
-                0x00000000       0x18 ds/ds1302.o
- .text.ds1302_write
-                0x00000000       0x60 ds/ds1302.o
- .text.ds1302_end_write_data
-                0x00000000        0x8 ds/ds1302.o
- .text.ds1302_read
-                0x00000000       0x58 ds/ds1302.o
- .text.DS1302_ReadDateTime
-                0x00000000       0x76 ds/ds1302.o
- .text.DS1302_WriteDateTime
-                0x00000000       0x70 ds/ds1302.o
- .debug_info    0x00000000      0x612 ds/ds1302.o
- .debug_abbrev  0x00000000      0x1d3 ds/ds1302.o
- .debug_loc     0x00000000      0x2e2 ds/ds1302.o
- .debug_aranges
-                0x00000000       0x50 ds/ds1302.o
- .debug_ranges  0x00000000       0x40 ds/ds1302.o
- .debug_line    0x00000000      0x38e ds/ds1302.o
- .debug_str     0x00000000      0x2b1 ds/ds1302.o
- .comment       0x00000000       0x31 ds/ds1302.o
- .debug_frame   0x00000000       0xa0 ds/ds1302.o
  .text          0x00000000        0x0 EEPROM/eeprom.o
  .data          0x00000000        0x0 EEPROM/eeprom.o
  .bss           0x00000000        0x0 EEPROM/eeprom.o
@@ -93,6 +69,22 @@ Discarded input sections
  .text          0x00000000        0x0 myTime/myTime.o
  .data          0x00000000        0x0 myTime/myTime.o
  .bss           0x00000000        0x0 myTime/myTime.o
+ .text.control_seconds
+                0x00000000       0x16 myTime/myTime.o
+ .text.control_min
+                0x00000000       0x16 myTime/myTime.o
+ .text.control_hour
+                0x00000000       0x24 myTime/myTime.o
+ .debug_info    0x00000000      0x1fc myTime/myTime.o
+ .debug_abbrev  0x00000000       0xb6 myTime/myTime.o
+ .debug_loc     0x00000000       0x28 myTime/myTime.o
+ .debug_aranges
+                0x00000000       0x30 myTime/myTime.o
+ .debug_ranges  0x00000000       0x20 myTime/myTime.o
+ .debug_line    0x00000000      0x13e myTime/myTime.o
+ .debug_str     0x00000000      0x226 myTime/myTime.o
+ .comment       0x00000000       0x31 myTime/myTime.o
+ .debug_frame   0x00000000       0x44 myTime/myTime.o
  .text          0x00000000        0x0 tm1637/TM1637.o
  .data          0x00000000        0x0 tm1637/TM1637.o
  .bss           0x00000000        0x0 tm1637/TM1637.o
@@ -307,7 +299,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x950
+.text           0x00000000      0xa9e
  *(.vectors)
  .vectors       0x00000000       0x26 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -393,76 +385,88 @@ END GROUP
  .text.print_time_on_display
                 0x00000078       0xa4 control_tm1637/control_tm1637.o
                 0x00000078                print_time_on_display
+ .text.DS1302_Bin8_To_BCD
+                0x0000011c       0x28 ds/ds1302.o
+                0x0000011c                DS1302_Bin8_To_BCD
+ .text.DS1302_BCD_To_Bin8
+                0x00000144       0x18 ds/ds1302.o
+                0x00000144                DS1302_BCD_To_Bin8
+ .text.ds1302_write
+                0x0000015c       0x60 ds/ds1302.o
+                0x0000015c                ds1302_write
+ .text.ds1302_end_write_data
+                0x000001bc        0x8 ds/ds1302.o
+                0x000001bc                ds1302_end_write_data
+ .text.ds1302_read
+                0x000001c4       0x58 ds/ds1302.o
+                0x000001c4                ds1302_read
+ .text.DS1302_ReadDateTime
+                0x0000021c       0x76 ds/ds1302.o
+                0x0000021c                DS1302_ReadDateTime
+ .text.DS1302_WriteDateTime
+                0x00000292       0x70 ds/ds1302.o
+                0x00000292                DS1302_WriteDateTime
  .text.EEPROM_write
-                0x0000011c       0x1a EEPROM/eeprom.o
-                0x0000011c                EEPROM_write
+                0x00000302       0x1a EEPROM/eeprom.o
+                0x00000302                EEPROM_write
  .text.EEPROM_read
-                0x00000136       0x14 EEPROM/eeprom.o
-                0x00000136                EEPROM_read
+                0x0000031c       0x14 EEPROM/eeprom.o
+                0x0000031c                EEPROM_read
  .text.__vector_4
-                0x0000014a       0x84 main.o
-                0x0000014a                __vector_4
+                0x00000330       0x16 main.o
+                0x00000330                __vector_4
  .text.__vector_1
-                0x000001ce       0x9e main.o
-                0x000001ce                __vector_1
+                0x00000346       0x9e main.o
+                0x00000346                __vector_1
  .text.__vector_2
-                0x0000026c       0x7e main.o
-                0x0000026c                __vector_2
+                0x000003e4       0x7e main.o
+                0x000003e4                __vector_2
  .text.start_timer2_async
-                0x000002ea       0x26 main.o
-                0x000002ea                start_timer2_async
+                0x00000462       0x26 main.o
+                0x00000462                start_timer2_async
  .text.setup_ext_interrapt
-                0x00000310       0x10 main.o
-                0x00000310                setup_ext_interrapt
- .text.main     0x00000320       0x7e main.o
-                0x00000320                main
+                0x00000488       0x10 main.o
+                0x00000488                setup_ext_interrapt
+ .text.main     0x00000498       0xa4 main.o
+                0x00000498                main
  .text.update_menu
-                0x0000039e       0x16 menu/menu.o
-                0x0000039e                update_menu
+                0x0000053c       0x16 menu/menu.o
+                0x0000053c                update_menu
  .text.set_time_up
-                0x000003b4        0xc menu/menu.o
-                0x000003b4                set_time_up
+                0x00000552        0xc menu/menu.o
+                0x00000552                set_time_up
  .text.set_time_down
-                0x000003c0        0xc menu/menu.o
-                0x000003c0                set_time_down
+                0x0000055e        0xc menu/menu.o
+                0x0000055e                set_time_down
  .text.tune_hour
-                0x000003cc       0x2a menu/menu.o
-                0x000003cc                tune_hour
+                0x0000056a       0x2a menu/menu.o
+                0x0000056a                tune_hour
  .text.tune_min
-                0x000003f6       0x2e menu/menu.o
-                0x000003f6                tune_min
+                0x00000594       0x2e menu/menu.o
+                0x00000594                tune_min
  .text.event_listener
-                0x00000424       0xa2 menu/menu.o
-                0x00000424                event_listener
+                0x000005c2       0xa2 menu/menu.o
+                0x000005c2                event_listener
  .text.setup_time
-                0x000004c6       0x16 menu/menu.o
-                0x000004c6                setup_time
- .text.control_seconds
-                0x000004dc       0x16 myTime/myTime.o
-                0x000004dc                control_seconds
- .text.control_min
-                0x000004f2       0x16 myTime/myTime.o
-                0x000004f2                control_min
- .text.control_hour
-                0x00000508       0x24 myTime/myTime.o
-                0x00000508                control_hour
+                0x00000664       0x16 menu/menu.o
+                0x00000664                setup_time
  .text.TM1637_init
-                0x0000052c       0xd2 tm1637/TM1637.o
-                0x0000052c                TM1637_init
+                0x0000067a       0xd2 tm1637/TM1637.o
+                0x0000067a                TM1637_init
  .text.TM1637_turnOnAndSetBrightness
-                0x000005fe       0xce tm1637/TM1637.o
-                0x000005fe                TM1637_turnOnAndSetBrightness
+                0x0000074c       0xce tm1637/TM1637.o
+                0x0000074c                TM1637_turnOnAndSetBrightness
  .text.TM1637_setSegments
-                0x000006cc      0x14e tm1637/TM1637.o
-                0x000006cc                TM1637_setSegments
+                0x0000081a      0x14e tm1637/TM1637.o
+                0x0000081a                TM1637_setSegments
  .text.TM1637_clear
-                0x0000081a      0x132 tm1637/TM1637.o
-                0x0000081a                TM1637_clear
-                0x0000094c                . = ALIGN (0x2)
+                0x00000968      0x132 tm1637/TM1637.o
+                0x00000968                TM1637_clear
+                0x00000a9a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000094c        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x0000094c                _exit
-                0x0000094c                exit
+ .fini9         0x00000a9a        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000a9a                _exit
+                0x00000a9a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -481,11 +485,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000094c        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000a9a        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000950                _etext = .
+                0x00000a9e                _etext = .
 
-.data           0x00800060        0xc load address 0x00000950
+.data           0x00800060        0xc load address 0x00000a9e
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -529,8 +533,8 @@ END GROUP
                 0x00800073                TM1637_brightness_reg
                 0x00800074                DateTime
                 0x0080007d                PROVIDE (__bss_end, .)
-                0x00000950                __data_load_start = LOADADDR (.data)
-                0x0000095c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000a9e                __data_load_start = LOADADDR (.data)
+                0x00000aaa                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080007d        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -580,10 +584,10 @@ END GROUP
  *(.comment)
  .comment       0x00000000       0x30 control_tm1637/control_tm1637.o
                                  0x31 (size before relaxing)
+ .comment       0x00000030       0x31 ds/ds1302.o
  .comment       0x00000030       0x31 EEPROM/eeprom.o
  .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x31 menu/menu.o
- .comment       0x00000030       0x31 myTime/myTime.o
  .comment       0x00000030       0x31 tm1637/TM1637.o
 
 .note.gnu.avr.deviceinfo
@@ -606,87 +610,87 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x190
+.debug_aranges  0x00000000      0x1b0
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 control_tm1637/control_tm1637.o
  .debug_aranges
-                0x00000030       0x28 EEPROM/eeprom.o
+                0x00000030       0x50 ds/ds1302.o
  .debug_aranges
-                0x00000058       0x50 main.o
+                0x00000080       0x28 EEPROM/eeprom.o
  .debug_aranges
-                0x000000a8       0x50 menu/menu.o
+                0x000000a8       0x50 main.o
  .debug_aranges
-                0x000000f8       0x30 myTime/myTime.o
+                0x000000f8       0x50 menu/menu.o
  .debug_aranges
-                0x00000128       0x68 tm1637/TM1637.o
+                0x00000148       0x68 tm1637/TM1637.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x31bf
+.debug_info     0x00000000     0x3541
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_info    0x0000048c      0x26c control_tm1637/control_tm1637.o
- .debug_info    0x000006f8      0x19a EEPROM/eeprom.o
- .debug_info    0x00000892      0x560 main.o
- .debug_info    0x00000df2      0x455 menu/menu.o
- .debug_info    0x00001247      0x1fc myTime/myTime.o
- .debug_info    0x00001443     0x1d7c tm1637/TM1637.o
+ .debug_info    0x000006f8      0x612 ds/ds1302.o
+ .debug_info    0x00000d0a      0x19a EEPROM/eeprom.o
+ .debug_info    0x00000ea4      0x4cc main.o
+ .debug_info    0x00001370      0x455 menu/menu.o
+ .debug_info    0x000017c5     0x1d7c tm1637/TM1637.o
 
-.debug_abbrev   0x00000000      0xcd5
+.debug_abbrev   0x00000000      0xe0a
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x44e C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_abbrev  0x0000044e      0x150 control_tm1637/control_tm1637.o
- .debug_abbrev  0x0000059e       0xc9 EEPROM/eeprom.o
- .debug_abbrev  0x00000667      0x185 main.o
- .debug_abbrev  0x000007ec      0x1e9 menu/menu.o
- .debug_abbrev  0x000009d5       0xb6 myTime/myTime.o
- .debug_abbrev  0x00000a8b      0x24a tm1637/TM1637.o
+ .debug_abbrev  0x0000059e      0x1d3 ds/ds1302.o
+ .debug_abbrev  0x00000771       0xc9 EEPROM/eeprom.o
+ .debug_abbrev  0x0000083a      0x19d main.o
+ .debug_abbrev  0x000009d7      0x1e9 menu/menu.o
+ .debug_abbrev  0x00000bc0      0x24a tm1637/TM1637.o
 
-.debug_line     0x00000000     0x1680
+.debug_line     0x00000000     0x18d2
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x10a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x0000010a      0x176 control_tm1637/control_tm1637.o
- .debug_line    0x00000280      0x120 EEPROM/eeprom.o
- .debug_line    0x000003a0      0x360 main.o
- .debug_line    0x00000700      0x2a4 menu/menu.o
- .debug_line    0x000009a4      0x13e myTime/myTime.o
- .debug_line    0x00000ae2      0xb9e tm1637/TM1637.o
+ .debug_line    0x00000280      0x38e ds/ds1302.o
+ .debug_line    0x0000060e      0x120 EEPROM/eeprom.o
+ .debug_line    0x0000072e      0x362 main.o
+ .debug_line    0x00000a90      0x2a4 menu/menu.o
+ .debug_line    0x00000d34      0xb9e tm1637/TM1637.o
 
-.debug_frame    0x00000000      0x3e0
+.debug_frame    0x00000000      0x400
  *(.debug_frame)
  .debug_frame   0x00000000       0x64 control_tm1637/control_tm1637.o
- .debug_frame   0x00000064       0x34 EEPROM/eeprom.o
- .debug_frame   0x00000098      0x17c main.o
- .debug_frame   0x00000214       0x94 menu/menu.o
- .debug_frame   0x000002a8       0x44 myTime/myTime.o
- .debug_frame   0x000002ec       0xf4 tm1637/TM1637.o
+ .debug_frame   0x00000064       0xa0 ds/ds1302.o
+ .debug_frame   0x00000104       0x34 EEPROM/eeprom.o
+ .debug_frame   0x00000138      0x140 main.o
+ .debug_frame   0x00000278       0x94 menu/menu.o
+ .debug_frame   0x0000030c       0xf4 tm1637/TM1637.o
 
-.debug_str      0x00000000      0x723
+.debug_str      0x00000000      0x78a
  *(.debug_str)
  .debug_str     0x00000000      0x17a C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_str     0x0000017a      0x23a control_tm1637/control_tm1637.o
                                 0x295 (size before relaxing)
- .debug_str     0x000003b4       0x42 EEPROM/eeprom.o
+ .debug_str     0x000003b4       0xf2 ds/ds1302.o
+                                0x2b1 (size before relaxing)
+ .debug_str     0x000004a6       0x3d EEPROM/eeprom.o
                                 0x217 (size before relaxing)
- .debug_str     0x000003f6      0x134 main.o
+ .debug_str     0x000004e3       0xd7 main.o
                                 0x38d (size before relaxing)
- .debug_str     0x0000052a       0x6e menu/menu.o
+ .debug_str     0x000005ba       0x67 menu/menu.o
                                 0x2e6 (size before relaxing)
- .debug_str     0x00000598       0x13 myTime/myTime.o
-                                0x226 (size before relaxing)
- .debug_str     0x000005ab      0x178 tm1637/TM1637.o
+ .debug_str     0x00000621      0x169 tm1637/TM1637.o
                                 0x364 (size before relaxing)
 
-.debug_loc      0x00000000     0x20f0
+.debug_loc      0x00000000     0x230e
  *(.debug_loc)
  .debug_loc     0x00000000      0x109 control_tm1637/control_tm1637.o
- .debug_loc     0x00000109       0x42 EEPROM/eeprom.o
- .debug_loc     0x0000014b      0x324 main.o
- .debug_loc     0x0000046f      0x1a6 menu/menu.o
- .debug_loc     0x00000615       0x28 myTime/myTime.o
- .debug_loc     0x0000063d     0x1ab3 tm1637/TM1637.o
+ .debug_loc     0x00000109      0x2e2 ds/ds1302.o
+ .debug_loc     0x000003eb       0x42 EEPROM/eeprom.o
+ .debug_loc     0x0000042d      0x288 main.o
+ .debug_loc     0x000006b5      0x1a6 menu/menu.o
+ .debug_loc     0x0000085b     0x1ab3 tm1637/TM1637.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -706,14 +710,14 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x1d8
+.debug_ranges   0x00000000      0x1f8
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 control_tm1637/control_tm1637.o
- .debug_ranges  0x00000020       0x18 EEPROM/eeprom.o
- .debug_ranges  0x00000038       0x40 main.o
- .debug_ranges  0x00000078       0x40 menu/menu.o
- .debug_ranges  0x000000b8       0x20 myTime/myTime.o
- .debug_ranges  0x000000d8      0x100 tm1637/TM1637.o
+ .debug_ranges  0x00000020       0x40 ds/ds1302.o
+ .debug_ranges  0x00000060       0x18 EEPROM/eeprom.o
+ .debug_ranges  0x00000078       0x40 main.o
+ .debug_ranges  0x000000b8       0x40 menu/menu.o
+ .debug_ranges  0x000000f8      0x100 tm1637/TM1637.o
 
 .debug_macro
  *(.debug_macro)

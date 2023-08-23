@@ -5,9 +5,9 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#define DS1302_E 0
-#define DS1302_SCLK 1
-#define DS1302_IO 2
+#define DS1302_E 0 // RST
+#define DS1302_SCLK 1 // CLK
+#define DS1302_IO 2 // DAT
 #define DS1302_DDR_RTC DDRC
 #define DS1302_PORT_RTC PORTC
 #define DS1302_PIN_RTC PINC
