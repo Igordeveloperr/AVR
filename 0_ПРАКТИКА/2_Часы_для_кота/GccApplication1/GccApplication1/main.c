@@ -10,13 +10,15 @@ uint8_t interval = 0;
 /* реализация спящего режима */
 void activate_sleep_mode()
 {
-	DS1302_ReadDateTime();
-	if ((DateTime.Sec - interval) >= MAX_INTERVAL)
-	{	
-		TM1637_turnOff();
-		sleep_enable();
-		sleep_cpu();
-	}
+	TM1637_turnOff();
+	sleep_enable();
+	sleep_cpu();
+}
+
+ISR(TIMER1_OVF_vect)
+{
+	TCNT1 = 0;
+	activate_sleep_mode();
 }
 
 /* выход из сна + метка когда кот ел */
@@ -53,6 +55,15 @@ ISR(INT1_vect)
 	}
 }
 
+/* настройка внутренних прерываний */
+void setup_internal_interrapt()
+{
+	// делитель частоты - 64
+	TCCR1B |= (1 << CS11) | (1 << CS10);
+	// прерывание по переполнению таймера
+	TIMSK |= (1 << TOIE1);
+}
+
 /* настройка внешних прерываний */
 void setup_ext_interrapt()
 {
@@ -65,6 +76,7 @@ int main(void)
 {
 	cli();
 	ACSR |= (1 << ACD); // ОТКЛЮЧЕНИЕ АЦП
+	setup_internal_interrapt();
 	setup_ext_interrapt();
 	sei();
 	
@@ -84,7 +96,6 @@ int main(void)
 	
 	while(1)
 	{
-		activate_sleep_mode();
 	}
 }
 
