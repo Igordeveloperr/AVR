@@ -89,9 +89,6 @@ int main(void)
 	setup_ext_interrapt();
 	sei();
 	
-	DDRB |= (1 << PB0);
-	PORTB |= (1 << PB0);
-	
 	cat_hour = EEPROM_read(HOUR_ADDRESS);
 	cat_minutes = EEPROM_read(MIN_ADDRESS);
 	

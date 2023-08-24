@@ -14,7 +14,5 @@ main.c
 
 menu\menu.c
 
-myTime\myTime.c
-
 tm1637\TM1637.c
 

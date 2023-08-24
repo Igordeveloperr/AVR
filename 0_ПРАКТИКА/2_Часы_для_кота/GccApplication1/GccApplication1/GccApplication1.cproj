@@ -156,12 +156,6 @@
     <Compile Include="menu\menu.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="myTime\myTime.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="myTime\myTime.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="tm1637\pin_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -178,7 +172,6 @@
   <ItemGroup>
     <Folder Include="menu" />
     <Folder Include="control_tm1637" />
-    <Folder Include="myTime" />
     <Folder Include="EEPROM" />
     <Folder Include="ds" />
     <Folder Include="i2chw" />
