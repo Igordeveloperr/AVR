@@ -5,41 +5,46 @@ uint8_t minutes = 34;
 uint8_t seconds = 0;
 uint8_t cat_hour = 0;
 uint8_t cat_minutes = 0;
-uint8_t interval = 0;
+uint8_t smr = 0;
 
 /* реализация спящего режима */
 void activate_sleep_mode()
 {
-	TM1637_turnOff();
-	sleep_enable();
-	sleep_cpu();
+	if (smr == 1)
+	{
+		TM1637_turnOff();
+		TCCR1B &= ~((1 << CS11) | (1 << CS10));
+		sleep_enable();
+		sleep_cpu();
+	}
 }
 
 ISR(TIMER1_OVF_vect)
 {
 	TCNT1 = 0;
-	activate_sleep_mode();
+	smr = 1;
 }
 
 /* выход из сна + метка когда кот ел */
 ISR(INT0_vect)
 {
 	sleep_disable();
+	smr = 0;
+	TCCR1B |= (1 << CS11) | (1 << CS10);
 	DS1302_ReadDateTime();
-	interval = DateTime.Sec;
 	cat_hour = DateTime.Hour;
 	cat_minutes = DateTime.Min;
 	EEPROM_write(HOUR_ADDRESS, cat_hour);
 	EEPROM_write(MIN_ADDRESS, cat_minutes);
 	wakeup_display();
 	TM1637_setSegments(EAT_WORD, DISP_LEN, START_POS);
-	
 }
 
 ISR(INT1_vect)
 {
 	sleep_disable();
-
+	smr = 0;
+	TCCR1B |= (1 << CS11) | (1 << CS10);
 	if (VIEW_BTN_CLICK)
 	{
 		wakeup_display();
@@ -96,6 +101,7 @@ int main(void)
 	
 	while(1)
 	{
+		activate_sleep_mode();
 	}
 }
 
