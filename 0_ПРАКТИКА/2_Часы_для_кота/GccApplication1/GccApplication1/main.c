@@ -19,6 +19,12 @@ void activate_sleep_mode()
 	}
 }
 
+void reset_timer()
+{	
+	smr = 0;
+	TCCR1B |= (1 << CS11) | (1 << CS10);
+}
+
 ISR(TIMER1_OVF_vect)
 {
 	TCNT1 = 0;
@@ -29,8 +35,7 @@ ISR(TIMER1_OVF_vect)
 ISR(INT0_vect)
 {
 	sleep_disable();
-	smr = 0;
-	TCCR1B |= (1 << CS11) | (1 << CS10);
+	reset_timer();
 	DS1302_ReadDateTime();
 	cat_hour = DateTime.Hour;
 	cat_minutes = DateTime.Min;
@@ -43,8 +48,7 @@ ISR(INT0_vect)
 ISR(INT1_vect)
 {
 	sleep_disable();
-	smr = 0;
-	TCCR1B |= (1 << CS11) | (1 << CS10);
+	reset_timer();
 	if (VIEW_BTN_CLICK)
 	{
 		wakeup_display();
