@@ -24,10 +24,14 @@ Discarded input sections
  .text          0x00000000        0x0 lcd/lcd.o
  .data          0x00000000        0x0 lcd/lcd.o
  .bss           0x00000000        0x0 lcd/lcd.o
+ .text.lcd_clear
+                0x00000000        0xa lcd/lcd.o
+ .rodata.str1.1
+                0x00000000        0x4 lcd/lcd.o
  .text.lcd_num  0x00000000       0x54 lcd/lcd.o
  .text.lcd_animation
                 0x00000000       0x2e lcd/lcd.o
- .bss.status.1952
+ .bss.status.1958
                 0x00000000        0x1 lcd/lcd.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
@@ -223,7 +227,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x294
+.text           0x00000000      0x29a
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -327,24 +331,24 @@ END GROUP
  .text.send_byte
                 0x000000ea       0x2e lcd/lcd.o
                 0x000000ea                send_byte
- .text.lcd_str  0x00000118       0x28 lcd/lcd.o
+ .text.lcd_str  0x00000118       0x2e lcd/lcd.o
                 0x00000118                lcd_str
- .text.lcd_pos  0x00000140       0x1c lcd/lcd.o
-                0x00000140                lcd_pos
- .text.mychar   0x0000015c       0x6a lcd/lcd.o
-                0x0000015c                mychar
- .text.lcd_ini  0x000001c6       0xa8 lcd/lcd.o
-                0x000001c6                lcd_ini
- .text.main     0x0000026e        0x6 main.o
-                0x0000026e                main
+ .text.lcd_pos  0x00000146       0x1c lcd/lcd.o
+                0x00000146                lcd_pos
+ .text.mychar   0x00000162       0x6a lcd/lcd.o
+                0x00000162                mychar
+ .text.lcd_ini  0x000001cc       0x90 lcd/lcd.o
+                0x000001cc                lcd_ini
+ .text.main     0x0000025c       0x1e main.o
+                0x0000025c                main
  .text.pcf_write
-                0x00000274       0x1c pcf/pcf.o
-                0x00000274                pcf_write
-                0x00000290                . = ALIGN (0x2)
+                0x0000027a       0x1c pcf/pcf.o
+                0x0000027a                pcf_write
+                0x00000296                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000290        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000290                _exit
-                0x00000290                exit
+ .fini9         0x00000296        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000296                _exit
+                0x00000296                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -363,11 +367,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000290        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000296        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000294                _etext = .
+                0x0000029a                _etext = .
 
-.data           0x00800100       0x28 load address 0x00000294
+.data           0x00800100       0x1c load address 0x0000029a
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -376,26 +380,26 @@ END GROUP
  .rodata        0x00800100       0x10 lcd/lcd.o
  *(.rodata*)
  .rodata.str1.1
-                0x00800110       0x18 lcd/lcd.o
+                0x00800110        0xc main.o
  *(.gnu.linkonce.r*)
-                0x00800128                . = ALIGN (0x2)
-                0x00800128                _edata = .
-                0x00800128                PROVIDE (__data_end, .)
+                0x0080011c                . = ALIGN (0x2)
+                0x0080011c                _edata = .
+                0x0080011c                PROVIDE (__data_end, .)
 
-.bss            0x00800128        0x0
-                0x00800128                PROVIDE (__bss_start, .)
+.bss            0x0080011c        0x0
+                0x0080011c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  *(COMMON)
-                0x00800128                PROVIDE (__bss_end, .)
-                0x00000294                __data_load_start = LOADADDR (.data)
-                0x000002bc                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0080011c                PROVIDE (__bss_end, .)
+                0x0000029a                __data_load_start = LOADADDR (.data)
+                0x000002b6                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800128        0x0
+.noinit         0x0080011c        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800128                _end = .
+                0x0080011c                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -463,61 +467,61 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xe0
+.debug_aranges  0x00000000       0xe8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x48 i2c/i2c.o
  .debug_aranges
-                0x00000048       0x58 lcd/lcd.o
+                0x00000048       0x60 lcd/lcd.o
  .debug_aranges
-                0x000000a0       0x20 main.o
+                0x000000a8       0x20 main.o
  .debug_aranges
-                0x000000c0       0x20 pcf/pcf.o
+                0x000000c8       0x20 pcf/pcf.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1147
+.debug_info     0x00000000     0x11a2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x139 i2c/i2c.o
- .debug_info    0x0000072d      0x88a lcd/lcd.o
- .debug_info    0x00000fb7       0x98 main.o
- .debug_info    0x0000104f       0xf8 pcf/pcf.o
+ .debug_info    0x0000072d      0x87f lcd/lcd.o
+ .debug_info    0x00000fac       0xfe main.o
+ .debug_info    0x000010aa       0xf8 pcf/pcf.o
 
-.debug_abbrev   0x00000000      0x987
+.debug_abbrev   0x00000000      0x9c3
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2       0xae i2c/i2c.o
- .debug_abbrev  0x00000650      0x237 lcd/lcd.o
- .debug_abbrev  0x00000887       0x68 main.o
- .debug_abbrev  0x000008ef       0x98 pcf/pcf.o
+ .debug_abbrev  0x00000650      0x24f lcd/lcd.o
+ .debug_abbrev  0x0000089f       0x8c main.o
+ .debug_abbrev  0x0000092b       0x98 pcf/pcf.o
 
-.debug_line     0x00000000      0x6a2
+.debug_line     0x00000000      0x6bf
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134      0x140 i2c/i2c.o
- .debug_line    0x00000274      0x320 lcd/lcd.o
- .debug_line    0x00000594       0x51 main.o
- .debug_line    0x000005e5       0xbd pcf/pcf.o
+ .debug_line    0x00000274      0x32b lcd/lcd.o
+ .debug_line    0x0000059f       0x63 main.o
+ .debug_line    0x00000602       0xbd pcf/pcf.o
 
-.debug_frame    0x00000000      0x1b0
+.debug_frame    0x00000000      0x1c0
  *(.debug_frame)
  .debug_frame   0x00000000       0x74 i2c/i2c.o
- .debug_frame   0x00000074       0xec lcd/lcd.o
- .debug_frame   0x00000160       0x24 main.o
- .debug_frame   0x00000184       0x2c pcf/pcf.o
+ .debug_frame   0x00000074       0xfc lcd/lcd.o
+ .debug_frame   0x00000170       0x24 main.o
+ .debug_frame   0x00000194       0x2c pcf/pcf.o
 
-.debug_str      0x00000000      0x4b1
+.debug_str      0x00000000      0x4bb
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x190 i2c/i2c.o
                                 0x1c9 (size before relaxing)
- .debug_str     0x00000398       0xfb lcd/lcd.o
-                                0x290 (size before relaxing)
- .debug_str     0x00000493       0x11 main.o
-                                0x191 (size before relaxing)
- .debug_str     0x000004a4        0xd pcf/pcf.o
+ .debug_str     0x00000398      0x105 lcd/lcd.o
+                                0x29a (size before relaxing)
+ .debug_str     0x0000049d       0x11 main.o
+                                0x1a1 (size before relaxing)
+ .debug_str     0x000004ae        0xd pcf/pcf.o
                                 0x1b9 (size before relaxing)
 
 .debug_loc      0x00000000      0x6b4
@@ -544,12 +548,12 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xa0
+.debug_ranges   0x00000000       0xa8
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x38 i2c/i2c.o
- .debug_ranges  0x00000038       0x48 lcd/lcd.o
- .debug_ranges  0x00000080       0x10 main.o
- .debug_ranges  0x00000090       0x10 pcf/pcf.o
+ .debug_ranges  0x00000038       0x50 lcd/lcd.o
+ .debug_ranges  0x00000088       0x10 main.o
+ .debug_ranges  0x00000098       0x10 pcf/pcf.o
 
 .debug_macro
  *(.debug_macro)
