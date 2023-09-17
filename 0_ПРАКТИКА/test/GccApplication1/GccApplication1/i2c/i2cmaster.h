@@ -28,15 +28,15 @@ void i2c_start_wait(unsigned char addr);
  // отправка данных
 unsigned char i2c_write(unsigned char data);
 
-// чтение с ACK
+// читаем данные и продолжаем вещание
 unsigned char i2c_readAck(void);
 
-// чтение без ACK
+// читаем данные и после их получени€ передаем услови —“ќѕ
 unsigned char i2c_readNak(void);
 
 // читаем данные с шины
 unsigned char i2c_read(unsigned char ack);
 
-// выбираем какой варинт чтени€ данных будет: с ACK или без ACK
+// выбираем какой варинт чтени€ данных будет
 #define i2c_read(ack)  (ack) ? i2c_readAck() : i2c_readNak(); 
 #endif

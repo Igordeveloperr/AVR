@@ -101,12 +101,12 @@ Disassembly of section .text:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a6 <i2c_init>:
-*************************************************************************/
+
+// тупа повторяем условие СТАРТ
 unsigned char i2c_rep_start(unsigned char address)
 {
-    return i2c_start( address );
-
-}/* i2c_rep_start */
+    return i2c_start(address);
+}
   a6:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
   aa:	8d ef       	ldi	r24, 0xFD	; 253
   ac:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7f80b8>
@@ -146,22 +146,20 @@ unsigned char i2c_rep_start(unsigned char address)
   fc:	08 95       	ret
 
 000000fe <i2c_stop>:
- Terminates the data transfer and releases the I2C bus
-*************************************************************************/
+
+// передача условия СТОП на шину
 void i2c_stop(void)
 {
-    /* send stop condition */
+    // отправка условия СТОП
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
   fe:	84 e9       	ldi	r24, 0x94	; 148
  100:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
-	
-	// wait until stop condition is executed and bus released
+	// ждем выполнения условия остановки
 	while(TWCR & (1<<TWSTO));
  104:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
  108:	84 fd       	sbrc	r24, 4
  10a:	fc cf       	rjmp	.-8      	; 0x104 <i2c_stop+0x6>
-
-}/* i2c_stop */
+}
  10c:	08 95       	ret
 
 0000010e <i2c_write>:
@@ -169,20 +167,18 @@ unsigned char i2c_write( unsigned char data )
 {	
     uint8_t   twst;
     
-	// send data to the previously addressed device
+	// отправляем данные на уст-во
 	TWDR = data;
  10e:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
 	TWCR = (1<<TWINT) | (1<<TWEN);
  112:	84 e8       	ldi	r24, 0x84	; 132
  114:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
-
-	// wait until transmission completed
+	// ждем завершения передачи
 	while(!(TWCR & (1<<TWINT)));
  118:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
  11c:	88 23       	and	r24, r24
  11e:	e4 f7       	brge	.-8      	; 0x118 <i2c_write+0xa>
-
-	// check value of TWI Status Register. Mask prescaler bits
+	// записываем ответ от ведомого уст-ва
 	twst = TW_STATUS & 0xF8;
  120:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
  124:	88 7f       	andi	r24, 0xF8	; 248
@@ -193,8 +189,7 @@ unsigned char i2c_write( unsigned char data )
  12c:	08 95       	ret
 	return 0;
  12e:	80 e0       	ldi	r24, 0x00	; 0
-
-}/* i2c_write */
+}
  130:	08 95       	ret
 
 00000132 <lcd_read>:

@@ -32,138 +32,86 @@ unsigned char i2c_start(unsigned char address)
 
 	return 0;
 
-}/* i2c_start */
+}
 
-
-/*************************************************************************
- Issues a start condition and sends address and transfer direction.
- If device is busy, use ack polling to wait until device is ready
- 
- Input:   address and transfer direction of I2C device
-*************************************************************************/
+// ждем, если устрой-во занято, а потом передаем условие СТАРТ на шину
 void i2c_start_wait(unsigned char address)
 {
     uint8_t   twst;
 
-
-    while ( 1 )
+    for(;;)
     {
-	    // send START condition
+	    // отправка условия СТАРТ
 	    TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
-    
-    	// wait until transmission completed
+    	// ожидание завершения передачи условия СТАРТ
     	while(!(TWCR & (1<<TWINT)));
-    
-    	// check value of TWI Status Register. Mask prescaler bits.
+    	// проверка значений регистра
     	twst = TW_STATUS & 0xF8;
     	if ( (twst != TW_START) && (twst != TW_REP_START)) continue;
-    
-    	// send device address
+    	// отправка адреса устрой-ва
     	TWDR = address;
     	TWCR = (1<<TWINT) | (1<<TWEN);
-    
-    	// wail until transmission completed
+    	 // ожидание ответа от ведомого уст-ва
     	while(!(TWCR & (1<<TWINT)));
-    
-    	// check value of TWI Status Register. Mask prescaler bits.
+    	// проверка занято ли ведомое уст-во
     	twst = TW_STATUS & 0xF8;
     	if ( (twst == TW_MT_SLA_NACK )||(twst ==TW_MR_DATA_NACK) ) 
     	{    	    
-    	    /* device busy, send stop condition to terminate write operation */
+    	    // устройство занято, отправьте условие остановки для прекращения операции записи
 	        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-	        
-	        // wait until stop condition is executed and bus released
+	        // ждем освобождения шины
 	        while(TWCR & (1<<TWSTO));
-	        
     	    continue;
     	}
-    	//if( twst != TW_MT_SLA_ACK) return 1;
     	break;
      }
+}
 
-}/* i2c_start_wait */
-
-
-/*************************************************************************
- Issues a repeated start condition and sends address and transfer direction 
-
- Input:   address and transfer direction of I2C device
- 
- Return:  0 device accessible
-          1 failed to access device
-*************************************************************************/
+// тупа повторяем условие СТАРТ
 unsigned char i2c_rep_start(unsigned char address)
 {
-    return i2c_start( address );
+    return i2c_start(address);
+}
 
-}/* i2c_rep_start */
-
-
-/*************************************************************************
- Terminates the data transfer and releases the I2C bus
-*************************************************************************/
+// передача условия СТОП на шину
 void i2c_stop(void)
 {
-    /* send stop condition */
+    // отправка условия СТОП
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-	
-	// wait until stop condition is executed and bus released
+	// ждем выполнения условия остановки
 	while(TWCR & (1<<TWSTO));
+}
 
-}/* i2c_stop */
-
-
-/*************************************************************************
-  Send one byte to I2C device
-  
-  Input:    byte to be transfered
-  Return:   0 write successful 
-            1 write failed
-*************************************************************************/
+// отправка данных, если функция вернет 0, то все успешно, иначе нет
 unsigned char i2c_write( unsigned char data )
 {	
     uint8_t   twst;
     
-	// send data to the previously addressed device
+	// отправляем данные на уст-во
 	TWDR = data;
 	TWCR = (1<<TWINT) | (1<<TWEN);
-
-	// wait until transmission completed
+	// ждем завершения передачи
 	while(!(TWCR & (1<<TWINT)));
-
-	// check value of TWI Status Register. Mask prescaler bits
+	// записываем ответ от ведомого уст-ва
 	twst = TW_STATUS & 0xF8;
 	if( twst != TW_MT_DATA_ACK) return 1;
 	return 0;
+}
 
-}/* i2c_write */
-
-
-/*************************************************************************
- Read one byte from the I2C device, request more data from device 
- 
- Return:  byte read from I2C device
-*************************************************************************/
+// читаем данные и продолжаем вещание
 unsigned char i2c_readAck(void)
 {
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
 	while(!(TWCR & (1<<TWINT)));    
 
     return TWDR;
+}
 
-}/* i2c_readAck */
-
-
-/*************************************************************************
- Read one byte from the I2C device, read is followed by a stop condition 
- 
- Return:  byte read from I2C device
-*************************************************************************/
+// читаем данные и после их получения передаем услови СТОП
 unsigned char i2c_readNak(void)
 {
 	TWCR = (1<<TWINT) | (1<<TWEN);
 	while(!(TWCR & (1<<TWINT)));
 	
     return TWDR;
-
-}/* i2c_readNak */
+}
