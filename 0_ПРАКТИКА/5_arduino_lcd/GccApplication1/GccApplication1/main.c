@@ -2,14 +2,11 @@
 
 int main(void)
 {
-	lcd_ini();
-	lcd_str("hello");
-	lcd_pos(1,2);
-	lcd_str("Epta!");
-	
+	lcd_init(LCD_DISP_ON_BLINK);
+	lcd_clrscr();
+	lcd_puts("hello");
     while (1) 
     {
-	
     }
 }
 
