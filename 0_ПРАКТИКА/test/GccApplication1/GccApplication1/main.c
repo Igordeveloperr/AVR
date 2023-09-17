@@ -1,10 +1,4 @@
-#include <avr/io.h>
-#include <util/delay.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include "lcdpcf8574/lcdpcf8574.h"
-#include "pcf8574/pcf8574.h"
+#include "main.h"
 
 int main(void)
 {
@@ -18,9 +12,11 @@ int main(void)
 
 	lcd_gotoxy(0, 1);
 	lcd_puts("Linia 2");
+	
+	lcd_home();
 
-	for (;;) {
-
+	while (1)
+	{
 	}
 
 	return 0;

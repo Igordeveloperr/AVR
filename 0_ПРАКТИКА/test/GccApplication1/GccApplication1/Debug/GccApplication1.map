@@ -5,12 +5,12 @@ c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/a
 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
                               main.o (__do_copy_data)
 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                              lcdpcf8574/lcdpcf8574.o (__do_clear_bss)
+                              i2c/twimaster.o (__do_clear_bss)
 
 Allocating common symbols
 Common symbol       size              file
 
-pcf8574_pinstatus   0x1               lcdpcf8574/lcdpcf8574.o
+pcf8574_pinstatus   0x1               i2c/twimaster.o
 
 Discarded input sections
 
@@ -228,7 +228,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x5f4
+.text           0x00000000      0x5f8
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -358,31 +358,31 @@ END GROUP
  .text.lcd_init
                 0x00000422       0xa4 lcdpcf8574/lcdpcf8574.o
                 0x00000422                lcd_init
- .text.main     0x000004c6       0x32 main.o
+ .text.main     0x000004c6       0x36 main.o
                 0x000004c6                main
  .text.pcf8574_init
-                0x000004f8       0x22 pcf8574/pcf8574.o
-                0x000004f8                pcf8574_init
+                0x000004fc       0x22 pcf8574/pcf8574.o
+                0x000004fc                pcf8574_init
  .text.pcf8574_getoutputpin
-                0x0000051a       0x2e pcf8574/pcf8574.o
-                0x0000051a                pcf8574_getoutputpin
+                0x0000051e       0x2e pcf8574/pcf8574.o
+                0x0000051e                pcf8574_getoutputpin
  .text.pcf8574_setoutput
-                0x00000548       0x2e pcf8574/pcf8574.o
-                0x00000548                pcf8574_setoutput
+                0x0000054c       0x2e pcf8574/pcf8574.o
+                0x0000054c                pcf8574_setoutput
  .text.pcf8574_setoutputpin
-                0x00000576       0x6a pcf8574/pcf8574.o
-                0x00000576                pcf8574_setoutputpin
+                0x0000057a       0x6a pcf8574/pcf8574.o
+                0x0000057a                pcf8574_setoutputpin
  .text.pcf8574_setoutputpinhigh
-                0x000005e0        0x8 pcf8574/pcf8574.o
-                0x000005e0                pcf8574_setoutputpinhigh
+                0x000005e4        0x8 pcf8574/pcf8574.o
+                0x000005e4                pcf8574_setoutputpinhigh
  .text.pcf8574_setoutputpinlow
-                0x000005e8        0x8 pcf8574/pcf8574.o
-                0x000005e8                pcf8574_setoutputpinlow
-                0x000005f0                . = ALIGN (0x2)
+                0x000005ec        0x8 pcf8574/pcf8574.o
+                0x000005ec                pcf8574_setoutputpinlow
+                0x000005f4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000005f0        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000005f0                _exit
-                0x000005f0                exit
+ .fini9         0x000005f4        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000005f4                _exit
+                0x000005f4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -401,11 +401,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000005f0        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000005f4        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000005f4                _etext = .
+                0x000005f8                _etext = .
 
-.data           0x00800100       0x10 load address 0x000005f4
+.data           0x00800100       0x10 load address 0x000005f8
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -426,11 +426,11 @@ END GROUP
  .bss.dataport  0x00800110        0x1 lcdpcf8574/lcdpcf8574.o
                 0x00800110                dataport
  *(COMMON)
- COMMON         0x00800111        0x1 lcdpcf8574/lcdpcf8574.o
+ COMMON         0x00800111        0x1 i2c/twimaster.o
                 0x00800111                pcf8574_pinstatus
                 0x00800112                PROVIDE (__bss_end, .)
-                0x000005f4                __data_load_start = LOADADDR (.data)
-                0x00000604                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000005f8                __data_load_start = LOADADDR (.data)
+                0x00000608                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800112        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -518,29 +518,29 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x170b
+.debug_info     0x00000000     0x174a
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x1bd i2c/twimaster.o
- .debug_info    0x000007b1      0x86f lcdpcf8574/lcdpcf8574.o
- .debug_info    0x00001020      0x194 main.o
- .debug_info    0x000011b4      0x557 pcf8574/pcf8574.o
+ .debug_info    0x000005f4      0x1f0 i2c/twimaster.o
+ .debug_info    0x000007e4      0x86e lcdpcf8574/lcdpcf8574.o
+ .debug_info    0x00001052      0x1a1 main.o
+ .debug_info    0x000011f3      0x557 pcf8574/pcf8574.o
 
-.debug_abbrev   0x00000000      0xb8e
+.debug_abbrev   0x00000000      0xbad
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2       0xe5 i2c/twimaster.o
- .debug_abbrev  0x00000687      0x294 lcdpcf8574/lcdpcf8574.o
- .debug_abbrev  0x0000091b       0xc3 main.o
- .debug_abbrev  0x000009de      0x1b0 pcf8574/pcf8574.o
+ .debug_abbrev  0x000005a2      0x10f i2c/twimaster.o
+ .debug_abbrev  0x000006b1      0x294 lcdpcf8574/lcdpcf8574.o
+ .debug_abbrev  0x00000945       0xb8 main.o
+ .debug_abbrev  0x000009fd      0x1b0 pcf8574/pcf8574.o
 
-.debug_line     0x00000000      0xd54
+.debug_line     0x00000000      0xd85
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000134      0x272 i2c/twimaster.o
- .debug_line    0x000003a6      0x511 lcdpcf8574/lcdpcf8574.o
- .debug_line    0x000008b7       0xeb main.o
- .debug_line    0x000009a2      0x3b2 pcf8574/pcf8574.o
+ .debug_line    0x00000134      0x28e i2c/twimaster.o
+ .debug_line    0x000003c2      0x50f lcdpcf8574/lcdpcf8574.o
+ .debug_line    0x000008d1       0xef main.o
+ .debug_line    0x000009c0      0x3c5 pcf8574/pcf8574.o
 
 .debug_frame    0x00000000      0x2ec
  *(.debug_frame)
@@ -552,9 +552,9 @@ END GROUP
 .debug_str      0x00000000      0x65b
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x1be i2c/twimaster.o
-                                0x1f7 (size before relaxing)
- .debug_str     0x000003c6      0x1a1 lcdpcf8574/lcdpcf8574.o
+ .debug_str     0x00000208      0x1d9 i2c/twimaster.o
+                                0x212 (size before relaxing)
+ .debug_str     0x000003e1      0x186 lcdpcf8574/lcdpcf8574.o
                                 0x322 (size before relaxing)
  .debug_str     0x00000567       0x11 main.o
                                 0x1d1 (size before relaxing)

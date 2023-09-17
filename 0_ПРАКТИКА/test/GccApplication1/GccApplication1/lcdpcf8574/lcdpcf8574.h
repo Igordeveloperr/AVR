@@ -15,13 +15,10 @@ References:
 #ifndef LCD_H
 #define LCD_H
 
-#include <inttypes.h>
-#include <avr/pgmspace.h>
-
 #define LCD_PCF8574_INIT 1 //init pcf8574
 
 #define LCD_PCF8574_DEVICEID 0 //device id, addr = pcf8574 base addr + LCD_PCF8574_DEVICEID
-
+#define LCD_FUNCTION_DEFAULT    LCD_FUNCTION_4BIT_2LINES 
 
 /** 
  *  @name  Definitions for Display Size 

@@ -1,29 +1,8 @@
-/*
-lcdpcf8574 lib 0x01
-
-copyright (c) Davide Gironi, 2013
-
-Released under GPLv3.
-Please refer to LICENSE file for licensing information.
-*/
-
-#include <inttypes.h>
-#include <avr/io.h>
-#include <avr/pgmspace.h>
-
-#include "../pcf8574/pcf8574.h"
-
-#include "lcdpcf8574.h"
+#include "../main.h"
 
 #define lcd_e_delay()   __asm__ __volatile__( "rjmp 1f\n 1:" );
 #define lcd_e_toggle()  toggle_e()
-#define  F_CPU 1000000UL
 
-#if LCD_LINES==1
-#define LCD_FUNCTION_DEFAULT    LCD_FUNCTION_4BIT_1LINE 
-#else
-#define LCD_FUNCTION_DEFAULT    LCD_FUNCTION_4BIT_2LINES 
-#endif
 
 volatile uint8_t dataport = 0;
 

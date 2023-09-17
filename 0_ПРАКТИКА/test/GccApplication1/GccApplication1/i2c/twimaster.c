@@ -1,63 +1,32 @@
-/*************************************************************************
-* Title:    I2C master library using hardware TWI interface
-* Author:   Peter Fleury <pfleury@gmx.ch>  http://jump.to/fleury
-* File:     $Id: twimaster.c,v 1.4 2015/01/17 12:16:05 peter Exp $
-* Software: AVR-GCC 3.4.3 / avr-libc 1.2.3
-* Target:   any AVR device with hardware TWI 
-* Usage:    API compatible with I2C Software Library i2cmaster.h
-**************************************************************************/
-#include <inttypes.h>
-#include <compat/twi.h>
-#include "i2cmaster.h"
+#include "../main.h"
 
-/* define CPU frequency in hz here if not defined in Makefile */
-#ifndef F_CPU
-#define F_CPU 16000000UL
-#endif
-
-/* I2C clock in Hz */
-#define SCL_CLOCK 100000L
-
-
-/*************************************************************************
- Initialization of the I2C bus interface. Need to be called only once
-*************************************************************************/
+// инициализация интерфейса i2c
 void i2c_init(void)
 {
-  /* initialize TWI clock: 100 kHz clock, TWPS = 0 => prescaler = 1 */
-  
-  TWSR = 0;                         /* no prescaler */
-  TWBR = ((F_CPU/SCL_CLOCK)-16)/2;  /* must be > 10 for stable operation */
+  // предделитель тактовой частоты равен 1 
+  TWSR = 0;     
+  // рассчет скорости передачи данных                   
+  TWBR = ((F_CPU/SCL_CLOCK)-16)/2;
+}
 
-}/* i2c_init */
-
-
-/*************************************************************************	
-  Issues a start condition and sends address and transfer direction.
-  return 0 = device accessible, 1= failed to access device
-*************************************************************************/
+// передача условия СТАРТ на шину
 unsigned char i2c_start(unsigned char address)
 {
     uint8_t   twst;
-
-	// send START condition
+	
+	// отправка условия СТАРТ
 	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
-
-	// wait until transmission completed
+	// ожидание завершения передачи условия СТАРТ
 	while(!(TWCR & (1<<TWINT)));
-
-	// check value of TWI Status Register. Mask prescaler bits.
+	// проверка значений регистра
 	twst = TW_STATUS & 0xF8;
 	if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
-
-	// send device address
+	// отправка адреса устрой-ва
 	TWDR = address;
 	TWCR = (1<<TWINT) | (1<<TWEN);
-
-	// wail until transmission completed and ACK/NACK has been received
+	// ожидание ответа от ведомого уст-ва
 	while(!(TWCR & (1<<TWINT)));
-
-	// check value of TWI Status Register. Mask prescaler bits.
+	// проверка полученных значений
 	twst = TW_STATUS & 0xF8;
 	if ( (twst != TW_MT_SLA_ACK) && (twst != TW_MR_SLA_ACK) ) return 1;
 

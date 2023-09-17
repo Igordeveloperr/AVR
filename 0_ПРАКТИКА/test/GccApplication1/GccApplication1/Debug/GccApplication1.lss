@@ -3,31 +3,31 @@ GccApplication1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000010  00800100  000005f4  00000688  2**0
+  0 .data         00000010  00800100  000005f8  0000068c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000005f4  00000000  00000000  00000094  2**1
+  1 .text         000005f8  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000002  00800110  00800110  00000698  2**0
+  2 .bss          00000002  00800110  00800110  0000069c  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000698  2**0
+  3 .comment      00000030  00000000  00000000  0000069c  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000006c8  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000006cc  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000170  00000000  00000000  00000708  2**0
+  5 .debug_aranges 00000170  00000000  00000000  0000070c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000170b  00000000  00000000  00000878  2**0
+  6 .debug_info   0000174a  00000000  00000000  0000087c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000b8e  00000000  00000000  00001f83  2**0
+  7 .debug_abbrev 00000bad  00000000  00000000  00001fc6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000d54  00000000  00000000  00002b11  2**0
+  8 .debug_line   00000d85  00000000  00000000  00002b73  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000002ec  00000000  00000000  00003868  2**2
+  9 .debug_frame  000002ec  00000000  00000000  000038f8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000065b  00000000  00000000  00003b54  2**0
+ 10 .debug_str    0000065b  00000000  00000000  00003be4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000e96  00000000  00000000  000041af  2**0
+ 11 .debug_loc    00000e96  00000000  00000000  0000423f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000130  00000000  00000000  00005045  2**0
+ 12 .debug_ranges 00000130  00000000  00000000  000050d5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -72,7 +72,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e4 ef       	ldi	r30, 0xF4	; 244
+  7a:	e8 ef       	ldi	r30, 0xF8	; 248
   7c:	f5 e0       	ldi	r31, 0x05	; 5
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -95,7 +95,7 @@ Disassembly of section .text:
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 63 02 	call	0x4c6	; 0x4c6 <main>
-  9e:	0c 94 f8 02 	jmp	0x5f0	; 0x5f0 <_exit>
+  9e:	0c 94 fa 02 	jmp	0x5f4	; 0x5f4 <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -108,7 +108,7 @@ unsigned char i2c_rep_start(unsigned char address)
 
 }/* i2c_rep_start */
   a6:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
-  aa:	88 e4       	ldi	r24, 0x48	; 72
+  aa:	8d ef       	ldi	r24, 0xFD	; 253
   ac:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7f80b8>
   b0:	08 95       	ret
 
@@ -219,33 +219,33 @@ unsigned char i2c_write( unsigned char data )
  154:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
  158:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  15c:	80 e0       	ldi	r24, 0x00	; 0
- 15e:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 15e:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
  162:	62 e0       	ldi	r22, 0x02	; 2
  164:	80 e0       	ldi	r24, 0x00	; 0
- 166:	0e 94 f0 02 	call	0x5e0	; 0x5e0 <pcf8574_setoutputpinhigh>
+ 166:	0e 94 f2 02 	call	0x5e4	; 0x5e4 <pcf8574_setoutputpinhigh>
  16a:	00 c0       	rjmp	.+0      	; 0x16c <lcd_read+0x3a>
  16c:	64 e0       	ldi	r22, 0x04	; 4
  16e:	80 e0       	ldi	r24, 0x00	; 0
- 170:	0e 94 8d 02 	call	0x51a	; 0x51a <pcf8574_getoutputpin>
+ 170:	0e 94 8f 02 	call	0x51e	; 0x51e <pcf8574_getoutputpin>
  174:	c8 2f       	mov	r28, r24
  176:	c2 95       	swap	r28
  178:	c0 7f       	andi	r28, 0xF0	; 240
  17a:	62 e0       	ldi	r22, 0x02	; 2
  17c:	80 e0       	ldi	r24, 0x00	; 0
- 17e:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <pcf8574_setoutputpinlow>
+ 17e:	0e 94 f6 02 	call	0x5ec	; 0x5ec <pcf8574_setoutputpinlow>
  182:	00 c0       	rjmp	.+0      	; 0x184 <lcd_read+0x52>
  184:	62 e0       	ldi	r22, 0x02	; 2
  186:	80 e0       	ldi	r24, 0x00	; 0
- 188:	0e 94 f0 02 	call	0x5e0	; 0x5e0 <pcf8574_setoutputpinhigh>
+ 188:	0e 94 f2 02 	call	0x5e4	; 0x5e4 <pcf8574_setoutputpinhigh>
  18c:	00 c0       	rjmp	.+0      	; 0x18e <lcd_read+0x5c>
  18e:	64 e0       	ldi	r22, 0x04	; 4
  190:	80 e0       	ldi	r24, 0x00	; 0
- 192:	0e 94 8d 02 	call	0x51a	; 0x51a <pcf8574_getoutputpin>
+ 192:	0e 94 8f 02 	call	0x51e	; 0x51e <pcf8574_getoutputpin>
  196:	8f 70       	andi	r24, 0x0F	; 15
  198:	c8 2b       	or	r28, r24
  19a:	62 e0       	ldi	r22, 0x02	; 2
  19c:	80 e0       	ldi	r24, 0x00	; 0
- 19e:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <pcf8574_setoutputpinlow>
+ 19e:	0e 94 f6 02 	call	0x5ec	; 0x5ec <pcf8574_setoutputpinlow>
  1a2:	8c 2f       	mov	r24, r28
  1a4:	cf 91       	pop	r28
  1a6:	08 95       	ret
@@ -263,11 +263,11 @@ unsigned char i2c_write( unsigned char data )
 000001bc <toggle_e>:
  1bc:	62 e0       	ldi	r22, 0x02	; 2
  1be:	80 e0       	ldi	r24, 0x00	; 0
- 1c0:	0e 94 f0 02 	call	0x5e0	; 0x5e0 <pcf8574_setoutputpinhigh>
+ 1c0:	0e 94 f2 02 	call	0x5e4	; 0x5e4 <pcf8574_setoutputpinhigh>
  1c4:	00 c0       	rjmp	.+0      	; 0x1c6 <toggle_e+0xa>
  1c6:	62 e0       	ldi	r22, 0x02	; 2
  1c8:	80 e0       	ldi	r24, 0x00	; 0
- 1ca:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <pcf8574_setoutputpinlow>
+ 1ca:	0e 94 f6 02 	call	0x5ec	; 0x5ec <pcf8574_setoutputpinlow>
  1ce:	08 95       	ret
 
 000001d0 <lcd_write>:
@@ -287,7 +287,7 @@ unsigned char i2c_write( unsigned char data )
  1f4:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
  1f8:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  1fc:	80 e0       	ldi	r24, 0x00	; 0
- 1fe:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 1fe:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
  202:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
  206:	8f 77       	andi	r24, 0x7F	; 127
  208:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
@@ -322,7 +322,7 @@ unsigned char i2c_write( unsigned char data )
  25e:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
  262:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  266:	80 e0       	ldi	r24, 0x00	; 0
- 268:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 268:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
  26c:	0e 94 de 00 	call	0x1bc	; 0x1bc <toggle_e>
  270:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
  274:	8f 77       	andi	r24, 0x7F	; 127
@@ -358,7 +358,7 @@ unsigned char i2c_write( unsigned char data )
  2cc:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
  2d0:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  2d4:	80 e0       	ldi	r24, 0x00	; 0
- 2d6:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 2d6:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
  2da:	0e 94 de 00 	call	0x1bc	; 0x1bc <toggle_e>
  2de:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
  2e2:	80 61       	ori	r24, 0x10	; 16
@@ -374,7 +374,7 @@ unsigned char i2c_write( unsigned char data )
  302:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
  306:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  30a:	80 e0       	ldi	r24, 0x00	; 0
- 30c:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 30c:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
  310:	cf 91       	pop	r28
  312:	08 95       	ret
 
@@ -425,7 +425,7 @@ unsigned char i2c_write( unsigned char data )
  372:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
  376:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  37a:	80 e0       	ldi	r24, 0x00	; 0
- 37c:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 37c:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
  380:	08 95       	ret
 
 00000382 <lcd_home>:
@@ -518,7 +518,7 @@ void lcd_init(uint8_t dispAttr)
 	#if LCD_PCF8574_INIT == 1
 	//init pcf8574
 	pcf8574_init();
- 42a:	0e 94 7c 02 	call	0x4f8	; 0x4f8 <pcf8574_init>
+ 42a:	0e 94 7e 02 	call	0x4fc	; 0x4fc <pcf8574_init>
 	#endif
 
 	dataport = 0;
@@ -526,7 +526,7 @@ void lcd_init(uint8_t dispAttr)
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
  432:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  436:	80 e0       	ldi	r24, 0x00	; 0
- 438:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 438:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
@@ -553,7 +553,7 @@ static inline void _delayFourCycles(unsigned int __count)
     pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
  458:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  45c:	80 e0       	ldi	r24, 0x00	; 0
- 45e:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 45e:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
 
     lcd_e_toggle();
  462:	0e 94 de 00 	call	0x1bc	; 0x1bc <toggle_e>
@@ -613,7 +613,7 @@ static inline void _delayFourCycles(unsigned int __count)
     pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
  490:	60 91 10 01 	lds	r22, 0x0110	; 0x800110 <__data_end>
  494:	80 e0       	ldi	r24, 0x00	; 0
- 496:	0e 94 a4 02 	call	0x548	; 0x548 <pcf8574_setoutput>
+ 496:	0e 94 a6 02 	call	0x54c	; 0x54c <pcf8574_setoutput>
     lcd_e_toggle();
  49a:	0e 94 de 00 	call	0x1bc	; 0x1bc <toggle_e>
 static inline void _delayFourCycles(unsigned int __count)
@@ -652,8 +652,7 @@ static inline void _delayFourCycles(unsigned int __count)
  4c4:	08 95       	ret
 
 000004c6 <main>:
-#include "lcdpcf8574/lcdpcf8574.h"
-#include "pcf8574/pcf8574.h"
+#include "main.h"
 
 int main(void)
 {
@@ -684,175 +683,178 @@ int main(void)
  4ee:	88 e0       	ldi	r24, 0x08	; 8
  4f0:	91 e0       	ldi	r25, 0x01	; 1
  4f2:	0e 94 02 02 	call	0x404	; 0x404 <lcd_puts>
- 4f6:	ff cf       	rjmp	.-2      	; 0x4f6 <main+0x30>
+	
+	lcd_home();
+ 4f6:	0e 94 c1 01 	call	0x382	; 0x382 <lcd_home>
+ 4fa:	ff cf       	rjmp	.-2      	; 0x4fa <main+0x34>
 
-000004f8 <pcf8574_init>:
+000004fc <pcf8574_init>:
 		i2c_write(b);
 		i2c_stop();
 		return 0;
 	}
 	return -1;
 }
- 4f8:	0e 94 53 00 	call	0xa6	; 0xa6 <i2c_init>
- 4fc:	83 e0       	ldi	r24, 0x03	; 3
- 4fe:	8a 95       	dec	r24
- 500:	f1 f7       	brne	.-4      	; 0x4fe <pcf8574_init+0x6>
- 502:	00 00       	nop
- 504:	80 e0       	ldi	r24, 0x00	; 0
- 506:	06 c0       	rjmp	.+12     	; 0x514 <pcf8574_init+0x1c>
- 508:	e8 2f       	mov	r30, r24
- 50a:	f0 e0       	ldi	r31, 0x00	; 0
- 50c:	ef 5e       	subi	r30, 0xEF	; 239
- 50e:	fe 4f       	sbci	r31, 0xFE	; 254
- 510:	10 82       	st	Z, r1
- 512:	8f 5f       	subi	r24, 0xFF	; 255
- 514:	88 23       	and	r24, r24
- 516:	c1 f3       	breq	.-16     	; 0x508 <pcf8574_init+0x10>
- 518:	08 95       	ret
+ 4fc:	0e 94 53 00 	call	0xa6	; 0xa6 <i2c_init>
+ 500:	83 e0       	ldi	r24, 0x03	; 3
+ 502:	8a 95       	dec	r24
+ 504:	f1 f7       	brne	.-4      	; 0x502 <pcf8574_init+0x6>
+ 506:	00 00       	nop
+ 508:	80 e0       	ldi	r24, 0x00	; 0
+ 50a:	06 c0       	rjmp	.+12     	; 0x518 <pcf8574_init+0x1c>
+ 50c:	e8 2f       	mov	r30, r24
+ 50e:	f0 e0       	ldi	r31, 0x00	; 0
+ 510:	ef 5e       	subi	r30, 0xEF	; 239
+ 512:	fe 4f       	sbci	r31, 0xFE	; 254
+ 514:	10 82       	st	Z, r1
+ 516:	8f 5f       	subi	r24, 0xFF	; 255
+ 518:	88 23       	and	r24, r24
+ 51a:	c1 f3       	breq	.-16     	; 0x50c <pcf8574_init+0x10>
+ 51c:	08 95       	ret
 
-0000051a <pcf8574_getoutputpin>:
- 51a:	81 11       	cpse	r24, r1
- 51c:	11 c0       	rjmp	.+34     	; 0x540 <pcf8574_getoutputpin+0x26>
- 51e:	68 30       	cpi	r22, 0x08	; 8
- 520:	88 f4       	brcc	.+34     	; 0x544 <pcf8574_getoutputpin+0x2a>
- 522:	e8 2f       	mov	r30, r24
- 524:	f0 e0       	ldi	r31, 0x00	; 0
- 526:	ef 5e       	subi	r30, 0xEF	; 239
- 528:	fe 4f       	sbci	r31, 0xFE	; 254
- 52a:	80 81       	ld	r24, Z
- 52c:	08 2e       	mov	r0, r24
- 52e:	00 0c       	add	r0, r0
- 530:	99 0b       	sbc	r25, r25
- 532:	02 c0       	rjmp	.+4      	; 0x538 <pcf8574_getoutputpin+0x1e>
- 534:	95 95       	asr	r25
- 536:	87 95       	ror	r24
- 538:	6a 95       	dec	r22
- 53a:	e2 f7       	brpl	.-8      	; 0x534 <pcf8574_getoutputpin+0x1a>
- 53c:	81 70       	andi	r24, 0x01	; 1
- 53e:	08 95       	ret
- 540:	8f ef       	ldi	r24, 0xFF	; 255
+0000051e <pcf8574_getoutputpin>:
+ 51e:	81 11       	cpse	r24, r1
+ 520:	11 c0       	rjmp	.+34     	; 0x544 <pcf8574_getoutputpin+0x26>
+ 522:	68 30       	cpi	r22, 0x08	; 8
+ 524:	88 f4       	brcc	.+34     	; 0x548 <pcf8574_getoutputpin+0x2a>
+ 526:	e8 2f       	mov	r30, r24
+ 528:	f0 e0       	ldi	r31, 0x00	; 0
+ 52a:	ef 5e       	subi	r30, 0xEF	; 239
+ 52c:	fe 4f       	sbci	r31, 0xFE	; 254
+ 52e:	80 81       	ld	r24, Z
+ 530:	08 2e       	mov	r0, r24
+ 532:	00 0c       	add	r0, r0
+ 534:	99 0b       	sbc	r25, r25
+ 536:	02 c0       	rjmp	.+4      	; 0x53c <pcf8574_getoutputpin+0x1e>
+ 538:	95 95       	asr	r25
+ 53a:	87 95       	ror	r24
+ 53c:	6a 95       	dec	r22
+ 53e:	e2 f7       	brpl	.-8      	; 0x538 <pcf8574_getoutputpin+0x1a>
+ 540:	81 70       	andi	r24, 0x01	; 1
  542:	08 95       	ret
  544:	8f ef       	ldi	r24, 0xFF	; 255
  546:	08 95       	ret
+ 548:	8f ef       	ldi	r24, 0xFF	; 255
+ 54a:	08 95       	ret
 
-00000548 <pcf8574_setoutput>:
- 548:	cf 93       	push	r28
- 54a:	81 11       	cpse	r24, r1
- 54c:	11 c0       	rjmp	.+34     	; 0x570 <pcf8574_setoutput+0x28>
- 54e:	c6 2f       	mov	r28, r22
- 550:	e8 2f       	mov	r30, r24
- 552:	f0 e0       	ldi	r31, 0x00	; 0
- 554:	ef 5e       	subi	r30, 0xEF	; 239
- 556:	fe 4f       	sbci	r31, 0xFE	; 254
- 558:	60 83       	st	Z, r22
- 55a:	89 5d       	subi	r24, 0xD9	; 217
- 55c:	88 0f       	add	r24, r24
- 55e:	0e 94 59 00 	call	0xb2	; 0xb2 <i2c_start>
- 562:	8c 2f       	mov	r24, r28
- 564:	0e 94 87 00 	call	0x10e	; 0x10e <i2c_write>
- 568:	0e 94 7f 00 	call	0xfe	; 0xfe <i2c_stop>
- 56c:	80 e0       	ldi	r24, 0x00	; 0
- 56e:	01 c0       	rjmp	.+2      	; 0x572 <pcf8574_setoutput+0x2a>
- 570:	8f ef       	ldi	r24, 0xFF	; 255
- 572:	cf 91       	pop	r28
- 574:	08 95       	ret
+0000054c <pcf8574_setoutput>:
+ 54c:	cf 93       	push	r28
+ 54e:	81 11       	cpse	r24, r1
+ 550:	11 c0       	rjmp	.+34     	; 0x574 <pcf8574_setoutput+0x28>
+ 552:	c6 2f       	mov	r28, r22
+ 554:	e8 2f       	mov	r30, r24
+ 556:	f0 e0       	ldi	r31, 0x00	; 0
+ 558:	ef 5e       	subi	r30, 0xEF	; 239
+ 55a:	fe 4f       	sbci	r31, 0xFE	; 254
+ 55c:	60 83       	st	Z, r22
+ 55e:	89 5d       	subi	r24, 0xD9	; 217
+ 560:	88 0f       	add	r24, r24
+ 562:	0e 94 59 00 	call	0xb2	; 0xb2 <i2c_start>
+ 566:	8c 2f       	mov	r24, r28
+ 568:	0e 94 87 00 	call	0x10e	; 0x10e <i2c_write>
+ 56c:	0e 94 7f 00 	call	0xfe	; 0xfe <i2c_stop>
+ 570:	80 e0       	ldi	r24, 0x00	; 0
+ 572:	01 c0       	rjmp	.+2      	; 0x576 <pcf8574_setoutput+0x2a>
+ 574:	8f ef       	ldi	r24, 0xFF	; 255
+ 576:	cf 91       	pop	r28
+ 578:	08 95       	ret
 
-00000576 <pcf8574_setoutputpin>:
+0000057a <pcf8574_setoutputpin>:
 
 /*
  * set output pin
  */
 int8_t pcf8574_setoutputpin(uint8_t deviceid, uint8_t pin, uint8_t data) {
- 576:	cf 93       	push	r28
- 578:	df 93       	push	r29
+ 57a:	cf 93       	push	r28
+ 57c:	df 93       	push	r29
 	if((deviceid >= 0 && deviceid < PCF8574_MAXDEVICES) && (pin >= 0 && pin < PCF8574_MAXPINS)) {
- 57a:	81 11       	cpse	r24, r1
- 57c:	2b c0       	rjmp	.+86     	; 0x5d4 <pcf8574_setoutputpin+0x5e>
- 57e:	68 30       	cpi	r22, 0x08	; 8
- 580:	58 f5       	brcc	.+86     	; 0x5d8 <pcf8574_setoutputpin+0x62>
+ 57e:	81 11       	cpse	r24, r1
+ 580:	2b c0       	rjmp	.+86     	; 0x5d8 <pcf8574_setoutputpin+0x5e>
+ 582:	68 30       	cpi	r22, 0x08	; 8
+ 584:	58 f5       	brcc	.+86     	; 0x5dc <pcf8574_setoutputpin+0x62>
 	    uint8_t b = 0;
 	    b = pcf8574_pinstatus[deviceid];
- 582:	28 2f       	mov	r18, r24
- 584:	30 e0       	ldi	r19, 0x00	; 0
- 586:	f9 01       	movw	r30, r18
- 588:	ef 5e       	subi	r30, 0xEF	; 239
- 58a:	fe 4f       	sbci	r31, 0xFE	; 254
- 58c:	90 81       	ld	r25, Z
+ 586:	28 2f       	mov	r18, r24
+ 588:	30 e0       	ldi	r19, 0x00	; 0
+ 58a:	f9 01       	movw	r30, r18
+ 58c:	ef 5e       	subi	r30, 0xEF	; 239
+ 58e:	fe 4f       	sbci	r31, 0xFE	; 254
+ 590:	90 81       	ld	r25, Z
 	    b = (data != 0) ? (b | (1 << pin)) : (b & ~(1 << pin));
- 58e:	44 23       	and	r20, r20
- 590:	49 f0       	breq	.+18     	; 0x5a4 <pcf8574_setoutputpin+0x2e>
- 592:	c1 e0       	ldi	r28, 0x01	; 1
- 594:	d0 e0       	ldi	r29, 0x00	; 0
- 596:	02 c0       	rjmp	.+4      	; 0x59c <pcf8574_setoutputpin+0x26>
- 598:	cc 0f       	add	r28, r28
- 59a:	dd 1f       	adc	r29, r29
- 59c:	6a 95       	dec	r22
- 59e:	e2 f7       	brpl	.-8      	; 0x598 <pcf8574_setoutputpin+0x22>
- 5a0:	c9 2b       	or	r28, r25
- 5a2:	09 c0       	rjmp	.+18     	; 0x5b6 <pcf8574_setoutputpin+0x40>
- 5a4:	c1 e0       	ldi	r28, 0x01	; 1
- 5a6:	d0 e0       	ldi	r29, 0x00	; 0
- 5a8:	02 c0       	rjmp	.+4      	; 0x5ae <pcf8574_setoutputpin+0x38>
- 5aa:	cc 0f       	add	r28, r28
- 5ac:	dd 1f       	adc	r29, r29
- 5ae:	6a 95       	dec	r22
- 5b0:	e2 f7       	brpl	.-8      	; 0x5aa <pcf8574_setoutputpin+0x34>
- 5b2:	c0 95       	com	r28
- 5b4:	c9 23       	and	r28, r25
+ 592:	44 23       	and	r20, r20
+ 594:	49 f0       	breq	.+18     	; 0x5a8 <pcf8574_setoutputpin+0x2e>
+ 596:	c1 e0       	ldi	r28, 0x01	; 1
+ 598:	d0 e0       	ldi	r29, 0x00	; 0
+ 59a:	02 c0       	rjmp	.+4      	; 0x5a0 <pcf8574_setoutputpin+0x26>
+ 59c:	cc 0f       	add	r28, r28
+ 59e:	dd 1f       	adc	r29, r29
+ 5a0:	6a 95       	dec	r22
+ 5a2:	e2 f7       	brpl	.-8      	; 0x59c <pcf8574_setoutputpin+0x22>
+ 5a4:	c9 2b       	or	r28, r25
+ 5a6:	09 c0       	rjmp	.+18     	; 0x5ba <pcf8574_setoutputpin+0x40>
+ 5a8:	c1 e0       	ldi	r28, 0x01	; 1
+ 5aa:	d0 e0       	ldi	r29, 0x00	; 0
+ 5ac:	02 c0       	rjmp	.+4      	; 0x5b2 <pcf8574_setoutputpin+0x38>
+ 5ae:	cc 0f       	add	r28, r28
+ 5b0:	dd 1f       	adc	r29, r29
+ 5b2:	6a 95       	dec	r22
+ 5b4:	e2 f7       	brpl	.-8      	; 0x5ae <pcf8574_setoutputpin+0x34>
+ 5b6:	c0 95       	com	r28
+ 5b8:	c9 23       	and	r28, r25
 	    pcf8574_pinstatus[deviceid] = b;
- 5b6:	f9 01       	movw	r30, r18
- 5b8:	ef 5e       	subi	r30, 0xEF	; 239
- 5ba:	fe 4f       	sbci	r31, 0xFE	; 254
- 5bc:	c0 83       	st	Z, r28
+ 5ba:	f9 01       	movw	r30, r18
+ 5bc:	ef 5e       	subi	r30, 0xEF	; 239
+ 5be:	fe 4f       	sbci	r31, 0xFE	; 254
+ 5c0:	c0 83       	st	Z, r28
 	    //update device
 		i2c_start(((PCF8574_ADDRBASE+deviceid)<<1) | I2C_WRITE);
- 5be:	89 5d       	subi	r24, 0xD9	; 217
- 5c0:	88 0f       	add	r24, r24
- 5c2:	0e 94 59 00 	call	0xb2	; 0xb2 <i2c_start>
+ 5c2:	89 5d       	subi	r24, 0xD9	; 217
+ 5c4:	88 0f       	add	r24, r24
+ 5c6:	0e 94 59 00 	call	0xb2	; 0xb2 <i2c_start>
 		i2c_write(b);
- 5c6:	8c 2f       	mov	r24, r28
- 5c8:	0e 94 87 00 	call	0x10e	; 0x10e <i2c_write>
+ 5ca:	8c 2f       	mov	r24, r28
+ 5cc:	0e 94 87 00 	call	0x10e	; 0x10e <i2c_write>
 		i2c_stop();
- 5cc:	0e 94 7f 00 	call	0xfe	; 0xfe <i2c_stop>
+ 5d0:	0e 94 7f 00 	call	0xfe	; 0xfe <i2c_stop>
 		return 0;
- 5d0:	80 e0       	ldi	r24, 0x00	; 0
- 5d2:	03 c0       	rjmp	.+6      	; 0x5da <pcf8574_setoutputpin+0x64>
+ 5d4:	80 e0       	ldi	r24, 0x00	; 0
+ 5d6:	03 c0       	rjmp	.+6      	; 0x5de <pcf8574_setoutputpin+0x64>
 	}
 	return -1;
- 5d4:	8f ef       	ldi	r24, 0xFF	; 255
- 5d6:	01 c0       	rjmp	.+2      	; 0x5da <pcf8574_setoutputpin+0x64>
  5d8:	8f ef       	ldi	r24, 0xFF	; 255
+ 5da:	01 c0       	rjmp	.+2      	; 0x5de <pcf8574_setoutputpin+0x64>
+ 5dc:	8f ef       	ldi	r24, 0xFF	; 255
 }
- 5da:	df 91       	pop	r29
- 5dc:	cf 91       	pop	r28
- 5de:	08 95       	ret
+ 5de:	df 91       	pop	r29
+ 5e0:	cf 91       	pop	r28
+ 5e2:	08 95       	ret
 
-000005e0 <pcf8574_setoutputpinhigh>:
+000005e4 <pcf8574_setoutputpinhigh>:
 
 /*
  * set output pin high
  */
 int8_t pcf8574_setoutputpinhigh(uint8_t deviceid, uint8_t pin) {
 	return pcf8574_setoutputpin(deviceid, pin, 1);
- 5e0:	41 e0       	ldi	r20, 0x01	; 1
- 5e2:	0e 94 bb 02 	call	0x576	; 0x576 <pcf8574_setoutputpin>
+ 5e4:	41 e0       	ldi	r20, 0x01	; 1
+ 5e6:	0e 94 bd 02 	call	0x57a	; 0x57a <pcf8574_setoutputpin>
 }
- 5e6:	08 95       	ret
+ 5ea:	08 95       	ret
 
-000005e8 <pcf8574_setoutputpinlow>:
+000005ec <pcf8574_setoutputpinlow>:
 
 /*
  * set output pin low
  */
 int8_t pcf8574_setoutputpinlow(uint8_t deviceid, uint8_t pin) {
 	return pcf8574_setoutputpin(deviceid, pin, 0);
- 5e8:	40 e0       	ldi	r20, 0x00	; 0
- 5ea:	0e 94 bb 02 	call	0x576	; 0x576 <pcf8574_setoutputpin>
+ 5ec:	40 e0       	ldi	r20, 0x00	; 0
+ 5ee:	0e 94 bd 02 	call	0x57a	; 0x57a <pcf8574_setoutputpin>
 }
- 5ee:	08 95       	ret
+ 5f2:	08 95       	ret
 
-000005f0 <_exit>:
- 5f0:	f8 94       	cli
+000005f4 <_exit>:
+ 5f4:	f8 94       	cli
 
-000005f2 <__stop_program>:
- 5f2:	ff cf       	rjmp	.-2      	; 0x5f2 <__stop_program>
+000005f6 <__stop_program>:
+ 5f6:	ff cf       	rjmp	.-2      	; 0x5f6 <__stop_program>
