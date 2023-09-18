@@ -1,47 +1,32 @@
 #include "../main.h"
 
+// задержеки через асемблер
 #define lcd_e_delay()   __asm__ __volatile__( "rjmp 1f\n 1:" );
 #define lcd_e_toggle()  toggle_e()
 
 
 volatile uint8_t dataport = 0;
 
-/* 
-** function prototypes 
-*/
 static void toggle_e(void);
 
-/*
-** local functions
-*/
-
-
-
-/*************************************************************************
- delay loop for small accurate delays: 16-bit counter, 4 cycles/loop
-*************************************************************************/
+// сама реализация задержек
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
-        __asm__ __volatile__( "rjmp 1f\n 1:" );    // 2 cycles
+        __asm__ __volatile__( "rjmp 1f\n 1:" );    
     else
         __asm__ __volatile__ (
     	    "1: sbiw %0,1" "\n\t"                  
-    	    "brne 1b"                              // 4 cycles/loop
+    	    "brne 1b"                              
     	    : "=w" (__count)
     	    : "0" (__count)
     	   );
 }
 
-
-/************************************************************************* 
-delay for a minimum of <us> microseconds
-the number of loops is calculated at compile-time from MCU clock frequency
-*************************************************************************/
+// тупа оборачиваем функцию в макрос
 #define delay(us)  _delayFourCycles( ( ( 1*(F_CPU/4000) )*us)/1000 )
 
-
-/* toggle Enable Pin to initiate write */
+// переключение пина для начала записи команды
 static void toggle_e(void)
 {
 	pcf8574_setoutputpinhigh(LCD_PCF8574_DEVICEID, LCD_E_PIN);
@@ -50,23 +35,17 @@ static void toggle_e(void)
 }
 
 
-/*************************************************************************
-Low-level function to write byte to LCD controller
-Input:    data   byte to write to LCD
-          rs     1: write data    
-                 0: write instruction
-Returns:  none
-*************************************************************************/
+// отправка байта для контроллера LCD
 static void lcd_write(uint8_t data,uint8_t rs) 
 {
-	if (rs) /* write data        (RS=1, RW=0) */
+	if (rs) //отправка данных (RS=1, RW=0)
 		dataport |= _BV(LCD_RS_PIN);
-	else /* write instruction (RS=0, RW=0) */
+	else // отпрака инструкций(RS=0, RW=0)
 		dataport &= ~_BV(LCD_RS_PIN);
 	dataport &= ~_BV(LCD_RW_PIN);
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 
-	/* output high nibble first */
+	// отправка старшего полубайта
     dataport &= ~_BV(LCD_DATA3_PIN);
     dataport &= ~_BV(LCD_DATA2_PIN);
     dataport &= ~_BV(LCD_DATA1_PIN);
@@ -78,7 +57,7 @@ static void lcd_write(uint8_t data,uint8_t rs)
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 	lcd_e_toggle();
 
-	/* output low nibble */
+	// отправка младшего полубайта
 	dataport &= ~_BV(LCD_DATA3_PIN);
 	dataport &= ~_BV(LCD_DATA2_PIN);
 	dataport &= ~_BV(LCD_DATA1_PIN);
@@ -90,7 +69,7 @@ static void lcd_write(uint8_t data,uint8_t rs)
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 	lcd_e_toggle();
 
-	/* all data pins high (inactive) */
+	// завершаем передачу
 	dataport |= _BV(LCD_DATA0_PIN);
 	dataport |= _BV(LCD_DATA1_PIN);
 	dataport |= _BV(LCD_DATA2_PIN);
@@ -98,64 +77,51 @@ static void lcd_write(uint8_t data,uint8_t rs)
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 }
 
-
-/*************************************************************************
-Low-level function to read byte from LCD controller
-Input:    rs     1: read data    
-                 0: read busy flag / address counter
-Returns:  byte read from LCD controller
-*************************************************************************/
+// чтение байта
 static uint8_t lcd_read(uint8_t rs) 
 {
     uint8_t data;
 
-    if (rs) /* write data        (RS=1, RW=0) */
+    if (rs) // запись данных (RS=1, RW=0) 
     	dataport |= _BV(LCD_RS_PIN);
-    else /* write instruction (RS=0, RW=0) */
+    else // запись инструкций (RS=0, RW=0)
     	dataport &= ~_BV(LCD_RS_PIN);
     dataport |= _BV(LCD_RW_PIN);
     pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 
     pcf8574_setoutputpinhigh(LCD_PCF8574_DEVICEID, LCD_E_PIN);
 	lcd_e_delay();
-	data = pcf8574_getoutputpin(LCD_PCF8574_DEVICEID, LCD_DATA0_PIN) << 4;     /* read high nibble first */
+	// чтение страшего полубайта
+	data = pcf8574_getoutputpin(LCD_PCF8574_DEVICEID, LCD_DATA0_PIN) << 4;   
 	pcf8574_setoutputpinlow(LCD_PCF8574_DEVICEID, LCD_E_PIN);
 
-	lcd_e_delay();                       /* Enable 500ns low       */
+	lcd_e_delay();                  
 
 	pcf8574_setoutputpinhigh(LCD_PCF8574_DEVICEID, LCD_E_PIN);
 	lcd_e_delay();
-	data |= pcf8574_getoutputpin(LCD_PCF8574_DEVICEID, LCD_DATA0_PIN) &0x0F;    /* read low nibble        */
+	// чтение младшего полубайта
+	data |= pcf8574_getoutputpin(LCD_PCF8574_DEVICEID, LCD_DATA0_PIN) &0x0F; 
 	pcf8574_setoutputpinlow(LCD_PCF8574_DEVICEID, LCD_E_PIN);
 
     return data;
 }
 
-
-/*************************************************************************
-loops while lcd is busy, returns address counter
-*************************************************************************/
+// ждем пока ЖК освободится
 static uint8_t lcd_waitbusy(void)
 
 {
     register uint8_t c;
     
-    /* wait until busy flag is cleared */
+    // ждем
     while ( (c=lcd_read(0)) & (1<<LCD_BUSY)) {}
-    
-    /* the address counter is updated 4us after the busy flag is cleared */
+    // задержка
     delay(2);
-
-    /* now read the address counter */
-    return (lcd_read(0));  // return address counter
-    
-}/* lcd_waitbusy */
+	// получаем адрес
+    return (lcd_read(0)); 
+}
 
 
-/*************************************************************************
-Move cursor to the start of next line or to the first line if the cursor 
-is already on the last line.
-*************************************************************************/
+// перемещение курсора по строкам
 static inline void lcd_newline(uint8_t pos)
 {
     register uint8_t addressCounter;
@@ -181,45 +147,23 @@ static inline void lcd_newline(uint8_t pos)
         addressCounter = LCD_START_LINE1;
 #endif
     lcd_command((1<<LCD_DDRAM)+addressCounter);
+}
 
-}/* lcd_newline */
-
-
-/*
-** PUBLIC FUNCTIONS 
-*/
-
-/*************************************************************************
-Send LCD controller instruction command
-Input:   instruction to send to LCD controller, see HD44780 data sheet
-Returns: none
-*************************************************************************/
+// служебная функция для отправки команд дисплею
 void lcd_command(uint8_t cmd)
 {
     lcd_waitbusy();
     lcd_write(cmd,0);
 }
 
-
-/*************************************************************************
-Send data byte to LCD controller 
-Input:   data to send to LCD controller, see HD44780 data sheet
-Returns: none
-*************************************************************************/
+// отправка байта на дисплей
 void lcd_data(uint8_t data)
 {
     lcd_waitbusy();
     lcd_write(data,1);
 }
 
-
-
-/*************************************************************************
-Set cursor to specified position
-Input:    x  horizontal position  (0: left most position)
-          y  vertical position    (0: first line)
-Returns:  none
-*************************************************************************/
+// перемещение курсора по координатам
 void lcd_gotoxy(uint8_t x, uint8_t y)
 {
 #if LCD_LINES==1
@@ -238,33 +182,24 @@ void lcd_gotoxy(uint8_t x, uint8_t y)
         lcd_command((1<<LCD_DDRAM)+LCD_START_LINE2+x);
     else if ( y==2)
         lcd_command((1<<LCD_DDRAM)+LCD_START_LINE3+x);
-    else /* y==3 */
+    else
         lcd_command((1<<LCD_DDRAM)+LCD_START_LINE4+x);
 #endif
+}
 
-}/* lcd_gotoxy */
-
-
-/*************************************************************************
-*************************************************************************/
+// тырим координаты
 int lcd_getxy(void)
 {
     return lcd_waitbusy();
 }
 
-
-/*************************************************************************
-Clear display and set cursor to home position
-*************************************************************************/
+// очистка дисплея
 void lcd_clrscr(void)
 {
     lcd_command(1<<LCD_CLR);
 }
 
-
-/*************************************************************************
-Set illumination pin
-*************************************************************************/
+// вкл и откл подсветки
 void lcd_led(uint8_t onoff)
 {
 	if(onoff)
@@ -274,26 +209,18 @@ void lcd_led(uint8_t onoff)
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 }
 
-
-/*************************************************************************
-Set cursor to home position
-*************************************************************************/
+// курсов в начало координат
 void lcd_home(void)
 {
     lcd_command(1<<LCD_HOME);
 }
 
-
-/*************************************************************************
-Display character at current cursor position 
-Input:    character to be displayed                                       
-Returns:  none
-*************************************************************************/
+// отображение символа в текущей позиции курсора
 void lcd_putc(char c)
 {
     uint8_t pos;
 
-    pos = lcd_waitbusy();   // read busy-flag and address counter
+    pos = lcd_waitbusy();
     if (c=='\n')
     {
         lcd_newline(pos);
@@ -326,93 +253,64 @@ void lcd_putc(char c)
 #endif
         lcd_write(c, 1);
     }
+}
 
-}/* lcd_putc */
-
-
-/*************************************************************************
-Display string without auto linefeed 
-Input:    string to be displayed
-Returns:  none
-*************************************************************************/
+// вывод строки на дисплей
 void lcd_puts(const char *s)
-/* print string on lcd (no auto linefeed) */
 {
     register char c;
 
     while ( (c = *s++) ) {
         lcd_putc(c);
     }
+}
 
-}/* lcd_puts */
-
-
-/*************************************************************************
-Display string from program memory without auto linefeed 
-Input:     string from program memory be be displayed                                        
-Returns:   none
-*************************************************************************/
+// вывод строки из памяти
 void lcd_puts_p(const char *progmem_s)
-/* print string from program memory on lcd (no auto linefeed) */
 {
     register char c;
 
     while ( (c = pgm_read_byte(progmem_s++)) ) {
         lcd_putc(c);
     }
+}
 
-}/* lcd_puts_p */
-
-
-/*************************************************************************
-Initialize display and select type of cursor 
-Input:    dispAttr LCD_DISP_OFF            display off
-                   LCD_DISP_ON             display on, cursor off
-                   LCD_DISP_ON_CURSOR      display on, cursor on
-                   LCD_DISP_CURSOR_BLINK   display on, cursor on flashing
-Returns:  none
-*************************************************************************/
+// инициализация дисплея
 void lcd_init(uint8_t dispAttr)
 {
 	#if LCD_PCF8574_INIT == 1
-	//init pcf8574
+	//инициализация pcf
 	pcf8574_init();
 	#endif
 
 	dataport = 0;
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 
-    delay(16000);        /* wait 16ms or more after power-on       */
+    delay(16000);
 
-    /* initial write to lcd is 8bit */
+    // первоначальная запись на ЖК-дисплей — 8 бит
     dataport |= _BV(LCD_DATA1_PIN);  // _BV(LCD_FUNCTION)>>4;
     dataport |= _BV(LCD_DATA0_PIN);  // _BV(LCD_FUNCTION_8BIT)>>4;
     pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 
+	// дрючим дисплей чтобы он начал работать
     lcd_e_toggle();
-    delay(4992);         /* delay, busy flag can't be checked here */
-   
-    /* repeat last command */ 
+    delay(4992);
     lcd_e_toggle();      
-    delay(64);           /* delay, busy flag can't be checked here */
-    
-    /* repeat last command a third time */
+    delay(64);        
     lcd_e_toggle();      
-    delay(64);           /* delay, busy flag can't be checked here */
+    delay(64);          
 
-    /* now configure for 4bit mode */
+    // переходим в 4 битный режим
     dataport &= ~_BV(LCD_DATA0_PIN);
     pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
     lcd_e_toggle();
-    delay(64);           /* some displays need this additional delay */
+    delay(64); 
     
-    /* from now the LCD only accepts 4 bit I/O, we can use lcd_command() */    
 
-    lcd_command(LCD_FUNCTION_DEFAULT);      /* function set: display lines  */
-
-    lcd_command(LCD_DISP_OFF);              /* display off                  */
-    lcd_clrscr();                           /* display clear                */
-    lcd_command(LCD_MODE_DEFAULT);          /* set entry mode               */
-    lcd_command(dispAttr);                  /* display/cursor control       */
-
-}/* lcd_init */
+    lcd_command(LCD_FUNCTION_DEFAULT);      // настраиваем кол-во строк
+    lcd_command(LCD_DISP_OFF);              // вырубаем дисплей
+    lcd_clrscr();                           // чистим экран
+    lcd_command(LCD_MODE_DEFAULT);          // запускаемся в стандартном режиме
+    lcd_command(dispAttr);                  // отправляем настройки
+}

@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000178  00000000  00000000  00000d60  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000185d  00000000  00000000  00000ed8  2**0
+  6 .debug_info   00001855  00000000  00000000  00000ed8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000c8b  00000000  00000000  00002735  2**0
+  7 .debug_abbrev 00000c71  00000000  00000000  0000272d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000e01  00000000  00000000  000033c0  2**0
+  8 .debug_line   00000e01  00000000  00000000  0000339e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000318  00000000  00000000  000041c4  2**2
+  9 .debug_frame  00000318  00000000  00000000  000041a0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000686  00000000  00000000  000044dc  2**0
+ 10 .debug_str    00000686  00000000  00000000  000044b8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000ec5  00000000  00000000  00004b62  2**0
+ 11 .debug_loc    00000ec5  00000000  00000000  00004b3e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000138  00000000  00000000  00005a27  2**0
+ 12 .debug_ranges 00000138  00000000  00000000  00005a03  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -193,12 +193,12 @@ unsigned char i2c_write( unsigned char data )
  130:	08 95       	ret
 
 00000132 <lcd_read>:
+    register char c;
 
     while ( (c = pgm_read_byte(progmem_s++)) ) {
         lcd_putc(c);
     }
-
-}/* lcd_puts_p */
+}
  132:	cf 93       	push	r28
  134:	88 23       	and	r24, r24
  136:	31 f0       	breq	.+12     	; 0x144 <lcd_read+0x12>
@@ -470,10 +470,8 @@ unsigned char i2c_write( unsigned char data )
  3dc:	08 95       	ret
 
 000003de <lcd_init>:
-                   LCD_DISP_ON_CURSOR      display on, cursor on
-                   LCD_DISP_CURSOR_BLINK   display on, cursor on flashing
-Returns:  none
-*************************************************************************/
+
+// инициализация дисплея
 void lcd_init(uint8_t dispAttr)
 {
  3de:	1f 93       	push	r17
@@ -481,7 +479,7 @@ void lcd_init(uint8_t dispAttr)
  3e2:	df 93       	push	r29
  3e4:	18 2f       	mov	r17, r24
 	#if LCD_PCF8574_INIT == 1
-	//init pcf8574
+	//инициализация pcf
 	pcf8574_init();
  3e6:	0e 94 a3 02 	call	0x546	; 0x546 <pcf8574_init>
 	#endif
@@ -495,7 +493,7 @@ void lcd_init(uint8_t dispAttr)
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
-        __asm__ __volatile__( "rjmp 1f\n 1:" );    // 2 cycles
+        __asm__ __volatile__( "rjmp 1f\n 1:" );    
     else
         __asm__ __volatile__ (
  3f8:	80 e0       	ldi	r24, 0x00	; 0
@@ -504,9 +502,9 @@ static inline void _delayFourCycles(unsigned int __count)
  3fe:	f1 f7       	brne	.-4      	; 0x3fc <lcd_init+0x1e>
 	pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 
-    delay(16000);        /* wait 16ms or more after power-on       */
+    delay(16000);
 
-    /* initial write to lcd is 8bit */
+    // первоначальная запись на ЖК-дисплей — 8 бит
     dataport |= _BV(LCD_DATA1_PIN);  // _BV(LCD_FUNCTION)>>4;
  400:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <__data_end>
  404:	80 62       	ori	r24, 0x20	; 32
@@ -520,29 +518,30 @@ static inline void _delayFourCycles(unsigned int __count)
  418:	80 e0       	ldi	r24, 0x00	; 0
  41a:	0e 94 cb 02 	call	0x596	; 0x596 <pcf8574_setoutput>
 
+	// дрючим дисплей чтобы он начал работать
     lcd_e_toggle();
  41e:	0e 94 e1 00 	call	0x1c2	; 0x1c2 <toggle_e>
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
-        __asm__ __volatile__( "rjmp 1f\n 1:" );    // 2 cycles
+        __asm__ __volatile__( "rjmp 1f\n 1:" );    
     else
         __asm__ __volatile__ (
  422:	80 e0       	ldi	r24, 0x00	; 0
  424:	9e e4       	ldi	r25, 0x4E	; 78
  426:	01 97       	sbiw	r24, 0x01	; 1
  428:	f1 f7       	brne	.-4      	; 0x426 <__EEPROM_REGION_LENGTH__+0x26>
+    pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
 
+	// дрючим дисплей чтобы он начал работать
     lcd_e_toggle();
-    delay(4992);         /* delay, busy flag can't be checked here */
-   
-    /* repeat last command */ 
+    delay(4992);
     lcd_e_toggle();      
  42a:	0e 94 e1 00 	call	0x1c2	; 0x1c2 <toggle_e>
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
-        __asm__ __volatile__( "rjmp 1f\n 1:" );    // 2 cycles
+        __asm__ __volatile__( "rjmp 1f\n 1:" );    
     else
         __asm__ __volatile__ (
  42e:	c0 e0       	ldi	r28, 0x00	; 0
@@ -550,27 +549,27 @@ static inline void _delayFourCycles(unsigned int __count)
  432:	ce 01       	movw	r24, r28
  434:	01 97       	sbiw	r24, 0x01	; 1
  436:	f1 f7       	brne	.-4      	; 0x434 <__EEPROM_REGION_LENGTH__+0x34>
-    /* repeat last command */ 
+	// дрючим дисплей чтобы он начал работать
+    lcd_e_toggle();
+    delay(4992);
     lcd_e_toggle();      
-    delay(64);           /* delay, busy flag can't be checked here */
-    
-    /* repeat last command a third time */
+    delay(64);        
     lcd_e_toggle();      
  438:	0e 94 e1 00 	call	0x1c2	; 0x1c2 <toggle_e>
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
-        __asm__ __volatile__( "rjmp 1f\n 1:" );    // 2 cycles
+        __asm__ __volatile__( "rjmp 1f\n 1:" );    
     else
         __asm__ __volatile__ (
  43c:	ce 01       	movw	r24, r28
  43e:	01 97       	sbiw	r24, 0x01	; 1
  440:	f1 f7       	brne	.-4      	; 0x43e <__EEPROM_REGION_LENGTH__+0x3e>
-    /* repeat last command a third time */
+    delay(64);        
     lcd_e_toggle();      
-    delay(64);           /* delay, busy flag can't be checked here */
+    delay(64);          
 
-    /* now configure for 4bit mode */
+    // переходим в 4 битный режим
     dataport &= ~_BV(LCD_DATA0_PIN);
  442:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <__data_end>
  446:	8f 7e       	andi	r24, 0xEF	; 239
@@ -584,33 +583,31 @@ static inline void _delayFourCycles(unsigned int __count)
 static inline void _delayFourCycles(unsigned int __count)
 {
     if ( __count == 0 )    
-        __asm__ __volatile__( "rjmp 1f\n 1:" );    // 2 cycles
+        __asm__ __volatile__( "rjmp 1f\n 1:" );    
     else
         __asm__ __volatile__ (
  45a:	21 97       	sbiw	r28, 0x01	; 1
  45c:	f1 f7       	brne	.-4      	; 0x45a <__EEPROM_REGION_LENGTH__+0x5a>
+    pcf8574_setoutput(LCD_PCF8574_DEVICEID, dataport);
     lcd_e_toggle();
-    delay(64);           /* some displays need this additional delay */
+    delay(64); 
     
-    /* from now the LCD only accepts 4 bit I/O, we can use lcd_command() */    
 
-    lcd_command(LCD_FUNCTION_DEFAULT);      /* function set: display lines  */
+    lcd_command(LCD_FUNCTION_DEFAULT);      // настраиваем кол-во строк
  45e:	88 e2       	ldi	r24, 0x28	; 40
  460:	0e 94 8d 01 	call	0x31a	; 0x31a <lcd_command>
-
-    lcd_command(LCD_DISP_OFF);              /* display off                  */
+    lcd_command(LCD_DISP_OFF);              // вырубаем дисплей
  464:	88 e0       	ldi	r24, 0x08	; 8
  466:	0e 94 8d 01 	call	0x31a	; 0x31a <lcd_command>
-    lcd_clrscr();                           /* display clear                */
+    lcd_clrscr();                           // чистим экран
  46a:	0e 94 a1 01 	call	0x342	; 0x342 <lcd_clrscr>
-    lcd_command(LCD_MODE_DEFAULT);          /* set entry mode               */
+    lcd_command(LCD_MODE_DEFAULT);          // запускаемся в стандартном режиме
  46e:	86 e0       	ldi	r24, 0x06	; 6
  470:	0e 94 8d 01 	call	0x31a	; 0x31a <lcd_command>
-    lcd_command(dispAttr);                  /* display/cursor control       */
+    lcd_command(dispAttr);                  // отправляем настройки
  474:	81 2f       	mov	r24, r17
  476:	0e 94 8d 01 	call	0x31a	; 0x31a <lcd_command>
-
-}/* lcd_init */
+}
  47a:	df 91       	pop	r29
  47c:	cf 91       	pop	r28
  47e:	1f 91       	pop	r17

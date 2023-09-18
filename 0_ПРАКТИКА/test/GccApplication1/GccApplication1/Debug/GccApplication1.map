@@ -611,21 +611,21 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x185d
+.debug_info     0x00000000     0x1855
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x1f7 i2c/twimaster.o
- .debug_info    0x000007eb      0x80c lcdpcf8574/lcdpcf8574.o
- .debug_info    0x00000ff7      0x309 main.o
- .debug_info    0x00001300      0x55d pcf8574/pcf8574.o
+ .debug_info    0x000007eb      0x804 lcdpcf8574/lcdpcf8574.o
+ .debug_info    0x00000fef      0x309 main.o
+ .debug_info    0x000012f8      0x55d pcf8574/pcf8574.o
 
-.debug_abbrev   0x00000000      0xc8b
+.debug_abbrev   0x00000000      0xc71
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2      0x10f i2c/twimaster.o
- .debug_abbrev  0x000006b1      0x294 lcdpcf8574/lcdpcf8574.o
- .debug_abbrev  0x00000945      0x19f main.o
- .debug_abbrev  0x00000ae4      0x1a7 pcf8574/pcf8574.o
+ .debug_abbrev  0x000006b1      0x27a lcdpcf8574/lcdpcf8574.o
+ .debug_abbrev  0x0000092b      0x19f main.o
+ .debug_abbrev  0x00000aca      0x1a7 pcf8574/pcf8574.o
 
 .debug_line     0x00000000      0xe01
  *(.debug_line .debug_line.* .debug_line_end)
