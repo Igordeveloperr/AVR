@@ -290,7 +290,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xc60
+.text           0x00000000      0xc16
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -401,77 +401,77 @@ END GROUP
                 0x0000031a       0x14 lcdpcf8574/lcdpcf8574.o
                 0x0000031a                lcd_command
  .text.lcd_gotoxy
-                0x0000032e       0x2c lcdpcf8574/lcdpcf8574.o
+                0x0000032e       0x14 lcdpcf8574/lcdpcf8574.o
                 0x0000032e                lcd_gotoxy
  .text.lcd_clrscr
-                0x0000035a        0x8 lcdpcf8574/lcdpcf8574.o
-                0x0000035a                lcd_clrscr
- .text.lcd_led  0x00000362       0x26 lcdpcf8574/lcdpcf8574.o
-                0x00000362                lcd_led
+                0x00000342        0x8 lcdpcf8574/lcdpcf8574.o
+                0x00000342                lcd_clrscr
+ .text.lcd_led  0x0000034a       0x26 lcdpcf8574/lcdpcf8574.o
+                0x0000034a                lcd_led
  .text.lcd_home
-                0x00000388        0x8 lcdpcf8574/lcdpcf8574.o
-                0x00000388                lcd_home
+                0x00000370        0x8 lcdpcf8574/lcdpcf8574.o
+                0x00000370                lcd_home
  .text.lcd_putc
-                0x00000390       0x7a lcdpcf8574/lcdpcf8574.o
-                0x00000390                lcd_putc
+                0x00000378       0x48 lcdpcf8574/lcdpcf8574.o
+                0x00000378                lcd_putc
  .text.lcd_puts
-                0x0000040a       0x1e lcdpcf8574/lcdpcf8574.o
-                0x0000040a                lcd_puts
+                0x000003c0       0x1e lcdpcf8574/lcdpcf8574.o
+                0x000003c0                lcd_puts
  .text.lcd_init
-                0x00000428       0xa4 lcdpcf8574/lcdpcf8574.o
-                0x00000428                lcd_init
+                0x000003de       0xa4 lcdpcf8574/lcdpcf8574.o
+                0x000003de                lcd_init
  .text.lcd_puts_num
-                0x000004cc       0x5a main.o
-                0x000004cc                lcd_puts_num
- .text.main     0x00000526       0x6a main.o
-                0x00000526                main
+                0x00000482       0x5a main.o
+                0x00000482                lcd_puts_num
+ .text.main     0x000004dc       0x6a main.o
+                0x000004dc                main
  .text.pcf8574_init
-                0x00000590       0x22 pcf8574/pcf8574.o
-                0x00000590                pcf8574_init
+                0x00000546       0x22 pcf8574/pcf8574.o
+                0x00000546                pcf8574_init
  .text.pcf8574_getoutputpin
-                0x000005b2       0x2e pcf8574/pcf8574.o
-                0x000005b2                pcf8574_getoutputpin
+                0x00000568       0x2e pcf8574/pcf8574.o
+                0x00000568                pcf8574_getoutputpin
  .text.pcf8574_setoutput
-                0x000005e0       0x2e pcf8574/pcf8574.o
-                0x000005e0                pcf8574_setoutput
+                0x00000596       0x2e pcf8574/pcf8574.o
+                0x00000596                pcf8574_setoutput
  .text.pcf8574_setoutputpin
-                0x0000060e       0x6a pcf8574/pcf8574.o
-                0x0000060e                pcf8574_setoutputpin
+                0x000005c4       0x6a pcf8574/pcf8574.o
+                0x000005c4                pcf8574_setoutputpin
  .text.pcf8574_setoutputpinhigh
-                0x00000678        0x8 pcf8574/pcf8574.o
-                0x00000678                pcf8574_setoutputpinhigh
+                0x0000062e        0x8 pcf8574/pcf8574.o
+                0x0000062e                pcf8574_setoutputpinhigh
  .text.pcf8574_setoutputpinlow
-                0x00000680        0x8 pcf8574/pcf8574.o
-                0x00000680                pcf8574_setoutputpinlow
+                0x00000636        0x8 pcf8574/pcf8574.o
+                0x00000636                pcf8574_setoutputpinlow
  .text.avr-libc
-                0x00000688       0x44 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(sprintf.o)
-                0x00000688                sprintf
+                0x0000063e       0x44 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(sprintf.o)
+                0x0000063e                sprintf
  .text.avr-libc
-                0x000006cc      0x3c2 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
-                0x000006cc                vfprintf
+                0x00000682      0x3c2 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                0x00000682                vfprintf
  .text.avr-libc
-                0x00000a8e       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
-                0x00000a8e                strnlen_P
+                0x00000a44       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                0x00000a44                strnlen_P
  .text.avr-libc
-                0x00000aa4       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strnlen.o)
-                0x00000aa4                strnlen
+                0x00000a5a       0x16 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                0x00000a5a                strnlen
  .text.avr-libc
-                0x00000aba       0x78 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(fputc.o)
-                0x00000aba                fputc
+                0x00000a70       0x78 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(fputc.o)
+                0x00000a70                fputc
  .text.avr-libc
-                0x00000b32       0xbc c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
-                0x00000b32                __ultoa_invert
+                0x00000ae8       0xbc c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                0x00000ae8                __ultoa_invert
  .text.libgcc.prologue
-                0x00000bee       0x38 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_prologue.o)
-                0x00000bee                __prologue_saves__
+                0x00000ba4       0x38 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_prologue.o)
+                0x00000ba4                __prologue_saves__
  .text.libgcc.prologue
-                0x00000c26       0x36 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_epilogue.o)
-                0x00000c26                __epilogue_restores__
-                0x00000c5c                . = ALIGN (0x2)
+                0x00000bdc       0x36 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_epilogue.o)
+                0x00000bdc                __epilogue_restores__
+                0x00000c12                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000c5c        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000c5c                _exit
-                0x00000c5c                exit
+ .fini9         0x00000c12        0x0 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000c12                _exit
+                0x00000c12                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -490,11 +490,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000c5c        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000c12        0x4 c:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000c60                _etext = .
+                0x00000c16                _etext = .
 
-.data           0x00800100       0x18 load address 0x00000c60
+.data           0x00800100       0x18 load address 0x00000c16
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -518,8 +518,8 @@ END GROUP
  COMMON         0x00800119        0x1 i2c/twimaster.o
                 0x00800119                pcf8574_pinstatus
                 0x0080011a                PROVIDE (__bss_end, .)
-                0x00000c60                __data_load_start = LOADADDR (.data)
-                0x00000c78                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000c16                __data_load_start = LOADADDR (.data)
+                0x00000c2e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080011a        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -611,13 +611,13 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x18bf
+.debug_info     0x00000000     0x185d
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x1f7 i2c/twimaster.o
- .debug_info    0x000007eb      0x86e lcdpcf8574/lcdpcf8574.o
- .debug_info    0x00001059      0x309 main.o
- .debug_info    0x00001362      0x55d pcf8574/pcf8574.o
+ .debug_info    0x000007eb      0x80c lcdpcf8574/lcdpcf8574.o
+ .debug_info    0x00000ff7      0x309 main.o
+ .debug_info    0x00001300      0x55d pcf8574/pcf8574.o
 
 .debug_abbrev   0x00000000      0xc8b
  *(.debug_abbrev)
@@ -627,13 +627,13 @@ END GROUP
  .debug_abbrev  0x00000945      0x19f main.o
  .debug_abbrev  0x00000ae4      0x1a7 pcf8574/pcf8574.o
 
-.debug_line     0x00000000      0xe49
+.debug_line     0x00000000      0xe01
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 C:/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134      0x28e i2c/twimaster.o
- .debug_line    0x000003c2      0x50f lcdpcf8574/lcdpcf8574.o
- .debug_line    0x000008d1      0x1b3 main.o
- .debug_line    0x00000a84      0x3c5 pcf8574/pcf8574.o
+ .debug_line    0x000003c2      0x4c7 lcdpcf8574/lcdpcf8574.o
+ .debug_line    0x00000889      0x1b3 main.o
+ .debug_line    0x00000a3c      0x3c5 pcf8574/pcf8574.o
 
 .debug_frame    0x00000000      0x318
  *(.debug_frame)
@@ -654,12 +654,12 @@ END GROUP
  .debug_str     0x000005df       0xa7 pcf8574/pcf8574.o
                                 0x31d (size before relaxing)
 
-.debug_loc      0x00000000      0xfa4
+.debug_loc      0x00000000      0xec5
  *(.debug_loc)
  .debug_loc     0x00000000      0x11a i2c/twimaster.o
- .debug_loc     0x0000011a      0x67b lcdpcf8574/lcdpcf8574.o
- .debug_loc     0x00000795       0xef main.o
- .debug_loc     0x00000884      0x720 pcf8574/pcf8574.o
+ .debug_loc     0x0000011a      0x59c lcdpcf8574/lcdpcf8574.o
+ .debug_loc     0x000006b6       0xef main.o
+ .debug_loc     0x000007a5      0x720 pcf8574/pcf8574.o
 
 .debug_macinfo
  *(.debug_macinfo)
