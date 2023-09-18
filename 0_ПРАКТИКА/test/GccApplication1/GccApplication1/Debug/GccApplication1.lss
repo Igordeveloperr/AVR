@@ -818,9 +818,7 @@ int main(void)
 
 000005c4 <pcf8574_setoutputpin>:
 
-/*
- * set output pin
- */
+// настройка пинов вывода
 int8_t pcf8574_setoutputpin(uint8_t deviceid, uint8_t pin, uint8_t data) {
  5c4:	cf 93       	push	r28
  5c6:	df 93       	push	r29
@@ -863,7 +861,7 @@ int8_t pcf8574_setoutputpin(uint8_t deviceid, uint8_t pin, uint8_t data) {
  606:	e7 5e       	subi	r30, 0xE7	; 231
  608:	fe 4f       	sbci	r31, 0xFE	; 254
  60a:	c0 83       	st	Z, r28
-	    //update device
+	    //рестартим
 		i2c_start(((PCF8574_ADDRBASE+deviceid)<<1) | I2C_WRITE);
  60c:	89 5d       	subi	r24, 0xD9	; 217
  60e:	88 0f       	add	r24, r24
@@ -888,9 +886,7 @@ int8_t pcf8574_setoutputpin(uint8_t deviceid, uint8_t pin, uint8_t data) {
 
 0000062e <pcf8574_setoutputpinhigh>:
 
-/*
- * set output pin high
- */
+// установка высокого уровня на выходных пинах
 int8_t pcf8574_setoutputpinhigh(uint8_t deviceid, uint8_t pin) {
 	return pcf8574_setoutputpin(deviceid, pin, 1);
  62e:	41 e0       	ldi	r20, 0x01	; 1
@@ -900,9 +896,7 @@ int8_t pcf8574_setoutputpinhigh(uint8_t deviceid, uint8_t pin) {
 
 00000636 <pcf8574_setoutputpinlow>:
 
-/*
- * set output pin low
- */
+// установка низкого уровня на выходных пинах
 int8_t pcf8574_setoutputpinlow(uint8_t deviceid, uint8_t pin) {
 	return pcf8574_setoutputpin(deviceid, pin, 0);
  636:	40 e0       	ldi	r20, 0x00	; 0
