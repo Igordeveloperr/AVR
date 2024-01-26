@@ -1,0 +1,297 @@
+
+7_UART_PULT.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000196  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000142  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000196  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001c8  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000058  00000000  00000000  00000204  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000855  00000000  00000000  0000025c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000070f  00000000  00000000  00000ab1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000034a  00000000  00000000  000011c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000dc  00000000  00000000  0000150c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003f7  00000000  00000000  000015e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000001bc  00000000  00000000  000019df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  00001b9b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	19 c0       	rjmp	.+50     	; 0x34 <__ctors_end>
+   2:	20 c0       	rjmp	.+64     	; 0x44 <__bad_interrupt>
+   4:	1f c0       	rjmp	.+62     	; 0x44 <__bad_interrupt>
+   6:	1e c0       	rjmp	.+60     	; 0x44 <__bad_interrupt>
+   8:	1d c0       	rjmp	.+58     	; 0x44 <__bad_interrupt>
+   a:	1c c0       	rjmp	.+56     	; 0x44 <__bad_interrupt>
+   c:	1b c0       	rjmp	.+54     	; 0x44 <__bad_interrupt>
+   e:	1a c0       	rjmp	.+52     	; 0x44 <__bad_interrupt>
+  10:	19 c0       	rjmp	.+50     	; 0x44 <__bad_interrupt>
+  12:	18 c0       	rjmp	.+48     	; 0x44 <__bad_interrupt>
+  14:	17 c0       	rjmp	.+46     	; 0x44 <__bad_interrupt>
+  16:	16 c0       	rjmp	.+44     	; 0x44 <__bad_interrupt>
+  18:	15 c0       	rjmp	.+42     	; 0x44 <__bad_interrupt>
+  1a:	14 c0       	rjmp	.+40     	; 0x44 <__bad_interrupt>
+  1c:	13 c0       	rjmp	.+38     	; 0x44 <__bad_interrupt>
+  1e:	12 c0       	rjmp	.+36     	; 0x44 <__bad_interrupt>
+  20:	11 c0       	rjmp	.+34     	; 0x44 <__bad_interrupt>
+  22:	10 c0       	rjmp	.+32     	; 0x44 <__bad_interrupt>
+  24:	65 c0       	rjmp	.+202    	; 0xf0 <__vector_18>
+  26:	0e c0       	rjmp	.+28     	; 0x44 <__bad_interrupt>
+  28:	0d c0       	rjmp	.+26     	; 0x44 <__bad_interrupt>
+  2a:	0c c0       	rjmp	.+24     	; 0x44 <__bad_interrupt>
+  2c:	0b c0       	rjmp	.+22     	; 0x44 <__bad_interrupt>
+  2e:	0a c0       	rjmp	.+20     	; 0x44 <__bad_interrupt>
+  30:	09 c0       	rjmp	.+18     	; 0x44 <__bad_interrupt>
+  32:	08 c0       	rjmp	.+16     	; 0x44 <__bad_interrupt>
+
+00000034 <__ctors_end>:
+  34:	11 24       	eor	r1, r1
+  36:	1f be       	out	0x3f, r1	; 63
+  38:	cf ef       	ldi	r28, 0xFF	; 255
+  3a:	d2 e0       	ldi	r29, 0x02	; 2
+  3c:	de bf       	out	0x3e, r29	; 62
+  3e:	cd bf       	out	0x3d, r28	; 61
+  40:	7a d0       	rcall	.+244    	; 0x136 <main>
+  42:	7d c0       	rjmp	.+250    	; 0x13e <_exit>
+
+00000044 <__bad_interrupt>:
+  44:	dd cf       	rjmp	.-70     	; 0x0 <__vectors>
+
+00000046 <UART_init>:
+	записываем новое значение
+*/
+void UART_send(char data)
+{
+	while(!(UCSR0A&(1 << UDRE0)));
+	UDR0 = data;
+  46:	8c e0       	ldi	r24, 0x0C	; 12
+  48:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7ff0c4>
+  4c:	e0 ec       	ldi	r30, 0xC0	; 192
+  4e:	f0 e0       	ldi	r31, 0x00	; 0
+  50:	80 81       	ld	r24, Z
+  52:	82 60       	ori	r24, 0x02	; 2
+  54:	80 83       	st	Z, r24
+  56:	e1 ec       	ldi	r30, 0xC1	; 193
+  58:	f0 e0       	ldi	r31, 0x00	; 0
+  5a:	80 81       	ld	r24, Z
+  5c:	88 61       	ori	r24, 0x18	; 24
+  5e:	80 83       	st	Z, r24
+  60:	08 95       	ret
+
+00000062 <UART_read_com>:
+	берем данные из регистра и возвращаем их
+*/
+uint8_t UART_read_com(void)
+{
+	uint8_t data = -1;
+	if(UCSR0A&(1 << RXC0))
+  62:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7ff0c0>
+  66:	88 23       	and	r24, r24
+  68:	1c f4       	brge	.+6      	; 0x70 <UART_read_com+0xe>
+	{
+		data = UDR0;
+  6a:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7ff0c6>
+  6e:	08 95       	ret
+	проверяем закончился ли прием данных
+	берем данные из регистра и возвращаем их
+*/
+uint8_t UART_read_com(void)
+{
+	uint8_t data = -1;
+  70:	8f ef       	ldi	r24, 0xFF	; 255
+	if(UCSR0A&(1 << RXC0))
+	{
+		data = UDR0;
+	}
+	return data;
+}
+  72:	08 95       	ret
+
+00000074 <network_error_blink>:
+/*
+	визуализация ошибки подключения сети
+*/
+void network_error_blink(void)
+{
+	PORTB |= (1 << PB0) | (1 << PB1);
+  74:	85 b1       	in	r24, 0x05	; 5
+  76:	83 60       	ori	r24, 0x03	; 3
+  78:	85 b9       	out	0x05, r24	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  7a:	2f e9       	ldi	r18, 0x9F	; 159
+  7c:	86 e8       	ldi	r24, 0x86	; 134
+  7e:	91 e0       	ldi	r25, 0x01	; 1
+  80:	21 50       	subi	r18, 0x01	; 1
+  82:	80 40       	sbci	r24, 0x00	; 0
+  84:	90 40       	sbci	r25, 0x00	; 0
+  86:	e1 f7       	brne	.-8      	; 0x80 <network_error_blink+0xc>
+  88:	00 c0       	rjmp	.+0      	; 0x8a <network_error_blink+0x16>
+  8a:	00 00       	nop
+	_delay_ms(500);
+	PORTB &= ~(1 << PB0);
+  8c:	85 b1       	in	r24, 0x05	; 5
+  8e:	8e 7f       	andi	r24, 0xFE	; 254
+  90:	85 b9       	out	0x05, r24	; 5
+	PORTB &= ~(1 << PB1);
+  92:	85 b1       	in	r24, 0x05	; 5
+  94:	8d 7f       	andi	r24, 0xFD	; 253
+  96:	85 b9       	out	0x05, r24	; 5
+  98:	2f e9       	ldi	r18, 0x9F	; 159
+  9a:	86 e8       	ldi	r24, 0x86	; 134
+  9c:	91 e0       	ldi	r25, 0x01	; 1
+  9e:	21 50       	subi	r18, 0x01	; 1
+  a0:	80 40       	sbci	r24, 0x00	; 0
+  a2:	90 40       	sbci	r25, 0x00	; 0
+  a4:	e1 f7       	brne	.-8      	; 0x9e <network_error_blink+0x2a>
+  a6:	00 c0       	rjmp	.+0      	; 0xa8 <network_error_blink+0x34>
+  a8:	00 00       	nop
+	_delay_ms(500);
+	PORTB |= (1 << PB0) | (1 << PB1);
+  aa:	85 b1       	in	r24, 0x05	; 5
+  ac:	83 60       	ori	r24, 0x03	; 3
+  ae:	85 b9       	out	0x05, r24	; 5
+  b0:	08 95       	ret
+
+000000b2 <activate_diode>:
+/*
+	визуализация подключенной сети
+*/
+void activate_diode(void)
+{
+	PORTB &= ~(1 << PB0);
+  b2:	85 b1       	in	r24, 0x05	; 5
+  b4:	8e 7f       	andi	r24, 0xFE	; 254
+  b6:	85 b9       	out	0x05, r24	; 5
+	PORTB &= ~(1 << PB1);
+  b8:	85 b1       	in	r24, 0x05	; 5
+  ba:	8d 7f       	andi	r24, 0xFD	; 253
+  bc:	85 b9       	out	0x05, r24	; 5
+	uint8_t res = UART_read_com();
+  be:	d1 df       	rcall	.-94     	; 0x62 <UART_read_com>
+	if (res == 48)
+  c0:	80 33       	cpi	r24, 0x30	; 48
+  c2:	21 f4       	brne	.+8      	; 0xcc <activate_diode+0x1a>
+	{
+		PORTB |= (1 << PB0);
+  c4:	85 b1       	in	r24, 0x05	; 5
+  c6:	81 60       	ori	r24, 0x01	; 1
+  c8:	85 b9       	out	0x05, r24	; 5
+  ca:	08 95       	ret
+	}
+	else if (res == 49)
+  cc:	81 33       	cpi	r24, 0x31	; 49
+  ce:	21 f4       	brne	.+8      	; 0xd8 <activate_diode+0x26>
+	{
+		PORTB |= (1 << PB1);
+  d0:	85 b1       	in	r24, 0x05	; 5
+  d2:	82 60       	ori	r24, 0x02	; 2
+  d4:	85 b9       	out	0x05, r24	; 5
+  d6:	08 95       	ret
+	}
+	else
+	{
+		network_error_blink();
+  d8:	cd df       	rcall	.-102    	; 0x74 <network_error_blink>
+  da:	08 95       	ret
+
+000000dc <setup>:
+/*
+	конфигурация МК перед стартом основного алгоритма
+*/
+void setup(void)
+{
+	DDRB |= (1 << PB0) | (1 << PB1);
+  dc:	84 b1       	in	r24, 0x04	; 4
+  de:	83 60       	ori	r24, 0x03	; 3
+  e0:	84 b9       	out	0x04, r24	; 4
+	UCSR0B |= (1 << RXCIE0);
+  e2:	e1 ec       	ldi	r30, 0xC1	; 193
+  e4:	f0 e0       	ldi	r31, 0x00	; 0
+  e6:	80 81       	ld	r24, Z
+  e8:	80 68       	ori	r24, 0x80	; 128
+  ea:	80 83       	st	Z, r24
+	sei();
+  ec:	78 94       	sei
+  ee:	08 95       	ret
+
+000000f0 <__vector_18>:
+
+/*
+	прерывание по входным данным, полученным через UART
+*/
+ISR(USART_RX_vect)
+{
+  f0:	1f 92       	push	r1
+  f2:	0f 92       	push	r0
+  f4:	0f b6       	in	r0, 0x3f	; 63
+  f6:	0f 92       	push	r0
+  f8:	11 24       	eor	r1, r1
+  fa:	2f 93       	push	r18
+  fc:	3f 93       	push	r19
+  fe:	4f 93       	push	r20
+ 100:	5f 93       	push	r21
+ 102:	6f 93       	push	r22
+ 104:	7f 93       	push	r23
+ 106:	8f 93       	push	r24
+ 108:	9f 93       	push	r25
+ 10a:	af 93       	push	r26
+ 10c:	bf 93       	push	r27
+ 10e:	ef 93       	push	r30
+ 110:	ff 93       	push	r31
+	activate_diode();
+ 112:	cf df       	rcall	.-98     	; 0xb2 <activate_diode>
+}
+ 114:	ff 91       	pop	r31
+ 116:	ef 91       	pop	r30
+ 118:	bf 91       	pop	r27
+ 11a:	af 91       	pop	r26
+ 11c:	9f 91       	pop	r25
+ 11e:	8f 91       	pop	r24
+ 120:	7f 91       	pop	r23
+ 122:	6f 91       	pop	r22
+ 124:	5f 91       	pop	r21
+ 126:	4f 91       	pop	r20
+ 128:	3f 91       	pop	r19
+ 12a:	2f 91       	pop	r18
+ 12c:	0f 90       	pop	r0
+ 12e:	0f be       	out	0x3f, r0	; 63
+ 130:	0f 90       	pop	r0
+ 132:	1f 90       	pop	r1
+ 134:	18 95       	reti
+
+00000136 <main>:
+
+int main(void)
+{
+	setup();
+ 136:	d2 df       	rcall	.-92     	; 0xdc <setup>
+	network_error_blink();
+ 138:	9d df       	rcall	.-198    	; 0x74 <network_error_blink>
+	UART_init();
+ 13a:	85 df       	rcall	.-246    	; 0x46 <UART_init>
+ 13c:	ff cf       	rjmp	.-2      	; 0x13c <main+0x6>
+
+0000013e <_exit>:
+ 13e:	f8 94       	cli
+
+00000140 <__stop_program>:
+ 140:	ff cf       	rjmp	.-2      	; 0x140 <__stop_program>
