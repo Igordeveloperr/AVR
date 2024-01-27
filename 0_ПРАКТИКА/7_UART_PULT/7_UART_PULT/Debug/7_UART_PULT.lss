@@ -3,37 +3,37 @@
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000196  2**0
+  0 .data         00000000  00800100  00800100  00000258  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000142  00000000  00000000  00000054  2**1
+  1 .text         00000204  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  00000196  2**0
+  2 .comment      00000030  00000000  00000000  00000258  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001c8  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000288  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000058  00000000  00000000  00000204  2**0
+  4 .debug_aranges 00000068  00000000  00000000  000002c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000855  00000000  00000000  0000025c  2**0
+  5 .debug_info   000008d3  00000000  00000000  0000032c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000070f  00000000  00000000  00000ab1  2**0
+  6 .debug_abbrev 00000733  00000000  00000000  00000bff  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000034a  00000000  00000000  000011c0  2**0
+  7 .debug_line   000003a8  00000000  00000000  00001332  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000dc  00000000  00000000  0000150c  2**2
+  8 .debug_frame  0000018c  00000000  00000000  000016dc  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003f7  00000000  00000000  000015e8  2**0
+  9 .debug_str    0000040d  00000000  00000000  00001868  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000001bc  00000000  00000000  000019df  2**0
+ 10 .debug_loc    00000352  00000000  00000000  00001c75  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000048  00000000  00000000  00001b9b  2**0
+ 11 .debug_ranges 00000058  00000000  00000000  00001fc7  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	19 c0       	rjmp	.+50     	; 0x34 <__ctors_end>
-   2:	20 c0       	rjmp	.+64     	; 0x44 <__bad_interrupt>
-   4:	1f c0       	rjmp	.+62     	; 0x44 <__bad_interrupt>
+   2:	d4 c0       	rjmp	.+424    	; 0x1ac <__vector_1>
+   4:	ad c0       	rjmp	.+346    	; 0x160 <__vector_2>
    6:	1e c0       	rjmp	.+60     	; 0x44 <__bad_interrupt>
    8:	1d c0       	rjmp	.+58     	; 0x44 <__bad_interrupt>
    a:	1c c0       	rjmp	.+56     	; 0x44 <__bad_interrupt>
@@ -49,7 +49,7 @@ Disassembly of section .text:
   1e:	12 c0       	rjmp	.+36     	; 0x44 <__bad_interrupt>
   20:	11 c0       	rjmp	.+34     	; 0x44 <__bad_interrupt>
   22:	10 c0       	rjmp	.+32     	; 0x44 <__bad_interrupt>
-  24:	65 c0       	rjmp	.+202    	; 0xf0 <__vector_18>
+  24:	7a c0       	rjmp	.+244    	; 0x11a <__vector_18>
   26:	0e c0       	rjmp	.+28     	; 0x44 <__bad_interrupt>
   28:	0d c0       	rjmp	.+26     	; 0x44 <__bad_interrupt>
   2a:	0c c0       	rjmp	.+24     	; 0x44 <__bad_interrupt>
@@ -65,26 +65,28 @@ Disassembly of section .text:
   3a:	d2 e0       	ldi	r29, 0x02	; 2
   3c:	de bf       	out	0x3e, r29	; 62
   3e:	cd bf       	out	0x3d, r28	; 61
-  40:	7a d0       	rcall	.+244    	; 0x136 <main>
-  42:	7d c0       	rjmp	.+250    	; 0x13e <_exit>
+  40:	db d0       	rcall	.+438    	; 0x1f8 <main>
+  42:	de c0       	rjmp	.+444    	; 0x200 <_exit>
 
 00000044 <__bad_interrupt>:
   44:	dd cf       	rjmp	.-70     	; 0x0 <__vectors>
 
 00000046 <UART_init>:
-	записываем новое значение
+	один стоп бит
+	битрейт - 9600 BOD
 */
-void UART_send(char data)
+void UART_init(void)
 {
-	while(!(UCSR0A&(1 << UDRE0)));
-	UDR0 = data;
+	UBRR0L = 12;
   46:	8c e0       	ldi	r24, 0x0C	; 12
   48:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7ff0c4>
+	UCSR0A |= (1 << U2X0);
   4c:	e0 ec       	ldi	r30, 0xC0	; 192
   4e:	f0 e0       	ldi	r31, 0x00	; 0
   50:	80 81       	ld	r24, Z
   52:	82 60       	ori	r24, 0x02	; 2
   54:	80 83       	st	Z, r24
+	UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
   56:	e1 ec       	ldi	r30, 0xC1	; 193
   58:	f0 e0       	ldi	r31, 0x00	; 0
   5a:	80 81       	ld	r24, Z
@@ -92,206 +94,335 @@ void UART_send(char data)
   5e:	80 83       	st	Z, r24
   60:	08 95       	ret
 
-00000062 <UART_read_com>:
+00000062 <UART_send>:
+	ждем освобождения регистра данных
+	записываем новое значение
+*/
+void UART_send(char data)
+{
+	while(!(UCSR0A&(1 << UDRE0)));
+  62:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7ff0c0>
+  66:	95 ff       	sbrs	r25, 5
+  68:	fc cf       	rjmp	.-8      	; 0x62 <UART_send>
+	UDR0 = data;
+  6a:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7ff0c6>
+  6e:	08 95       	ret
+
+00000070 <UART_read_com>:
 	берем данные из регистра и возвращаем их
 */
 uint8_t UART_read_com(void)
 {
 	uint8_t data = -1;
 	if(UCSR0A&(1 << RXC0))
-  62:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7ff0c0>
-  66:	88 23       	and	r24, r24
-  68:	1c f4       	brge	.+6      	; 0x70 <UART_read_com+0xe>
+  70:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7ff0c0>
+  74:	88 23       	and	r24, r24
+  76:	1c f4       	brge	.+6      	; 0x7e <UART_read_com+0xe>
 	{
 		data = UDR0;
-  6a:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7ff0c6>
-  6e:	08 95       	ret
+  78:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7ff0c6>
+  7c:	08 95       	ret
 	проверяем закончился ли прием данных
 	берем данные из регистра и возвращаем их
 */
 uint8_t UART_read_com(void)
 {
 	uint8_t data = -1;
-  70:	8f ef       	ldi	r24, 0xFF	; 255
+  7e:	8f ef       	ldi	r24, 0xFF	; 255
 	if(UCSR0A&(1 << RXC0))
 	{
 		data = UDR0;
 	}
 	return data;
 }
-  72:	08 95       	ret
+  80:	08 95       	ret
 
-00000074 <network_error_blink>:
+00000082 <network_error_blink>:
 /*
 	визуализация ошибки подключения сети
 */
 void network_error_blink(void)
 {
 	PORTB |= (1 << PB0) | (1 << PB1);
-  74:	85 b1       	in	r24, 0x05	; 5
-  76:	83 60       	ori	r24, 0x03	; 3
-  78:	85 b9       	out	0x05, r24	; 5
+  82:	85 b1       	in	r24, 0x05	; 5
+  84:	83 60       	ori	r24, 0x03	; 3
+  86:	85 b9       	out	0x05, r24	; 5
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  7a:	2f e9       	ldi	r18, 0x9F	; 159
-  7c:	86 e8       	ldi	r24, 0x86	; 134
-  7e:	91 e0       	ldi	r25, 0x01	; 1
-  80:	21 50       	subi	r18, 0x01	; 1
-  82:	80 40       	sbci	r24, 0x00	; 0
-  84:	90 40       	sbci	r25, 0x00	; 0
-  86:	e1 f7       	brne	.-8      	; 0x80 <network_error_blink+0xc>
-  88:	00 c0       	rjmp	.+0      	; 0x8a <network_error_blink+0x16>
-  8a:	00 00       	nop
+  88:	2f e9       	ldi	r18, 0x9F	; 159
+  8a:	86 e8       	ldi	r24, 0x86	; 134
+  8c:	91 e0       	ldi	r25, 0x01	; 1
+  8e:	21 50       	subi	r18, 0x01	; 1
+  90:	80 40       	sbci	r24, 0x00	; 0
+  92:	90 40       	sbci	r25, 0x00	; 0
+  94:	e1 f7       	brne	.-8      	; 0x8e <network_error_blink+0xc>
+  96:	00 c0       	rjmp	.+0      	; 0x98 <network_error_blink+0x16>
+  98:	00 00       	nop
 	_delay_ms(500);
 	PORTB &= ~(1 << PB0);
-  8c:	85 b1       	in	r24, 0x05	; 5
-  8e:	8e 7f       	andi	r24, 0xFE	; 254
-  90:	85 b9       	out	0x05, r24	; 5
+  9a:	85 b1       	in	r24, 0x05	; 5
+  9c:	8e 7f       	andi	r24, 0xFE	; 254
+  9e:	85 b9       	out	0x05, r24	; 5
 	PORTB &= ~(1 << PB1);
-  92:	85 b1       	in	r24, 0x05	; 5
-  94:	8d 7f       	andi	r24, 0xFD	; 253
-  96:	85 b9       	out	0x05, r24	; 5
-  98:	2f e9       	ldi	r18, 0x9F	; 159
-  9a:	86 e8       	ldi	r24, 0x86	; 134
-  9c:	91 e0       	ldi	r25, 0x01	; 1
-  9e:	21 50       	subi	r18, 0x01	; 1
-  a0:	80 40       	sbci	r24, 0x00	; 0
-  a2:	90 40       	sbci	r25, 0x00	; 0
-  a4:	e1 f7       	brne	.-8      	; 0x9e <network_error_blink+0x2a>
-  a6:	00 c0       	rjmp	.+0      	; 0xa8 <network_error_blink+0x34>
-  a8:	00 00       	nop
+  a0:	85 b1       	in	r24, 0x05	; 5
+  a2:	8d 7f       	andi	r24, 0xFD	; 253
+  a4:	85 b9       	out	0x05, r24	; 5
+  a6:	2f e9       	ldi	r18, 0x9F	; 159
+  a8:	86 e8       	ldi	r24, 0x86	; 134
+  aa:	91 e0       	ldi	r25, 0x01	; 1
+  ac:	21 50       	subi	r18, 0x01	; 1
+  ae:	80 40       	sbci	r24, 0x00	; 0
+  b0:	90 40       	sbci	r25, 0x00	; 0
+  b2:	e1 f7       	brne	.-8      	; 0xac <network_error_blink+0x2a>
+  b4:	00 c0       	rjmp	.+0      	; 0xb6 <network_error_blink+0x34>
+  b6:	00 00       	nop
 	_delay_ms(500);
 	PORTB |= (1 << PB0) | (1 << PB1);
-  aa:	85 b1       	in	r24, 0x05	; 5
-  ac:	83 60       	ori	r24, 0x03	; 3
-  ae:	85 b9       	out	0x05, r24	; 5
-  b0:	08 95       	ret
+  b8:	85 b1       	in	r24, 0x05	; 5
+  ba:	83 60       	ori	r24, 0x03	; 3
+  bc:	85 b9       	out	0x05, r24	; 5
+  be:	08 95       	ret
 
-000000b2 <activate_diode>:
+000000c0 <activate_diode>:
 /*
 	визуализация подключенной сети
 */
 void activate_diode(void)
 {
 	PORTB &= ~(1 << PB0);
-  b2:	85 b1       	in	r24, 0x05	; 5
-  b4:	8e 7f       	andi	r24, 0xFE	; 254
-  b6:	85 b9       	out	0x05, r24	; 5
+  c0:	85 b1       	in	r24, 0x05	; 5
+  c2:	8e 7f       	andi	r24, 0xFE	; 254
+  c4:	85 b9       	out	0x05, r24	; 5
 	PORTB &= ~(1 << PB1);
-  b8:	85 b1       	in	r24, 0x05	; 5
-  ba:	8d 7f       	andi	r24, 0xFD	; 253
-  bc:	85 b9       	out	0x05, r24	; 5
+  c6:	85 b1       	in	r24, 0x05	; 5
+  c8:	8d 7f       	andi	r24, 0xFD	; 253
+  ca:	85 b9       	out	0x05, r24	; 5
 	uint8_t res = UART_read_com();
-  be:	d1 df       	rcall	.-94     	; 0x62 <UART_read_com>
+  cc:	d1 df       	rcall	.-94     	; 0x70 <UART_read_com>
 	if (res == 48)
-  c0:	80 33       	cpi	r24, 0x30	; 48
-  c2:	21 f4       	brne	.+8      	; 0xcc <activate_diode+0x1a>
+  ce:	80 33       	cpi	r24, 0x30	; 48
+  d0:	21 f4       	brne	.+8      	; 0xda <activate_diode+0x1a>
 	{
 		PORTB |= (1 << PB0);
-  c4:	85 b1       	in	r24, 0x05	; 5
-  c6:	81 60       	ori	r24, 0x01	; 1
-  c8:	85 b9       	out	0x05, r24	; 5
-  ca:	08 95       	ret
+  d2:	85 b1       	in	r24, 0x05	; 5
+  d4:	81 60       	ori	r24, 0x01	; 1
+  d6:	85 b9       	out	0x05, r24	; 5
+  d8:	08 95       	ret
 	}
 	else if (res == 49)
-  cc:	81 33       	cpi	r24, 0x31	; 49
-  ce:	21 f4       	brne	.+8      	; 0xd8 <activate_diode+0x26>
+  da:	81 33       	cpi	r24, 0x31	; 49
+  dc:	21 f4       	brne	.+8      	; 0xe6 <activate_diode+0x26>
 	{
 		PORTB |= (1 << PB1);
-  d0:	85 b1       	in	r24, 0x05	; 5
-  d2:	82 60       	ori	r24, 0x02	; 2
-  d4:	85 b9       	out	0x05, r24	; 5
-  d6:	08 95       	ret
+  de:	85 b1       	in	r24, 0x05	; 5
+  e0:	82 60       	ori	r24, 0x02	; 2
+  e2:	85 b9       	out	0x05, r24	; 5
+  e4:	08 95       	ret
 	}
 	else
 	{
 		network_error_blink();
-  d8:	cd df       	rcall	.-102    	; 0x74 <network_error_blink>
-  da:	08 95       	ret
+  e6:	cd df       	rcall	.-102    	; 0x82 <network_error_blink>
+  e8:	08 95       	ret
 
-000000dc <setup>:
+000000ea <setup>:
 /*
 	конфигурация МК перед стартом основного алгоритма
 */
 void setup(void)
 {
+	DDRD &= ~((1 << PD2) | (1 << PD3));
+  ea:	8a b1       	in	r24, 0x0a	; 10
+  ec:	83 7f       	andi	r24, 0xF3	; 243
+  ee:	8a b9       	out	0x0a, r24	; 10
+	PORTD |= (1 << PD2) | (1 << PD3);
+  f0:	8b b1       	in	r24, 0x0b	; 11
+  f2:	8c 60       	ori	r24, 0x0C	; 12
+  f4:	8b b9       	out	0x0b, r24	; 11
 	DDRB |= (1 << PB0) | (1 << PB1);
-  dc:	84 b1       	in	r24, 0x04	; 4
-  de:	83 60       	ori	r24, 0x03	; 3
-  e0:	84 b9       	out	0x04, r24	; 4
+  f6:	84 b1       	in	r24, 0x04	; 4
+  f8:	83 60       	ori	r24, 0x03	; 3
+  fa:	84 b9       	out	0x04, r24	; 4
 	UCSR0B |= (1 << RXCIE0);
-  e2:	e1 ec       	ldi	r30, 0xC1	; 193
-  e4:	f0 e0       	ldi	r31, 0x00	; 0
-  e6:	80 81       	ld	r24, Z
-  e8:	80 68       	ori	r24, 0x80	; 128
-  ea:	80 83       	st	Z, r24
+  fc:	e1 ec       	ldi	r30, 0xC1	; 193
+  fe:	f0 e0       	ldi	r31, 0x00	; 0
+ 100:	80 81       	ld	r24, Z
+ 102:	80 68       	ori	r24, 0x80	; 128
+ 104:	80 83       	st	Z, r24
+	EIMSK |= (1 << INT1) | (1 << INT0);
+ 106:	8d b3       	in	r24, 0x1d	; 29
+ 108:	83 60       	ori	r24, 0x03	; 3
+ 10a:	8d bb       	out	0x1d, r24	; 29
+	EICRA |= (1 << ISC11) | (1 << ISC01);
+ 10c:	e9 e6       	ldi	r30, 0x69	; 105
+ 10e:	f0 e0       	ldi	r31, 0x00	; 0
+ 110:	80 81       	ld	r24, Z
+ 112:	8a 60       	ori	r24, 0x0A	; 10
+ 114:	80 83       	st	Z, r24
 	sei();
-  ec:	78 94       	sei
-  ee:	08 95       	ret
+ 116:	78 94       	sei
+ 118:	08 95       	ret
 
-000000f0 <__vector_18>:
+0000011a <__vector_18>:
 
 /*
 	прерывание по входным данным, полученным через UART
 */
 ISR(USART_RX_vect)
 {
-  f0:	1f 92       	push	r1
-  f2:	0f 92       	push	r0
-  f4:	0f b6       	in	r0, 0x3f	; 63
-  f6:	0f 92       	push	r0
-  f8:	11 24       	eor	r1, r1
-  fa:	2f 93       	push	r18
-  fc:	3f 93       	push	r19
-  fe:	4f 93       	push	r20
- 100:	5f 93       	push	r21
- 102:	6f 93       	push	r22
- 104:	7f 93       	push	r23
- 106:	8f 93       	push	r24
- 108:	9f 93       	push	r25
- 10a:	af 93       	push	r26
- 10c:	bf 93       	push	r27
- 10e:	ef 93       	push	r30
- 110:	ff 93       	push	r31
+ 11a:	1f 92       	push	r1
+ 11c:	0f 92       	push	r0
+ 11e:	0f b6       	in	r0, 0x3f	; 63
+ 120:	0f 92       	push	r0
+ 122:	11 24       	eor	r1, r1
+ 124:	2f 93       	push	r18
+ 126:	3f 93       	push	r19
+ 128:	4f 93       	push	r20
+ 12a:	5f 93       	push	r21
+ 12c:	6f 93       	push	r22
+ 12e:	7f 93       	push	r23
+ 130:	8f 93       	push	r24
+ 132:	9f 93       	push	r25
+ 134:	af 93       	push	r26
+ 136:	bf 93       	push	r27
+ 138:	ef 93       	push	r30
+ 13a:	ff 93       	push	r31
 	activate_diode();
- 112:	cf df       	rcall	.-98     	; 0xb2 <activate_diode>
+ 13c:	c1 df       	rcall	.-126    	; 0xc0 <activate_diode>
 }
- 114:	ff 91       	pop	r31
- 116:	ef 91       	pop	r30
- 118:	bf 91       	pop	r27
- 11a:	af 91       	pop	r26
- 11c:	9f 91       	pop	r25
- 11e:	8f 91       	pop	r24
- 120:	7f 91       	pop	r23
- 122:	6f 91       	pop	r22
- 124:	5f 91       	pop	r21
- 126:	4f 91       	pop	r20
- 128:	3f 91       	pop	r19
- 12a:	2f 91       	pop	r18
- 12c:	0f 90       	pop	r0
- 12e:	0f be       	out	0x3f, r0	; 63
- 130:	0f 90       	pop	r0
- 132:	1f 90       	pop	r1
- 134:	18 95       	reti
+ 13e:	ff 91       	pop	r31
+ 140:	ef 91       	pop	r30
+ 142:	bf 91       	pop	r27
+ 144:	af 91       	pop	r26
+ 146:	9f 91       	pop	r25
+ 148:	8f 91       	pop	r24
+ 14a:	7f 91       	pop	r23
+ 14c:	6f 91       	pop	r22
+ 14e:	5f 91       	pop	r21
+ 150:	4f 91       	pop	r20
+ 152:	3f 91       	pop	r19
+ 154:	2f 91       	pop	r18
+ 156:	0f 90       	pop	r0
+ 158:	0f be       	out	0x3f, r0	; 63
+ 15a:	0f 90       	pop	r0
+ 15c:	1f 90       	pop	r1
+ 15e:	18 95       	reti
 
-00000136 <main>:
+00000160 <__vector_2>:
+
+/*
+	отправляем на ПО команду для подключения к 2 сети
+*/
+ISR(INT1_vect)
+{
+ 160:	1f 92       	push	r1
+ 162:	0f 92       	push	r0
+ 164:	0f b6       	in	r0, 0x3f	; 63
+ 166:	0f 92       	push	r0
+ 168:	11 24       	eor	r1, r1
+ 16a:	2f 93       	push	r18
+ 16c:	3f 93       	push	r19
+ 16e:	4f 93       	push	r20
+ 170:	5f 93       	push	r21
+ 172:	6f 93       	push	r22
+ 174:	7f 93       	push	r23
+ 176:	8f 93       	push	r24
+ 178:	9f 93       	push	r25
+ 17a:	af 93       	push	r26
+ 17c:	bf 93       	push	r27
+ 17e:	ef 93       	push	r30
+ 180:	ff 93       	push	r31
+	UART_send('/');
+ 182:	8f e2       	ldi	r24, 0x2F	; 47
+ 184:	6e df       	rcall	.-292    	; 0x62 <UART_send>
+	UART_send('1');
+ 186:	81 e3       	ldi	r24, 0x31	; 49
+ 188:	6c df       	rcall	.-296    	; 0x62 <UART_send>
+}
+ 18a:	ff 91       	pop	r31
+ 18c:	ef 91       	pop	r30
+ 18e:	bf 91       	pop	r27
+ 190:	af 91       	pop	r26
+ 192:	9f 91       	pop	r25
+ 194:	8f 91       	pop	r24
+ 196:	7f 91       	pop	r23
+ 198:	6f 91       	pop	r22
+ 19a:	5f 91       	pop	r21
+ 19c:	4f 91       	pop	r20
+ 19e:	3f 91       	pop	r19
+ 1a0:	2f 91       	pop	r18
+ 1a2:	0f 90       	pop	r0
+ 1a4:	0f be       	out	0x3f, r0	; 63
+ 1a6:	0f 90       	pop	r0
+ 1a8:	1f 90       	pop	r1
+ 1aa:	18 95       	reti
+
+000001ac <__vector_1>:
+/*
+	отправляем на ПО команду для подключения к 1 сети
+*/
+ISR(INT0_vect)
+{
+ 1ac:	1f 92       	push	r1
+ 1ae:	0f 92       	push	r0
+ 1b0:	0f b6       	in	r0, 0x3f	; 63
+ 1b2:	0f 92       	push	r0
+ 1b4:	11 24       	eor	r1, r1
+ 1b6:	2f 93       	push	r18
+ 1b8:	3f 93       	push	r19
+ 1ba:	4f 93       	push	r20
+ 1bc:	5f 93       	push	r21
+ 1be:	6f 93       	push	r22
+ 1c0:	7f 93       	push	r23
+ 1c2:	8f 93       	push	r24
+ 1c4:	9f 93       	push	r25
+ 1c6:	af 93       	push	r26
+ 1c8:	bf 93       	push	r27
+ 1ca:	ef 93       	push	r30
+ 1cc:	ff 93       	push	r31
+	UART_send('/');
+ 1ce:	8f e2       	ldi	r24, 0x2F	; 47
+ 1d0:	48 df       	rcall	.-368    	; 0x62 <UART_send>
+	UART_send('0');
+ 1d2:	80 e3       	ldi	r24, 0x30	; 48
+ 1d4:	46 df       	rcall	.-372    	; 0x62 <UART_send>
+}
+ 1d6:	ff 91       	pop	r31
+ 1d8:	ef 91       	pop	r30
+ 1da:	bf 91       	pop	r27
+ 1dc:	af 91       	pop	r26
+ 1de:	9f 91       	pop	r25
+ 1e0:	8f 91       	pop	r24
+ 1e2:	7f 91       	pop	r23
+ 1e4:	6f 91       	pop	r22
+ 1e6:	5f 91       	pop	r21
+ 1e8:	4f 91       	pop	r20
+ 1ea:	3f 91       	pop	r19
+ 1ec:	2f 91       	pop	r18
+ 1ee:	0f 90       	pop	r0
+ 1f0:	0f be       	out	0x3f, r0	; 63
+ 1f2:	0f 90       	pop	r0
+ 1f4:	1f 90       	pop	r1
+ 1f6:	18 95       	reti
+
+000001f8 <main>:
 
 int main(void)
 {
 	setup();
- 136:	d2 df       	rcall	.-92     	; 0xdc <setup>
+ 1f8:	78 df       	rcall	.-272    	; 0xea <setup>
 	network_error_blink();
- 138:	9d df       	rcall	.-198    	; 0x74 <network_error_blink>
+ 1fa:	43 df       	rcall	.-378    	; 0x82 <network_error_blink>
 	UART_init();
- 13a:	85 df       	rcall	.-246    	; 0x46 <UART_init>
- 13c:	ff cf       	rjmp	.-2      	; 0x13c <main+0x6>
+ 1fc:	24 df       	rcall	.-440    	; 0x46 <UART_init>
+ 1fe:	ff cf       	rjmp	.-2      	; 0x1fe <main+0x6>
 
-0000013e <_exit>:
- 13e:	f8 94       	cli
+00000200 <_exit>:
+ 200:	f8 94       	cli
 
-00000140 <__stop_program>:
- 140:	ff cf       	rjmp	.-2      	; 0x140 <__stop_program>
+00000202 <__stop_program>:
+ 202:	ff cf       	rjmp	.-2      	; 0x202 <__stop_program>

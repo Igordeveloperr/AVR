@@ -81,8 +81,12 @@ void activate_diode(void)
 */
 void setup(void)
 {
+	DDRD &= ~((1 << PD2) | (1 << PD3));
+	PORTD |= (1 << PD2) | (1 << PD3);
 	DDRB |= (1 << PB0) | (1 << PB1);
 	UCSR0B |= (1 << RXCIE0);
+	EIMSK |= (1 << INT1) | (1 << INT0);
+	EICRA |= (1 << ISC11) | (1 << ISC01);
 	sei();
 }
 
@@ -92,6 +96,23 @@ void setup(void)
 ISR(USART_RX_vect)
 {
 	activate_diode();
+}
+
+/*
+	отправляем на ПО команду для подключения к 2 сети
+*/
+ISR(INT1_vect)
+{
+	UART_send('/');
+	UART_send('1');
+}
+/*
+	отправляем на ПО команду для подключения к 1 сети
+*/
+ISR(INT0_vect)
+{
+	UART_send('/');
+	UART_send('0');
 }
 
 int main(void)
